@@ -12,3 +12,5 @@
 	added = green
         changed = yellow
 	untracked = red
+[core]
+	excludesfile = ~/.gitignore_global
