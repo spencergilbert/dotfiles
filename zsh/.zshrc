@@ -8,22 +8,7 @@ alias vim='nvim'
 
 ### ZSH Options
 
-#
-# Changing Directories
-#
-
-#
-# Completion
-#
-
-#
-# Expansion and Globbing
-#
-
-#
-# History
-#
-
+setopt NO_LIST_BEEP             # no beep on an ambiguous completion
 HISTSIZE=1024                   # how many commands from your history are loaded into memory
 HISTFILESIZE=1024               # how many commands your history file can hold
 HISTFILE=~/.zsh_history         # where to save history
@@ -32,38 +17,13 @@ setopt HIST_FIND_NO_DUPS        # do not display duplicates of a line previously
 setopt HIST_REDUCE_BLANKS       # trim blanks from command lines
 setopt SHARE_HISTORY            # imports new commands from the history and appends to file
 setopt HIST_VERIFY              # show before executing history commands
+setopt CORRECT                  # try to correct the spelling of commands
+setopt NO_BEEP                  #
 
-#
-# Initialisation
-#
+# engaging Vi mode
+bindkey -v
 
-#
-# Input/Output
-#
-
-#
-# Job Control
-#
-
-#
-# Prompting
-#
-
-#
-# Scripts and Functions
-#
-
-#
-# Shell Emulation
-#
-
-#
-# Shell State
-#
-
-#
-# Zle
-#
+export KEYTIMEOUT=1
 
 # Source Antibody
 [[ -s ~/.zsh_plugins.sh ]] && source ~/.zsh_plugins.sh
