@@ -28,5 +28,9 @@ path=(
   $path
 )
 
+# Set golang env vars
+export GOPATH=$HOME/Code/Go
+export PATH=$PATH:$GOPATH/bin
+
 # Set the default Less options.
 export LESS='-g -i'
