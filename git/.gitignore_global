@@ -46,3 +46,6 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/macos,linux
+
+# asdf plugin manager local version file
+.tool-versions
