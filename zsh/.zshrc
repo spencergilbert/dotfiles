@@ -30,6 +30,10 @@ export KEYTIMEOUT=1
 # source Antibody
 [[ -s ~/.zsh_plugins.sh ]] && source ~/.zsh_plugins.sh
 
+# history search with arrow keys
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # speed up zsh compinit by only checking cache once a day
 autoload -Uz compinit
 typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
