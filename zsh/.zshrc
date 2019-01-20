@@ -7,18 +7,20 @@ alias vi='nvim'
 alias vim='nvim'
 
 ### ZSH Options
-
-setopt NO_LIST_BEEP             # no beep on an ambiguous completion
-HISTSIZE=1024                   # how many commands from your history are loaded into memory
-HISTFILESIZE=1024               # how many commands your history file can hold
-HISTFILE=~/.zsh_history         # where to save history
-setopt HIST_IGNORE_ALL_DUPS     # when command is added to history remove older dup
-setopt HIST_FIND_NO_DUPS        # do not display duplicates of a line previously found
-setopt HIST_REDUCE_BLANKS       # trim blanks from command lines
+export HISTFILE=~/.zsh_history  # where to save history
+export HISTSIZE=1024            # how many commands from your history are loaded into memory
+export SAVEHIST=$HISTSIZE       # how many commands your history file can hold
+setopt APPEND_HISTORY 		# append to history file 
 setopt SHARE_HISTORY            # imports new commands from the history and appends to file
+setopt EXTENDED_HISTORY 	# add additional data to history like timestamp
+setopt HIST_IGNORE_ALL_DUPS     # keep no dupes when command is added to history list
+setopt HIST_SAVE_NO_DUPS	# when writing to HISTFILE duplicates are omitted
+setopt HIST_REDUCE_BLANKS       # trim blanks from command lines
 setopt HIST_VERIFY              # show before executing history commands
 setopt CORRECT                  # try to correct the spelling of commands
-setopt NO_BEEP                  #
+setopt NO_LIST_BEEP
+setopt NO_HIST_BEEP
+setopt NO_BEEP
 
 # engaging Vi mode
 bindkey -v
