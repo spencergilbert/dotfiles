@@ -1,6 +1,19 @@
+# Created by https://www.gitignore.io/api/linux,macos,elixir
+# Edit at https://www.gitignore.io/?templates=linux,macos,elixir
 
-# Created by https://www.gitignore.io/api/macos,linux
-# Edit at https://www.gitignore.io/?templates=macos,linux
+### Elixir ###
+/_build
+/cover
+/deps
+/doc
+/.fetch
+erl_crash.dump
+*.ez
+*.beam
+/config/*.secret.exs
+.elixir_ls/
+
+### Elixir Patch ###
 
 ### Linux ###
 *~
@@ -45,7 +58,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.gitignore.io/api/macos,linux
+# End of https://www.gitignore.io/api/linux,macos,elixir
 
 # asdf plugin manager local version file
 .tool-versions
