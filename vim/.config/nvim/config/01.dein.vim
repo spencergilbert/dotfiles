@@ -15,7 +15,7 @@ if dein#load_state('$HOME/.cache/dein')
   call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
-  "call dein#add('Shougo/deoplete.vim')
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('scrooloose/nerdtree')
 
   " Required:
