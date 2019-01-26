@@ -7,4 +7,5 @@ augroup numbertoggle
 augroup END
 
 let g:deoplete#enable_at_startup = 1
+let g:netrw_home = '~/.cache/nvim'
 autocmd BufWritePost *.json !jsonlint -q %
