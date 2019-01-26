@@ -1,6 +1,7 @@
 [user]
 	name = Spencer Gilbert
 	email = spencer.gilbert@gmail.com
+	signingkey = 1C65F31DA4EA6DCC
 [color]
 	branch = auto
 	diff = auto
@@ -14,3 +15,5 @@
 	untracked = red
 [core]
 	excludesfile = ~/.gitignore_global
+[gpg]
+	program = gpg
