@@ -33,4 +33,4 @@ export GOPATH=$HOME/Code/Go
 export PATH=$PATH:$GOPATH/bin
 
 # Set the default Less options.
-export LESS='-g -i'
+export LESS='-g -i -r'
