@@ -16,7 +16,6 @@ if dein#load_state('$HOME/.cache/dein')
 
   " Add or remove your plugins here like this:
   call dein#add('Shougo/deoplete.nvim')
-  call dein#add('scrooloose/nerdtree')
 
   " Required:
   call dein#end()
