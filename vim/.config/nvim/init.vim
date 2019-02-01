@@ -56,7 +56,15 @@ set hidden
 
 let g:LanguageClient_serverCommands = {}
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+function LC_maps()
+	if has_key(g:LanguageClient_serverCommands, &filetype)
+		noremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+		noremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+		noremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+	endif
+endfunction
+
+autocmd FileType * call LC_maps()
 
 "----------------------------------------------
 " Language: Golang
