@@ -14,6 +14,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " Go plugins
 Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -43,6 +47,16 @@ let g:deoplete#enable_at_startup = 1
 let g:netrw_home = '~/.cache/nvim'
 
 autocmd BufWritePost *.json !jsonlint -q %
+
+"----------------------------------------------
+" Language Server Protocol Setup
+"----------------------------------------------
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {}
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 "----------------------------------------------
 " Language: Golang
