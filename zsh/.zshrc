@@ -31,8 +31,16 @@ export KEYTIMEOUT=1
 [[ -s ~/.zsh_plugins.sh ]] && source ~/.zsh_plugins.sh
 
 # history search with arrow keys
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+case `uname` in
+	Linux)
+		bindkey '^[OA' history-substring-search-up
+		bindkey '^[OB' history-substring-search-down
+	;;
+	Darwin)
+		bindkey '^[[A' history-substring-search-up
+		bindkey '^[[B' history-substring-search-down
+	;;
+esac
 
 # history search with arrow keys vim mode
 bindkey -M vicmd 'k' history-substring-search-up
