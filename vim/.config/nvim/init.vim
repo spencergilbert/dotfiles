@@ -61,7 +61,6 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set hidden
 
 let g:LanguageClient_serverCommands = {}
-
 function LC_maps()
 	if has_key(g:LanguageClient_serverCommands, &filetype)
 		noremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -131,3 +130,8 @@ let g:go_test_show_name = 1
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
+"----------------------------------------------
+" Language: Elixir
+"----------------------------------------------
+" mix format on save
+autocmd BufWritePost *.exs,*.ex silent :!mix format %
