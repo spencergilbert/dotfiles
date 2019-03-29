@@ -24,6 +24,9 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
+" Elixir plugins
+Plug 'elixir-editors/vim-elixir'
+
 " Initialize plugin system
 call plug#end()
 
