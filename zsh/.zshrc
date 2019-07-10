@@ -46,6 +46,9 @@ esac
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+# IEx
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # speed up zsh compinit by only checking cache once a day
 autoload -Uz compinit
 typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
