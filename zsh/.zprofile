@@ -32,5 +32,8 @@ path=(
 export GOPATH=$HOME/Code/Go
 export PATH=$PATH:$GOPATH/bin
 
+# Set rust bin path
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Set the default Less options.
 export LESS='-g -i -r'
