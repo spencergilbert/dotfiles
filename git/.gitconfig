@@ -2,8 +2,6 @@
 	name = Spencer Gilbert
 	email = spencer.gilbert@gmail.com
 	signingkey = 1C65F31DA4EA6DCC
-[includeIf "gitdir:~/Code/optoro/"]
-	path = ~/.gitconfig-optoro
 [color]
 	branch = auto
 	diff = auto
