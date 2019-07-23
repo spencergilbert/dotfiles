@@ -1,0 +1,3 @@
+shellcheck:
+  image: koalaman/shellcheck-alpine
+  script: shellcheck scripts/*.sh
