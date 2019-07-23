@@ -1,6 +1,6 @@
-#bin/sh
+#!/bin/sh
 
-CODENAME=`lsb_release --codename | cut -f2`
+CODENAME=$(lsb_release --codename | cut -f2)
 
 apt-get update
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common
@@ -13,6 +13,6 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 apt-get update
 apt-get install -y stow zsh tmux htop alacritty neovim docker-ce
 
-usermod -aG docker ${USER}
+usermod -aG docker "${USER}"
 
-su - ${USER}
+su - "${USER}"

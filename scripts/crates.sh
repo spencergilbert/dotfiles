@@ -1,4 +1,4 @@
-#bin/sh
+#!/bin/sh
 
 for crate in exa bat fd-find ripgrep
 do
