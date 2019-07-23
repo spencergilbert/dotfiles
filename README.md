@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/spencergilbert/dotfiles/badges/master/pipeline.svg)](https://gitlab.com/spencergilbert/dotfiles/commits/master)
+
 ## Table of Contents
  - [Introduction](#Introduction)
  - [Managing](#Managing)
