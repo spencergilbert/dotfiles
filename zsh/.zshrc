@@ -62,7 +62,8 @@ fi
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-# ripgrep for fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# skim config
+export PATH="$PATH:$HOME/.skim/bin"
+export SKIM_DEFAULT_COMMAND='fd --type f || git ls-files -c -o --exclude-standard || rg -l ""'
+export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
+source "$HOME/.skim/shell/key-bindings.zsh"

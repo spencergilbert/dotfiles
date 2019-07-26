@@ -11,8 +11,8 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 " General plugins
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+Plug 'lotabout/skim.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
@@ -39,6 +39,8 @@ set autowrite
 set splitbelow
 set splitright
 
+command! -bang -nargs=* Rg call fzf#vim#rg_interactive(<q-args>, fzf#vim#with_preview('right:50%:hidden', 'alt-h'))
+
 augroup numbertoggle
 	autocmd!
 	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
@@ -51,6 +53,8 @@ let g:python3_host_skip_check = 1
 
 let g:deoplete#enable_at_startup = 1
 let g:netrw_home = '~/.cache/nvim'
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
 
 autocmd BufWritePost *.json !jsonlint -q %
 
