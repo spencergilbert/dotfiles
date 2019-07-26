@@ -10,6 +10,9 @@ endif
 " Specify a directory for plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Possible plugins
+" https://github.com/JakeBecker/elixir-ls
+
 " General plugins
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
@@ -21,11 +24,14 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 
 " Go plugins
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+" Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
 " Elixir plugins
 Plug 'elixir-editors/vim-elixir'
+
+" Rust plugins
+Plug 'rust-lang/rust.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -52,6 +58,7 @@ set completeopt+=noselect
 let g:python3_host_skip_check = 1
 
 let g:deoplete#enable_at_startup = 1
+
 let g:netrw_home = '~/.cache/nvim'
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -67,7 +74,11 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_serverCommands = {
+	\ 'go': ['gopls'],
+	\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+	\ }
+
 function LC_maps()
 	if has_key(g:LanguageClient_serverCommands, &filetype)
 		noremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -84,61 +95,16 @@ autocmd FileType * call LC_maps()
 " Go file settings
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-" vim-go shortcuts
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-noremap <leader>a :cclose<CR>
-
-" run :GoBuild or :GoTestCompile based on the go file<Paste>
-function! s:build_go_files()
-	let l:file = expand('%')
-	if l:file =~# '^\f\+_test\.go$'
-		call go#test#Test(0, 1)
-	elseif l:file =~# '^\f\+\.go$'
-		call go#cmd#Build(0)
-	endif
-endfunction
-
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-
-" Run goimports when running gofmt
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-" let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-let g:go_metalinter_deadline = "5s"
-
-" Enable syntax highlighting per default
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-
-" Show the progress when running :GoCoverage
-let g:go_echo_command_info = 1
-
-" Show type information
-let g:go_auto_type_info = 1
-set updatetime=100
-
-" Highlight variable uses
-let g:go_auto_sameids = 1
-
-" Add the failing test name to the output of :GoTest
-let g:go_test_show_name = 1
-
-" deoplete-go settings
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
+" gomt on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 "----------------------------------------------
 " Language: Elixir
 "----------------------------------------------
 " mix format on save
 autocmd BufWritePost *.exs,*.ex silent :!mix format %
+
+"----------------------------------------------
+" Language: Rust
+"----------------------------------------------
+" rustfmt on save
+let g:rustfmt_autosave = 1
