@@ -11,7 +11,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu ${CODENAME} stable"
 
 apt-get update
-apt-get install -y stow zsh tmux htop alacritty neovim docker-ce
+apt-get install -y stow zsh tmux htop alacritty neovim docker-ce inotify-tools
 
 usermod -aG docker "${USER}"
 
