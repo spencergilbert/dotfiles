@@ -14,6 +14,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Elixir plugins
@@ -49,6 +50,30 @@ let g:netrw_liststyle = 3
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+"----------------------------------------------
+" Statusline Settings
+"----------------------------------------------
+set noshowmode
+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
+
+"----------------------------------------------
+" coc.nvim Settings
+"----------------------------------------------
 " if hidden is not set, TextEdit might fail.
 set hidden
 
