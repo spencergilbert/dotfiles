@@ -11,8 +11,8 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 " General plugins
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-Plug 'lotabout/skim.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -49,6 +49,8 @@ let g:netrw_liststyle = 3
 
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 
 "----------------------------------------------
 " Statusline Settings

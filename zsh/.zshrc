@@ -49,6 +49,10 @@ bindkey -M vicmd 'j' history-substring-search-down
 # IEx
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+# source ASDF
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+
 # speed up zsh compinit by only checking cache once a day
 autoload -Uz compinit
 typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
@@ -58,12 +62,4 @@ else
   compinit -C -i
 fi
 
-# source asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
-# skim config
-export PATH="$PATH:$HOME/.skim/bin"
-export SKIM_DEFAULT_COMMAND='fd --type f || git ls-files -c -o --exclude-standard || rg -l ""'
-export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
-source "$HOME/.skim/shell/key-bindings.zsh"
+autoload -U +X bashcompinit && bashcompinit
