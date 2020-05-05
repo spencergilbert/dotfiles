@@ -1,3 +1,7 @@
-shellcheck:
-  image: koalaman/shellcheck-alpine
-  script: shellcheck scripts/*.sh
+shell check:
+  image: koalaman/shellcheck-alpine:stable
+  stage: test
+  before_script:
+    - shellcheck --version
+  script:
+    - shellcheck install.sh

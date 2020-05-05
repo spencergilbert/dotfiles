@@ -1,0 +1,5 @@
+[aws]
+disabled = true
+
+[package]
+disabled = false

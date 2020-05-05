@@ -2,17 +2,9 @@
 # Executes commands at login pre-zshrc.
 #
 
-#
-# Editors
-#
-
 export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less'
-
-#
-# Paths
-#
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -31,10 +23,9 @@ path=(
 
 # Set golang env vars
 export GOPATH=$HOME/Code/Go
-export PATH=$PATH:$GOPATH/bin
 
-# Set rust bin path
-export PATH="$HOME/.cargo/bin:$PATH"
+# Set path
+export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 
 # Set the default Less options.
 export LESS='-g -i -r'
