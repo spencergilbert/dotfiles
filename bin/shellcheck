@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+shellcheck () {
+	docker run --rm -it -v "$PWD:/mnt" koalaman/shellcheck:stable "$@"
+}
+
+shellcheck "$@"

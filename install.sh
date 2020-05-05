@@ -35,7 +35,6 @@ sudo apt-get install -qq -y "${aptpkgs[@]}"
 
 ## flatpak
 flatpak install -y flathub com.github.johnfactotum.Foliate
-flatpak install -y flathub us.zoom.Zoom
 
 ## asdf
 if [ ! -d "$HOME"/.asdf ]; then

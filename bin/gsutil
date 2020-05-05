@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+gsutil () {
+	docker run --rm -ti -v ~/.config/gcloud:/root/.config/gcloud --entrypoint=gsutil google/cloud-sdk:290.0.1 "$@"
+}
+
+gsutil "$@"
