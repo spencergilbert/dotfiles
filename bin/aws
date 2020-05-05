@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+aws () {
+	docker run --rm -ti -v ~/.aws:/root/.aws -v "$(pwd)":/aws amazon/aws-cli:2.0.10 "$@"
+}
+
+aws "$@"

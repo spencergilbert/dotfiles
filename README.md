@@ -12,11 +12,9 @@
 I manage my configuration with [GNU Stow](https://www.gnu.org/software/stow/). Initially inspired by [this article](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html), I've found this to be a simpler and more organic solution to configuration management and remote versioning.
 
 # Installing
-GNU Stow is available via package manager, or you can build it from source. 
-
-- `sudo apt-get install stow`
-- `sudo pacman -S stow`
-- `brew install stow`
+```
+$ curl -sSL https://gitlab.com/spencergilbert/dotfiles/-/raw/master/install.sh | sh
+```
 
 # How It Works
 Stow creates symlinks for files in the parent directory of where you execute it (by default). With this in mind, I keep this repo locally in my home directory `~/.dotfiles` and execute stow from within this directory. 
