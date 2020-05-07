@@ -11,10 +11,9 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 " General plugins
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'itchyny/lightline.vim'
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Elixir plugins
@@ -34,8 +33,6 @@ set number relativenumber
 set autowrite
 set splitbelow
 set splitright
-
-command! -bang -nargs=* Rg call fzf#vim#rg_interactive(<q-args>, fzf#vim#with_preview('right:50%:hidden', 'alt-h'))
 
 augroup numbertoggle
 	autocmd!
