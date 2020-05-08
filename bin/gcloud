@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 gcloud () {
-	docker run --rm -ti -v ~/.config/gcloud:/root/.config/gcloud --entrypoint=gcloud google/cloud-sdk:290.0.1 "$@"
+	docker run --rm -it -v ~/.config/gcloud:/root/.config/gcloud -v "$(pwd)":/data -w /data --entrypoint=gcloud google/cloud-sdk:290.0.1 "$@"
 }
 
 gcloud "$@"
