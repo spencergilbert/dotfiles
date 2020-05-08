@@ -53,6 +53,9 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 . $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
 
+# source skim
+[[ -s ~/.skim/shell/key-bindings.zsh ]] && source ~/.skim/shell/key-bindings.zsh
+
 autoload -Uz compinit
 compinit
 

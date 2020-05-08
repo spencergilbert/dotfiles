@@ -1,3 +1,7 @@
 {
-	"coc.preferences.formatOnSaveFiletypes": ["elixir", "rust", "go"]
+	"coc.preferences.formatOnSaveFiletypes": [
+		"elixir",
+		"go",
+		"rust"
+	]
 }
