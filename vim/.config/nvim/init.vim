@@ -20,6 +20,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'cocopon/shadeline.vim'
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
+Plug 'tpope/vim-vinegar'
 
 " coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -48,6 +49,9 @@ let s:colorscheme = 'iceberg'
 let mapleader = ","
 
 command! -bang -nargs=* Rg call fzf#vim#rg_interactive(<q-args>, fzf#vim#with_preview('right:50%:hidden', 'alt-h'))
+
+" netrw
+let g:netrw_home = '~/.cache/nvim'
 
 " indent
 set autoindent
