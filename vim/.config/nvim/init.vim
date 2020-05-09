@@ -40,7 +40,8 @@ scriptencoding utf-8
 " file types {{{
 augroup vimrc_filetype
 	autocmd!
-	autocmd BufNewFile,BufRead *.go 	setlocal tabstop=4 shiftwidth=4
+	autocmd BufNewFile,BufRead *.go 		setlocal tabstop=4 shiftwidth=4
+	autocmd BufNewFile,BufRead *.{yaml,yml} setlocal tabstop=2 softtabstop=2 shiftwidth=2 foldmethod=indent expandtab
 augroup END
 " }}}
 
