@@ -16,11 +16,13 @@ endif
 " specify a directory for plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'cespare/vim-toml'
 Plug 'cocopon/iceberg.vim'
 Plug 'cocopon/shadeline.vim'
 Plug 'fatih/vim-go'
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
+Plug 'towolf/vim-helm'
 Plug 'tpope/vim-vinegar'
 
 " coc.nvim
