@@ -20,6 +20,8 @@ Plug 'cespare/vim-toml'
 Plug 'cocopon/iceberg.vim'
 Plug 'cocopon/shadeline.vim'
 Plug 'fatih/vim-go'
+Plug 'fatih/vim-hclfmt'
+Plug 'jvirtanen/vim-hcl'
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'towolf/vim-helm'
