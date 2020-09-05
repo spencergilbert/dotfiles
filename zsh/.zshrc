@@ -57,6 +57,12 @@ fpath=(${ASDF_DIR}/completions $fpath)
 [[ -s ~/.skim/shell/key-bindings.zsh ]] && source ~/.skim/shell/key-bindings.zsh
 
 autoload -Uz compinit
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/sgilbert/.asdf/installs/consul/1.8.3/bin/consul consul
+complete -o nospace -C /home/sgilbert/.asdf/installs/nomad/0.12.3/bin/nomad nomad
+complete -o nospace -C /home/sgilbert/.asdf/installs/terraform/0.13.1/bin/terraform terraform
+complete -o nospace -C /home/sgilbert/.asdf/installs/vault/1.5.2/bin/vault vault
 compinit
 
 eval "$(starship init zsh)"
+
