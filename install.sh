@@ -20,7 +20,6 @@ aptpkgs=(
 crates=(
 	"exa"
 	"bat"
-	"du-dust"
 	"fd-find"
 	"git-delta"
 	"ripgrep"
