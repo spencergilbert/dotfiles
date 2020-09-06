@@ -62,6 +62,9 @@ window:
   #   - SimpleFullscreen
   startup_mode: Windowed
 
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+
   # Window title
   title: Alacritty
 
@@ -76,18 +79,6 @@ scrolling:
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
   multiplier: 3
-
-  # Scroll to the bottom when new text is written to the terminal.
-  auto_scroll: false
-
-# Spaces per Tab (changes require restart)
-#
-# This setting defines the width of a tab in cells.
-#
-# Some applications, like Emacs, rely on knowing about the width of a tab.
-# To prevent unexpected behavior in these applications, it's also required to
-# change the `it` value in terminfo when altering this setting.
-tabspaces: 8
 
 # Font configuration (changes require restart)
 font:
@@ -161,41 +152,34 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors: Pop_OS
+# Colors (Iceberg)
 colors:
+  # Default colors
   primary:
-    background: '0x333333'
-    foreground: '0xf2f2f2'
-
-  cursor:
-    text: '0xf6f6f6'
-    cursor: '0x48b9c7'
-
-  selection:
-    text: '0xffffff'
-    background: '0x48b9c7'
+    background: '0x161821'
+    foreground: '0xc6c8d1'
 
   # Normal colors
   normal:
-    black:   '0x333333'
-    red:     '0xcc0000'
-    green:   '0x4e9a06'
-    yellow:  '0xc4a000'
-    blue:    '0x3465a4'
-    magenta: '0x75507b'
-    cyan:    '0x06989a'
-    white:   '0xd3d7cf'
+    black:   '0x161821'
+    red:     '0xe27878'
+    green:   '0xb4be82'
+    yellow:  '0xe2a478'
+    blue:    '0x84a0c6'
+    magenta: '0xa093c7'
+    cyan:    '0x89b8c2'
+    white:   '0xc6c8d1'
 
   # Bright colors
   bright:
-    black:   '0x88807c'
-    red:     '0xf15d22'
-    green:   '0x73C48F'
-    yellow:  '0xffce51'
-    blue:    '0x48b9c7'
-    magenta: '0xad7fa8'
-    cyan:    '0x34e2e2'
-    white:   '0xeeeeec'
+    black:   '0x6b7089'
+    red:     '0xe98989'
+    green:   '0xc0ca8e'
+    yellow:  '0xe9b189'
+    blue:    '0x91acd1'
+    magenta: '0xada0d3'
+    cyan:    '0x95c4ce'
+    white:   '0xd2d4de'
 
   # Indexed Colors
   #
@@ -228,7 +212,7 @@ colors:
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -296,9 +280,6 @@ selection:
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: false
-
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   # Cursor style
