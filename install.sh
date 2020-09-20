@@ -18,13 +18,22 @@ aptpkgs=(
 	"zsh"
 )
 crates=(
-	"exa"
+	#"amp"
+	"bandwhich"
 	"bat"
+	"exa"
 	"fd-find"
 	"git-delta"
+	"hyperfine"
+	"procs"
 	"ripgrep"
+	"sd"
 	"skim"
 	"starship"
+	"tealdeer"
+	"tokei"
+	"watchexec"
+	"zoxide"
 )
 ASDF_TAG="v0.7.8"
 ASDF_BIN="$HOME/.asdf/bin/asdf"

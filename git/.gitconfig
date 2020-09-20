@@ -16,6 +16,8 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta --theme=1337
+[delta]
+    side-by-side = true
 [interactive]
 	diffFilter = delta --color-only
 [gpg]

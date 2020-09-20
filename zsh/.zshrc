@@ -64,5 +64,7 @@ complete -o nospace -C /home/sgilbert/.asdf/installs/terraform/0.13.1/bin/terraf
 complete -o nospace -C /home/sgilbert/.asdf/installs/vault/1.5.2/bin/vault vault
 compinit
 
+eval "$(zoxide init zsh)"
+
 eval "$(starship init zsh)"
 

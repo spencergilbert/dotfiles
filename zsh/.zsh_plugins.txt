@@ -1,6 +1,6 @@
 # this block is in alphabetic order
 mafredri/zsh-async
-rupa/z
+#rupa/z
 zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 
