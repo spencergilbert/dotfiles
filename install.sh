@@ -1,107 +1,85 @@
 #!/usr/bin/env bash
-aptpkgs=(
-	"alacritty" 
-	"autoconf"
-	"build-essential"
-	"chromium-browser"
-	"clang"
-	"docker.io"
-	"git"
-	"htop"
-	"inotify-tools"
-	"jq"
-	"libncurses5-dev"
-	"libssl-dev"
-	"neovim"
-	"stow"
-	"tmux"
-	"zsh"
-)
-crates=(
-	#"amp"
-	"bandwhich"
-	"bat"
-	"exa"
-	"fd-find"
-	"git-delta"
-	"hyperfine"
-	"procs"
-	"ripgrep"
-	"sd"
-	"skim"
-	"starship"
-	"tealdeer"
-	"tokei"
-	"watchexec"
-	"zoxide"
-)
-ASDF_TAG="v0.7.8"
-ASDF_BIN="$HOME/.asdf/bin/asdf"
+#       _       _    __ _ _           
+#    __| | ___ | |_ / _(_) | ___  ___ 
+#   / _` |/ _ \| __| |_| | |/ _ \/ __|
+#  | (_| | (_) | |_|  _| | |  __/\__ \
+# (_)__,_|\___/ \__|_| |_|_|\___||___/
+#
 
-## apt
+# Versions
+ASDF_TAG="v0.8.0"
+
+#     _    ____ _____ 
+#    / \  |  _ \_   _|
+#   / _ \ | |_) || |  
+#  / ___ \|  __/ | |  
+# /_/   \_\_|    |_|  
+#
+
+aptpkgs=(
+	"fish"
+	"git"
+	"stow"
+)
 sudo apt-get update -qq
 sudo apt-get install -qq -y "${aptpkgs[@]}"
 
-## flatpak
+#  _____ _       _               _    
+# |  ___| | __ _| |_ _ __   __ _| | __
+# | |_  | |/ _` | __| '_ \ / _` | |/ /
+# |  _| | | (_| | |_| |_) | (_| |   < 
+# |_|   |_|\__,_|\__| .__/ \__,_|_|\_\
+#                   |_|       
+
+flatpak install -y flathub com.discordapp.Discord
 flatpak install -y flathub com.github.johnfactotum.Foliate
+flatpak install -y flathub com.slack.Slack
 
-## asdf
+#                _  __ 
+#   __ _ ___  __| |/ _|
+#  / _` / __|/ _` | |_ 
+# | (_| \__ \ (_| |  _|
+#  \__,_|___/\__,_|_|  
+#                      
+
 if [ ! -d "$HOME"/.asdf ]; then
-	git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch $ASDF_TAG
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch $ASDF_TAG
 fi
+ASDF_BIN=$(which asdf)
 
-"$ASDF_BIN" plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
-"$ASDF_BIN" plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 "$ASDF_BIN" plugin-add golang https://github.com/kennyp/asdf-golang.git
-"$ASDF_BIN" plugin-add helm https://github.com/Antiarchitect/asdf-helm.git
-"$ASDF_BIN" plugin-add kind https://github.com/johnlayton/asdf-kind.git
-"$ASDF_BIN" plugin-add kubectl https://github.com/Banno/asdf-kubectl.git
-"$ASDF_BIN" plugin-add kustomize https://github.com/Banno/asdf-kustomize.git
-"$ASDF_BIN" plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-"$ASDF_BIN" plugin-add protoc https://github.com/paxosglobal/asdf-protoc.git
-"$ASDF_BIN" plugin-add rust https://github.com/code-lever/asdf-rust.git
-"$ASDF_BIN" plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
 
-## add node's GPG keys
-/bin/bash "$HOME"/.asdf/plugins/nodejs/bin/import-release-team-keyring
+#  ____  _                
+# / ___|| |_ _____      __
+# \___ \| __/ _ \ \ /\ / /
+#  ___) | || (_) \ V  V / 
+# |____/ \__\___/ \_/\_/  
+#                         
 
-"$HOME"/.asdf/bin/asdf install rust stable
-"$HOME"/.asdf/bin/asdf global rust stable
-
-for i in "${crates[@]}"; do cargo install "$i"; done
-
-"$HOME"/.asdf/bin/asdf reshim rust
-
-## antibody
-curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-
-## stow dotfiles
 if [ ! -d "$HOME"/.dotfiles ]; then
 	git clone https://gitlab.com/spencergilbert/dotfiles.git "$HOME"/.dotfiles
 fi
-
 cd "$HOME/.dotfiles" || exit
 
-stow alacritty
-sudo stow bin -t /usr/local/bin
-stow fonts
+stow fish
 stow git
 stow gnupg
 stow ssh
-stow starship
-stow tmux
-stow vim
-stow zsh
 
-## configuration
-sudo chsh -s "$(which zsh)" "$USER"
+#                   __ _                      
+#   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
+#  / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _ \
+# | (_| (_) | | | |  _| | (_| | |_| | | |  __/
+#  \___\___/|_| |_|_| |_|\__, |\__,_|_|  \___|
+#                        |___/                
 
-## load zsh pluings
-antibody bundle < "$HOME"/.zsh_plugins.txt > "$HOME"/.zsh_plugins.sh
+sudo chsh -s $(which fish)
 
-## prepare Docker
-sudo systemctl enable --now docker
-sudo usermod -aG docker "$USER"
+if [ ! -d "$HOME"/.config/fish ]; then
+	mkdir -p "$HOME"/.config/fish
+fi
+
+cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 
 if [ ! -d "$HOME"/Code ]; then
 	mkdir "$HOME"/Code
