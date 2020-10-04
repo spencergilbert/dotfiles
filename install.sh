@@ -28,6 +28,9 @@ aptpkgs=(
 sudo apt-get update -qq
 sudo apt-get install -qq -y "${aptpkgs[@]}"
 
+curl --proto '=https' --tlsv1.2 -sSf https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/chrome.deb
+sudo apt install -qq -y /tmp/chrome.deb
+
 #  _____ _       _               _    
 # |  ___| | __ _| |_ _ __   __ _| | __
 # | |_  | |/ _` | __| '_ \ / _` | |/ /
@@ -64,6 +67,7 @@ crates=(
 	"bandwhich"
 	"bat"
 	"bottom"
+	"du-dust"
 	"exa"
 	"fd-find"
 	"git-delta"
