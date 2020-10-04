@@ -71,6 +71,7 @@ crates=(
 	"exa"
 	"fd-find"
 	"git-delta"
+	"gitui"
 	"hyperfine"
 	"mdcat"
 	"procs"
@@ -80,6 +81,7 @@ crates=(
 	"starship"
 	"tealdeer"
 	"tokei"
+	"topgrade"
 	"watchexec"
 	"zoxide"
 )
