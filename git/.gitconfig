@@ -14,7 +14,7 @@
 	untracked = red
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = delta --theme=1337
+	pager = delta
 [delta]
 	side-by-side = true
 [interactive]
