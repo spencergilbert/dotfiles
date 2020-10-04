@@ -76,6 +76,7 @@ crates=(
 	"hyperfine"
 	"mdcat"
 	"procs"
+	"rargs"
 	"ripgrep"
 	"rmesg"
 	"sd"
