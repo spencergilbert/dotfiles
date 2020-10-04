@@ -75,6 +75,7 @@ crates=(
 	"procs"
 	"ripgrep"
 	"sd"
+	"skim"
 	"starship"
 	"tealdeer"
 	"tokei"
@@ -84,6 +85,9 @@ crates=(
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source ~/.cargo/env
 for i in "${crates[@]}"; do cargo install "$i"; done
+
+# bandwhich needs additional capabilities to run without 'sudo'
+sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep $(which bandwhich)
 
 #  ____  _                
 # / ___|| |_ _____      __
@@ -101,7 +105,7 @@ stow fish
 stow git
 stow gnupg
 stow ssh
-#stow starship
+stow starship
 
 #                   __ _                      
 #   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
@@ -110,16 +114,34 @@ stow ssh
 #  \___\___/|_| |_|_| |_|\__, |\__,_|_|  \___|
 #                        |___/                
 
-sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep $(which bandwhich)
-
-sudo chsh -s $(which fish)
-
-if [ ! -d "$HOME"/.config/fish ]; then
-	mkdir -p "$HOME"/.config/fish
-fi
-
-cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
-
 if [ ! -d "$HOME"/Code ]; then
 	mkdir "$HOME"/Code
 fi
+
+#                  ___
+#   ___======____=---=)
+# /T            \_--===)
+# [ \ (O)   \~    \_-==)
+#  \      / )J~~    \-=)
+#   \\___/  )JJ~~~   \)
+#    \_____/JJJ~~~~    \
+#    / \  , \J~~~~~     \
+#   (-\)\=|\\\~~~~       L__
+#   (\\)  (\\\)_           \==__
+#    \V    \\\) ===_____   \\\\\\
+#           \V)     \_) \\\\JJ\J\)
+#                       /J\JT\JJJJ)
+#                       (JJJ| \UUU)
+#                        (UU)
+#
+
+sudo chsh -s $(which fish)
+
+if [ ! -f "$HOME"/.config/fish/functions/fisher.fish ]; then
+	curl --proto '=https' --tlsv1.2 -sSf https://git.io/fisher --create-dirs -sLo "$HOME"/.config/fish/functions/fisher.fish
+fi
+
+$(which fish) -c fisher self-update
+
+cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
+
