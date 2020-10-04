@@ -72,6 +72,7 @@ crates=(
 	"fd-find"
 	"git-delta"
 	"hyperfine"
+	"mdcat"
 	"procs"
 	"ripgrep"
 	"sd"
