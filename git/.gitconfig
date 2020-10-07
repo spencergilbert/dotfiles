@@ -1,6 +1,7 @@
 [user]
 	name = Spencer Gilbert
 	email = spencer.gilbert@gmail.com
+	signingkey = 0xDD16377166453942
 [color]
 	branch = auto
 	diff = auto
@@ -19,3 +20,7 @@
 	side-by-side = true
 [interactive]
 	diffFilter = delta --color-only
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true
