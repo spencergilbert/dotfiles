@@ -89,11 +89,12 @@ crates=(
 	"zoxide"
 )
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source ~/.cargo/env
+# shellcheck source=/dev/null
+source "$HOME"/.cargo/env
 for i in "${crates[@]}"; do cargo install "$i"; done
 
 # bandwhich needs additional capabilities to run without 'sudo'
-sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep $(which bandwhich)
+sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
 
 #  ____  _                
 # / ___|| |_ _____      __
@@ -141,13 +142,13 @@ fi
 #                        (UU)
 #
 
-sudo chsh -s $(which fish)
+sudo chsh -s "$(which fish)"
 
 if [ ! -f "$HOME"/.config/fish/functions/fisher.fish ]; then
 	curl --proto '=https' --tlsv1.2 -sSf https://git.io/fisher --create-dirs -sLo "$HOME"/.config/fish/functions/fisher.fish
 fi
 
-$(which fish) -c fisher self-update
+"$(which fish)" -c fisher self-update
 
 cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 
