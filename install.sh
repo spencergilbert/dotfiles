@@ -21,6 +21,7 @@ crates=(
 	#"amp"
 	"bandwhich"
 	"bat"
+	"bottom"
 	"exa"
 	"fd-find"
 	"git-delta"
