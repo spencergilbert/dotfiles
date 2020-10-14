@@ -23,7 +23,7 @@ aptpkgs=(
 	"docker.io"
 	"fish"
 	"git"
-	#"libssl-dev"
+	"libssl-dev"
 	"stow"
 )
 sudo apt-get update -qq
