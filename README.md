@@ -13,7 +13,7 @@ I manage my configuration with [GNU Stow](https://www.gnu.org/software/stow/). I
 
 # Installing
 ```
-$ curl -sSL https://gitlab.com/spencergilbert/dotfiles/-/raw/master/install.sh | sh
+$ curl -sSL https://gitlab.com/spencergilbert/dotfiles/-/raw/master/install.sh | bash
 ```
 
 # How It Works
