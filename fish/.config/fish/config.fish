@@ -13,6 +13,7 @@ set -x PATH $PATH $GOPATH/bin
 
 # Environment Variables
 set EDITOR vi
+set VISUAL vi
 set fish_greeting
 
 source ~/.asdf/asdf.fish

@@ -131,19 +131,19 @@ crates=(
 	"exa"
 	"fd-find"
 	"git-delta"
-	#"gitui"
-	"grex"
-	"hyperfine"
+	#"gitui" this needs libxcb-composite0-dev installed via apt
+	#"grex"
+	#"hyperfine"
 	"mdcat"
 	"procs"
-	"rargs"
+	#"rargs"
 	"ripgrep"
-	"rmesg"
+	#"rmesg"
 	"sd"
 	"skim"
 	"starship"
 	"tealdeer"
-	"tokei"
+	#"tokei"
 	"topgrade"
 	"watchexec"
 	"zoxide"
@@ -151,7 +151,7 @@ crates=(
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # shellcheck source=/dev/null
 source "$HOME"/.cargo/env
-#for i in "${crates[@]}"; do cargo install "$i"; done
+for i in "${crates[@]}"; do cargo install "$i"; done
 
 # bandwhich needs additional capabilities to run without 'sudo'
-#sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
+sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"

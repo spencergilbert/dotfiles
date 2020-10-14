@@ -16,6 +16,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta
+	editor = vi
 [delta]
 	side-by-side = true
 [interactive]
