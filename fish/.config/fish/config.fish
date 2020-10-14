@@ -7,8 +7,13 @@ set -x SKIM_CTRL_T_OPTS "$SKIM_DEFAULT_OPTS --preview-window right:60% --preview
 
 set -x SKIM_ALT_C_COMMAND 'fd -L --type directory -E /sys -E /proc -E /dev -E /tmp'
 
+# Go
 set -x GOPATH $HOME/Code/Go
 set -x PATH $PATH $GOPATH/bin
+
+# Environment Variables
+set EDITOR vi
+set fish_greeting
 
 source ~/.asdf/asdf.fish
 source ~/.cargo/env
