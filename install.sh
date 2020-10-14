@@ -96,6 +96,21 @@ for i in "${crates[@]}"; do cargo install "$i"; done
 # bandwhich needs additional capabilities to run without 'sudo'
 sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
 
+#                   __ _                      
+#   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
+#  / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _ \
+# | (_| (_) | | | |  _| | (_| | |_| | | |  __/
+#  \___\___/|_| |_|_| |_|\__, |\__,_|_|  \___|
+#                        |___/                
+
+if [ ! -d "$HOME"/Code ]; then
+	mkdir "$HOME"/Code
+fi
+
+if [ ! -d "$HOME"/.config/fish ] || [ ! -d "$HOME"/.config/fish/functions ]; then
+	mkdir -p "$HOME"/.config/fish/functions
+fi
+
 #  ____  _                
 # / ___|| |_ _____      __
 # \___ \| __/ _ \ \ /\ / /
@@ -113,17 +128,6 @@ stow git
 stow gnupg
 stow ssh
 stow starship
-
-#                   __ _                      
-#   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
-#  / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _ \
-# | (_| (_) | | | |  _| | (_| | |_| | | |  __/
-#  \___\___/|_| |_|_| |_|\__, |\__,_|_|  \___|
-#                        |___/                
-
-if [ ! -d "$HOME"/Code ]; then
-	mkdir "$HOME"/Code
-fi
 
 #                  ___
 #   ___======____=---=)
