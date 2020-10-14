@@ -18,11 +18,12 @@ ASDF_TAG="v0.8.0"
 
 aptpkgs=(
 	"alacritty"
-	"build-essential"
+	#"build-essential"
 	"curl"
+	"docker.io"
 	"fish"
 	"git"
-	"libssl-dev"
+	#"libssl-dev"
 	"stow"
 )
 sudo apt-get update -qq
@@ -69,6 +70,10 @@ fi
 if [ ! -d "$HOME"/.config/fish ] || [ ! -d "$HOME"/.config/fish/functions ]; then
 	mkdir -p "$HOME"/.config/fish/functions
 fi
+
+# Docker
+sudo systemctl enable --now docker
+sudo usermod -aG docker "$USER"
 
 #  ____  _                
 # / ___|| |_ _____      __
@@ -124,28 +129,28 @@ cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 #                               
 
 crates=(
-	"bandwhich"
+	#"bandwhich"
 	"bat"
-	"bottom"
-	"du-dust"
-	"exa"
+	#"bottom"
+	#"du-dust"
+	#"exa"
 	"fd-find"
 	"git-delta"
 	#"gitui" this needs libxcb-composite0-dev installed via apt
 	#"grex"
 	#"hyperfine"
-	"mdcat"
-	"procs"
+	#"mdcat"
+	#"procs"
 	#"rargs"
 	"ripgrep"
 	#"rmesg"
-	"sd"
+	#"sd"
 	"skim"
 	"starship"
-	"tealdeer"
+	#"tealdeer"
 	#"tokei"
-	"topgrade"
-	"watchexec"
+	#"topgrade"
+	#"watchexec"
 	"zoxide"
 )
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -154,4 +159,4 @@ source "$HOME"/.cargo/env
 for i in "${crates[@]}"; do cargo install "$i"; done
 
 # bandwhich needs additional capabilities to run without 'sudo'
-sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
+#sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
