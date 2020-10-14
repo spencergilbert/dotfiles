@@ -2,6 +2,7 @@ add_newline = true
 
 [aws]
 symbol = " "
+disabled = true
 
 [battery]
 full_symbol = ""
@@ -16,6 +17,9 @@ symbol = " "
 
 [elixir]
 symbol = " "
+
+[gcloud]
+disabled = true
 
 [git_branch]
 symbol = " "
