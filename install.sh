@@ -87,6 +87,7 @@ if [ ! -d "$HOME"/.dotfiles ]; then
 fi
 cd "$HOME/.dotfiles" || exit
 
+stow alacritty
 stow fish
 stow fonts
 stow git
