@@ -38,9 +38,9 @@ sudo apt install -qq -y /tmp/chrome.deb
 # |_|   |_|\__,_|\__| .__/ \__,_|_|\_\
 #                   |_|       
 
-flatpak install -y --or-update flathub com.discordapp.Discord
-flatpak install -y --or-update flathub com.github.johnfactotum.Foliate
-flatpak install -y --or-update flathub com.slack.Slack
+flatpak install -y --noninteractive --or-update flathub com.discordapp.Discord
+flatpak install -y --noninteractive --or-update flathub com.github.johnfactotum.Foliate
+flatpak install -y --noninteractive --or-update flathub com.slack.Slack
 
 #                _  __ 
 #   __ _ ___  __| |/ _|
@@ -52,49 +52,8 @@ flatpak install -y --or-update flathub com.slack.Slack
 if [ ! -d "$HOME"/.asdf ]; then
 	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch $ASDF_TAG
 fi
-ASDF_BIN=$(which asdf)
 
-"$ASDF_BIN" plugin-add golang https://github.com/kennyp/asdf-golang.git
-
-#   ____           _            
-#  / ___|_ __ __ _| |_ ___  ___ 
-# | |   | '__/ _` | __/ _ \/ __|
-# | |___| | | (_| | ||  __/\__ \
-#  \____|_|  \__,_|\__\___||___/
-#                               
-
-crates=(
-	"bandwhich"
-	"bat"
-	"bottom"
-	"du-dust"
-	"exa"
-	"fd-find"
-	"git-delta"
-	"gitui"
-	"grex"
-	"hyperfine"
-	"mdcat"
-	"procs"
-	"rargs"
-	"ripgrep"
-	"rmesg"
-	"sd"
-	"skim"
-	"starship"
-	"tealdeer"
-	"tokei"
-	"topgrade"
-	"watchexec"
-	"zoxide"
-)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-# shellcheck source=/dev/null
-source "$HOME"/.cargo/env
-for i in "${crates[@]}"; do cargo install "$i"; done
-
-# bandwhich needs additional capabilities to run without 'sudo'
-sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
+"$HOME"/.asdf/bin/asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
 
 #                   __ _                      
 #   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
@@ -124,6 +83,7 @@ fi
 cd "$HOME/.dotfiles" || exit
 
 stow fish
+stow fonts
 stow git
 stow gnupg
 stow ssh
@@ -146,7 +106,7 @@ stow starship
 #                        (UU)
 #
 
-sudo chsh -s "$(which fish)"
+chsh -s "$(which fish)"
 
 if [ ! -f "$HOME"/.config/fish/functions/fisher.fish ]; then
 	curl --proto '=https' --tlsv1.2 -sSf https://git.io/fisher --create-dirs -sLo "$HOME"/.config/fish/functions/fisher.fish
@@ -156,3 +116,42 @@ fi
 
 cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 
+#   ____           _            
+#  / ___|_ __ __ _| |_ ___  ___ 
+# | |   | '__/ _` | __/ _ \/ __|
+# | |___| | | (_| | ||  __/\__ \
+#  \____|_|  \__,_|\__\___||___/
+#                               
+
+crates=(
+	"bandwhich"
+	"bat"
+	"bottom"
+	"du-dust"
+	"exa"
+	"fd-find"
+	"git-delta"
+	#"gitui"
+	"grex"
+	"hyperfine"
+	"mdcat"
+	"procs"
+	"rargs"
+	"ripgrep"
+	"rmesg"
+	"sd"
+	"skim"
+	"starship"
+	"tealdeer"
+	"tokei"
+	"topgrade"
+	"watchexec"
+	"zoxide"
+)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# shellcheck source=/dev/null
+source "$HOME"/.cargo/env
+#for i in "${crates[@]}"; do cargo install "$i"; done
+
+# bandwhich needs additional capabilities to run without 'sudo'
+#sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
