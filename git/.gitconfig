@@ -15,9 +15,10 @@
 	untracked = red
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = delta --theme=1337
+	pager = delta
+	editor = vi
 [delta]
-    side-by-side = true
+	side-by-side = true
 [interactive]
 	diffFilter = delta --color-only
 [gpg]

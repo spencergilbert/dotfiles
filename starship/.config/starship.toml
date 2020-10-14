@@ -1,5 +1,56 @@
+add_newline = true
+
 [aws]
+symbol = " "
 disabled = true
 
-[package]
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+
+[directory]
+fish_style_pwd_dir_length = 1
+
+[docker]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[gcloud]
+disabled = true
+
+[git_branch]
+symbol = " "
+
+[git_status]
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+staged = '[+\($count\)](green)'
+
+[golang]
+symbol = " "
+
+[memory_usage]
 disabled = false
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
