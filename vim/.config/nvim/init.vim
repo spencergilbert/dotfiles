@@ -9,3 +9,7 @@ set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
+
+" Tree-sitter code folding
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()

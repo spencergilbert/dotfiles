@@ -14,6 +14,7 @@ paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/telescope.nvim'
 
 paq 'nvim-treesitter/nvim-treesitter'
+paq 'nvim-treesitter/nvim-treesitter-refactor'
 
 -- Ensure lua plugins work properly
 vim.cmd [[packloadall]]
