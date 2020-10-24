@@ -16,8 +16,6 @@ local generator = function()
 	})
 	table.insert(segments, sections.split)
 	table.insert(segments, lsp.segment)
-	table.insert(segments, lsp.current_function)
-	table.insert(segments, lsp.server_progress)
 	table.insert(segments, subscribe.buf_autocmd(
 		"el_git_status",
 		"BufWritePost",
