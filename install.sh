@@ -90,12 +90,14 @@ fi
 cd "$HOME/.dotfiles" || exit
 
 stow alacritty
+sudo stow bin -t /usr/local/bin
 stow fish
 stow fonts
 stow git
 stow gnupg
 stow ssh
 stow starship
+stow nvim
 
 #                  ___
 #   ___======____=---=)
