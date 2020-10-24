@@ -18,9 +18,10 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 " Telescope
-nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
-
+nnoremap <Leader>f <cmd>lua require'telescope.builtin'.git_files{}<CR>
+nnoremap <Leader>g <cmd>lua require'telescope.builtin'.live_grep{}<CR>
 nnoremap <Leader>en <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }<CR>
+nnoremap <Leader>ts <cmd>lua require'telescope.builtin'.treesitter(require('telescope.themes').get_dropdown({}))<CR>
 
 " diagnostic-nvim
 " move to lua
