@@ -19,11 +19,13 @@ ASDF_TAG="v0.8.0"
 aptpkgs=(
 	"alacritty"
 	#"build-essential"
+	"clang"
 	"curl"
 	"docker.io"
 	"fish"
 	"git"
 	"libssl-dev"
+	"neovim"
 	"stow"
 )
 sudo apt-get update -qq
@@ -134,7 +136,7 @@ crates=(
 	"bat"
 	#"bottom"
 	#"du-dust"
-	#"exa"
+	"exa"
 	"fd-find"
 	"git-delta"
 	#"gitui" this needs libxcb-composite0-dev installed via apt
@@ -148,7 +150,7 @@ crates=(
 	#"sd"
 	"skim"
 	"starship"
-	#"tealdeer"
+	"tealdeer"
 	#"tokei"
 	#"topgrade"
 	#"watchexec"
