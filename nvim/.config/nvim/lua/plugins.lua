@@ -7,11 +7,13 @@ paq 'neovim/nvim-lspconfig'
 
 paq 'nvim-lua/completion-nvim'
 paq 'nvim-lua/diagnostic-nvim'
-paq 'nvim-lua/lsp_extensions.nvim'
+--paq 'nvim-lua/lsp_extensions.nvim'
 paq 'nvim-lua/lsp-status.nvim'
 paq 'nvim-lua/plenary.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/telescope.nvim'
+
+paq 'tjdevries/express_line.nvim'
 
 paq 'nvim-treesitter/nvim-treesitter'
 paq 'nvim-treesitter/nvim-treesitter-refactor'

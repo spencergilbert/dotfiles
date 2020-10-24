@@ -15,11 +15,11 @@ for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
     status_symbol = '',
-    indicator_errors = 'e',
-    indicator_warnings = 'w',
-    indicator_info = 'i',
-    indicator_hint = 'h',
-    indicator_ok = '✔️',
+    indicator_errors = '',
+    indicator_warnings = '',
+    indicator_info = '',
+    indicator_hint = '',
+    indicator_ok = '',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   })
   nvim_lsp[lsp].setup {
