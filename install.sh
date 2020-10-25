@@ -18,13 +18,17 @@ ASDF_TAG="v0.8.0"
 
 aptpkgs=(
 	"alacritty"
+	"ansible"
 	#"build-essential"
 	"curl"
 	"docker.io"
 	"fish"
 	"git"
+	"jq"
 	"libssl-dev"
+	"neovim"
 	"stow"
+	"qemu-user-static"
 )
 sudo apt-get update -qq
 sudo apt-get install -qq -y "${aptpkgs[@]}"
@@ -54,7 +58,11 @@ if [ ! -d "$HOME"/.asdf ]; then
 	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch $ASDF_TAG
 fi
 
-"$HOME"/.asdf/bin/asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+"$HOME"/.asdf/bin/asdf plugin-add consul     https://github.com/Banno/asdf-hashicorp.git
+"$HOME"/.asdf/bin/asdf plugin-add golang     https://github.com/kennyp/asdf-golang.git
+"$HOME"/.asdf/bin/asdf plugin-add nomad      https://github.com/Banno/asdf-hashicorp.git
+"$HOME"/.asdf/bin/asdf plugin-add terraform  https://github.com/Banno/asdf-hashicorp.git
+"$HOME"/.asdf/bin/asdf plugin-add vault      https://github.com/Banno/asdf-hashicorp.git
 
 #                   __ _                      
 #   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
@@ -88,6 +96,7 @@ fi
 cd "$HOME/.dotfiles" || exit
 
 stow alacritty
+sudo stow bin -t /usr/local/bin
 stow fish
 stow fonts
 stow git
