@@ -16,9 +16,12 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta
-	editor = vi
+	editor = nvim
 [delta]
 	side-by-side = true
+	syntax-theme = Dracula
+[diff]
+	colorMoved = default
 [interactive]
 	diffFilter = delta --color-only
 [gpg]
