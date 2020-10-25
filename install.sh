@@ -25,7 +25,7 @@ aptpkgs=(
 	"fish"
 	"git"
 	"libssl-dev"
-	"neovim"
+	#"neovim"
 	"stow"
 )
 sudo apt-get update -qq

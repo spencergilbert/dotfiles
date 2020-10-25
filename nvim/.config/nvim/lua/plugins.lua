@@ -13,10 +13,12 @@ paq 'nvim-lua/plenary.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/telescope.nvim'
 
-paq 'tjdevries/express_line.nvim'
-
 paq 'nvim-treesitter/nvim-treesitter'
 paq 'nvim-treesitter/nvim-treesitter-refactor'
+
+paq 'tjdevries/express_line.nvim'
+
+paq 'tpope/vim-vinegar'
 
 -- Ensure lua plugins work properly
 vim.cmd [[packloadall]]
