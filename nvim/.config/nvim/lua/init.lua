@@ -3,7 +3,7 @@ require 'lsp'
 require 'statusline'
 require 'treesitter'
 
--- P
+-- Colors
 vim.o.termguicolors = true
 vim.cmd('colorscheme dracula')
 --vim.g.colorscheme = "dracula"
@@ -14,3 +14,5 @@ vim.g.diagnostic_trimmed_virtual_text = 30
 
 -- netrw
 vim.g.netrw_home = '~/.cache/nvim'
+
+vim.wo.signcolumn = 'yes'
