@@ -25,3 +25,5 @@
 	program = gpg
 [commit]
 	gpgsign = true
+[pull]
+	ff = only
