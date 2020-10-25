@@ -4,6 +4,8 @@ local lsp = require('el.plugins.lsp_status')
 local sections = require('el.sections')
 local subscribe = require('el.subscribe')
 
+vim.o.showmode = false
+
 local generator = function()
 	local segments = {}
 

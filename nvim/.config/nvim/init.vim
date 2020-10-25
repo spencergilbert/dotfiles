@@ -1,7 +1,8 @@
-lua require 'init'
-
-" Statusline
-set noshowmode
+" Load lua config
+lua << EOF
+require 'plugins'
+require 'init'
+EOF
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
