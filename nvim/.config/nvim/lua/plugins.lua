@@ -3,6 +3,8 @@ local paq = require'paq-nvim'.paq
 
 paq {'savq/paq-nvim', opt = true}
 
+paq 'dracula/vim'
+
 paq 'neovim/nvim-lspconfig'
 
 paq 'nvim-lua/completion-nvim'
