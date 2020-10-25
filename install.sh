@@ -27,7 +27,7 @@ aptpkgs=(
 	"git"
 	"jq"
 	"libssl-dev"
-	"neovim"
+	#"neovim"
 	"stow"
 	"qemu-user-static"
 )
@@ -97,11 +97,13 @@ fi
 cd "$HOME/.dotfiles" || exit
 
 stow alacritty
+stow bat
 sudo stow bin -t /usr/local/bin
 stow fish
 stow fonts
 stow git
 stow gnupg
+stow nvim
 stow ssh
 stow starship
 
@@ -142,7 +144,7 @@ cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 crates=(
 	#"bandwhich"
 	"bat"
-	#"bottom"
+	"bottom"
 	#"du-dust"
 	"exa"
 	"fd-find"
@@ -151,7 +153,7 @@ crates=(
 	#"grex"
 	#"hyperfine"
 	#"mdcat"
-	#"procs"
+	"procs"
 	#"rargs"
 	"ripgrep"
 	#"rmesg"
