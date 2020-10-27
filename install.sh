@@ -71,8 +71,10 @@ fi
 # |_| |_|\___|\___/ \_/ |_|_| |_| |_|
 #                                    
 
-git clone https://github.com/savq/paq-nvim.git \
-	"$HOME/.local/share"/nvim/site/pack/paqs/opt/paq-nvim
+if [ ! -d "$HOME"/.local/share/nvim/site/pack/paqs/opt/paq-nvim ]; then
+	git clone https://github.com/savq/paq-nvim.git \
+		"$HOME"/.local/share/nvim/site/pack/paqs/opt/paq-nvim
+fi
 
 nvim -E -c PaqInstall -c PaqUpdate -c q
 
@@ -117,6 +119,7 @@ stow gnupg
 stow nvim
 stow ssh
 stow starship
+stow topgrade
 
 #                  ___
 #   ___======____=---=)
@@ -173,7 +176,7 @@ crates=(
 	"starship"
 	"tealdeer"
 	#"tokei"
-	#"topgrade"
+	"topgrade"
 	#"watchexec"
 	"zoxide"
 )
