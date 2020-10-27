@@ -30,3 +30,5 @@ call sign_define("LspDiagnosticsErrorSign", {"text" : "", "texthl" : "LspDiag
 call sign_define("LspDiagnosticsWarningSign", {"text" : "", "texthl" : "LspDiagnosticsWarning"})
 call sign_define("LspDiagnosticsInformationSign", {"text" : "", "texthl" : "LspDiagnosticsInformation"})
 call sign_define("LspDiagnosticsHintSign", {"text" : "", "texthl" : "LspDiagnosticsHint"})
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab

@@ -65,6 +65,17 @@ fi
 "$HOME"/.asdf/bin/asdf plugin-add terraform  https://github.com/Banno/asdf-hashicorp.git
 "$HOME"/.asdf/bin/asdf plugin-add vault      https://github.com/Banno/asdf-hashicorp.git
 
+#  _ __   ___  _____   _(_)_ __ ___  
+# | '_ \ / _ \/ _ \ \ / / | '_ ` _ \ 
+# | | | |  __/ (_) \ V /| | | | | | |
+# |_| |_|\___|\___/ \_/ |_|_| |_| |_|
+#                                    
+
+git clone https://github.com/savq/paq-nvim.git \
+	"$HOME/.local/share"/nvim/site/pack/paqs/opt/paq-nvim
+
+nvim -E -c PaqInstall -c PaqUpdate -c q
+
 #                   __ _                      
 #   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
 #  / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _ \
