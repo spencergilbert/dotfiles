@@ -136,6 +136,8 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
+-- Config for: express_line.nvim
+require [[expressline]]
 -- Config for: nvim-treesitter
 require [[treesitter]]
 -- Config for: nvim-lspconfig

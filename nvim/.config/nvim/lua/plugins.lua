@@ -38,6 +38,14 @@ return packer.startup(function()
     },
   }
 
+  -- Status line
+  use {
+    'tjdevries/express_line.nvim',
+    config = 'require [[expressline]]',
+  }
+
+  use { 'tpope/vim-vinegar' }
+
   -- Colorscheme
   use {
     'dracula/vim',
