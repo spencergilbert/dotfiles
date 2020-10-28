@@ -1,26 +1,58 @@
-vim.cmd [[packadd paq-nvim]]
-local paq = require'paq-nvim'.paq
+-- Required if packer is in `opt` path
+vim.cmd [[packadd packer.nvim]]
 
-paq {'savq/paq-nvim', opt = true}
+local packer = require('packer')
 
-paq 'dracula/vim'
+return packer.startup(function()
+  local use = packer.use
 
-paq 'neovim/nvim-lspconfig'
+  -- Packer
+  use { 'wbthomason/packer.nvim', opt = true }
 
-paq 'nvim-lua/completion-nvim'
-paq 'nvim-lua/diagnostic-nvim'
---paq 'nvim-lua/lsp_extensions.nvim'
-paq 'nvim-lua/lsp-status.nvim'
-paq 'nvim-lua/plenary.nvim'
-paq 'nvim-lua/popup.nvim'
-paq 'nvim-lua/telescope.nvim'
+  -- Search
+  use { 'nvim-lua/telescope.nvim',
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-lua/popup.nvim' },
+    },
+  }
 
-paq 'nvim-treesitter/nvim-treesitter'
-paq 'nvim-treesitter/nvim-treesitter-refactor'
+  -- TreeSitter
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    config = 'require [[treesitter]]',
+    requires = {
+      { 'nvim-treesitter/nvim-treesitter-refactor' },
+    },
+  }
 
-paq 'tjdevries/express_line.nvim'
+  -- LSPs and Completion
+  use {
+    'neovim/nvim-lspconfig',
+    config = 'require [[lsp]]',
+    requires = {
+      { 'nvim-lua/completion-nvim' },
+      { 'nvim-lua/diagnostic-nvim' },
+      { 'nvim-lua/lsp_extensions.nvim' },
+      { 'nvim-lua/lsp-status.nvim' },
+    },
+  }
 
-paq 'tpope/vim-vinegar'
+  -- Status line
+  use {
+    'tjdevries/express_line.nvim',
+    config = 'require [[expressline]]',
+  }
 
--- Ensure lua plugins work properly
-vim.cmd [[packloadall]]
+  use { 'tpope/vim-vinegar' }
+
+  -- Colorscheme
+  use {
+    'dracula/vim',
+    as = 'dracula',
+    config = function()
+      vim.cmd [[set termguicolors]]
+      vim.cmd [[colorscheme dracula]]
+    end
+  }
+end)
