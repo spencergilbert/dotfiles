@@ -1,20 +1,13 @@
--- Additional config
-require 'lsp'
-require 'statusline'
-require 'treesitter'
+-- Required if packer is in the `opt` path
+vim.cmd [[packadd packer.nvim]]
 
--- Colors
+local packer = require('packer')
+local packages = require('packages')
+
+packer.startup(function()
+  for _, value in pairs(packages) do
+    packer.use(value)
+  end
+end)
+
 vim.o.termguicolors = true
-vim.cmd('colorscheme dracula')
-
--- diagnostic-nvim config
-vim.g.diagnostic_enable_virtual_text = 1
-vim.g.diagnostic_trimmed_virtual_text = 30
-
--- netrw
-vim.g.netrw_home = '~/.cache/nvim'
-
-vim.wo.signcolumn = 'yes'
-
--- YAML formatting
-vim.cmd('autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab')
