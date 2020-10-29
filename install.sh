@@ -61,6 +61,8 @@ fi
 
 "$HOME"/.asdf/bin/asdf plugin-add consul     https://github.com/Banno/asdf-hashicorp.git
 "$HOME"/.asdf/bin/asdf plugin-add golang     https://github.com/kennyp/asdf-golang.git
+"$HOME"/.asdf/bin/asdf plugin-add github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git
+"$HOME"/.asdf/bin/asdf plugin-add helm       https://github.com/Antiarchitect/asdf-helm.git
 "$HOME"/.asdf/bin/asdf plugin-add nomad      https://github.com/Banno/asdf-hashicorp.git
 "$HOME"/.asdf/bin/asdf plugin-add terraform  https://github.com/Banno/asdf-hashicorp.git
 "$HOME"/.asdf/bin/asdf plugin-add vault      https://github.com/Banno/asdf-hashicorp.git
@@ -71,12 +73,10 @@ fi
 # |_| |_|\___|\___/ \_/ |_|_| |_| |_|
 #                                    
 
-if [ ! -d "$HOME"/.local/share/nvim/site/pack/paqs/opt/paq-nvim ]; then
-	git clone https://github.com/savq/paq-nvim.git \
-		"$HOME"/.local/share/nvim/site/pack/paqs/opt/paq-nvim
+if [ ! -d "$HOME"/.local/share/nvim/site/pack/packer/opt/packer.nvim ]; then
+	git clone https://github.com/wbthomason/packer.nvim.git \
+		"$HOME"/.local/share/nvim/site/pack/packer/opt/packer.nvim
 fi
-
-nvim -E -c PaqInstall -c PaqUpdate -c q
 
 #                   __ _                      
 #   ___ ___  _ __  / _(_) __ _ _   _ _ __ ___ 
