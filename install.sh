@@ -166,7 +166,7 @@ crates=(
 	#"gitui" this needs libxcb-composite0-dev installed via apt
 	#"grex"
 	#"hyperfine"
-	#"mdcat"
+	"mdcat"
 	"procs"
 	#"rargs"
 	"ripgrep"
