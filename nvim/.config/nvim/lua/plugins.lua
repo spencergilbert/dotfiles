@@ -23,6 +23,7 @@ return packer.startup(function()
     config = 'require [[treesitter]]',
     requires = {
       { 'nvim-treesitter/nvim-treesitter-refactor' },
+      { 'nvim-treesitter/completion-treesitter' },
     },
   }
 
@@ -35,6 +36,7 @@ return packer.startup(function()
       { 'nvim-lua/diagnostic-nvim' },
       { 'nvim-lua/lsp_extensions.nvim' },
       { 'nvim-lua/lsp-status.nvim' },
+      { 'steelsojka/completion-buffers' },
     },
   }
 

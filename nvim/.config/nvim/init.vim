@@ -29,3 +29,11 @@ call sign_define("LspDiagnosticsErrorSign", {"text" : "", "texthl" : "LspDiag
 call sign_define("LspDiagnosticsWarningSign", {"text" : "", "texthl" : "LspDiagnosticsWarning"})
 call sign_define("LspDiagnosticsInformationSign", {"text" : "", "texthl" : "LspDiagnosticsInformation"})
 call sign_define("LspDiagnosticsHintSign", {"text" : "", "texthl" : "LspDiagnosticsHint"})
+
+let g:completion_chain_complete_list = {
+    \'default': [
+    \    {'complete_items': ['lsp', 'snippet', 'buffers', 'ts']},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \]
+\}

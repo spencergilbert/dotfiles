@@ -21,7 +21,7 @@ local custom_attach = function(client)
 
   -- Rust inlay hints
   if vim.api.nvim_buf_get_option(0, 'filetype') == 'rust' then
-   vim.cmd [[autocmd BufEnter,BufWritePost <buffer> :lua require('lsp_extensions.inlay_hints').request { aligned = true, prefix = " » " }]]
+   vim.cmd [[autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText" }]]
   end
 
   vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")

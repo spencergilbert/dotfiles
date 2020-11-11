@@ -75,7 +75,6 @@ _packer_load = function(names, cause)
   for _, name in ipairs(names) do
     if not plugins[name].loaded then
       vim.cmd('packadd ' .. name)
-      vim._update_package_paths()
       if plugins[name].config then
         for _i, config_line in ipairs(plugins[name].config) do
           loadstring(config_line)()
@@ -146,7 +145,6 @@ require [[lsp]]
 loadstring("\27LJ\2\2Y\0\0\2\0\4\0\t6\0\0\0009\0\1\0'\1\2\0B\0\2\0016\0\0\0009\0\1\0'\1\3\0B\0\2\1K\0\1\0\24colorscheme dracula\22set termguicolors\bcmd\bvim\0")()
 -- Conditional loads
 -- Load plugins in order defined by `after`
-vim._update_package_paths()
 END
 
 function! s:load(names, cause) abort
