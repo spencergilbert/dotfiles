@@ -108,6 +108,9 @@ if [ ! -d "$HOME"/.dotfiles ]; then
 	git clone https://gitlab.com/spencergilbert/dotfiles.git "$HOME"/.dotfiles
 fi
 cd "$HOME/.dotfiles" || exit
+if [ ! -d "$HOME"/.ssh ]; then
+	mkdir "$HOME"/.ssh
+fi
 
 stow alacritty
 stow bat
@@ -120,34 +123,6 @@ stow nvim
 stow ssh
 stow starship
 stow topgrade
-
-#                  ___
-#   ___======____=---=)
-# /T            \_--===)
-# [ \ (O)   \~    \_-==)
-#  \      / )J~~    \-=)
-#   \\___/  )JJ~~~   \)
-#    \_____/JJJ~~~~    \
-#    / \  , \J~~~~~     \
-#   (-\)\=|\\\~~~~       L__
-#   (\\)  (\\\)_           \==__
-#    \V    \\\) ===_____   \\\\\\
-#           \V)     \_) \\\\JJ\J\)
-#                       /J\JT\JJJJ)
-#                       (JJJ| \UUU)
-#                        (UU)
-#
-
-chsh -s "$(which fish)"
-
-if [ ! -f "$HOME"/.config/fish/functions/fisher.fish ]; then
-	curl --proto '=https' --tlsv1.2 -sSf https://git.io/fisher --create-dirs -sLo "$HOME"/.config/fish/functions/fisher.fish
-fi
-
-echo "fisher install fisher"
-"$(which fish)" -c 'fisher install jorgebucaran/fisher'
-
-cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 
 #   ____           _            
 #  / ___|_ __ __ _| |_ ___  ___ 
@@ -188,3 +163,31 @@ for i in "${crates[@]}"; do cargo install "$i"; done
 
 # bandwhich needs additional capabilities to run without 'sudo'
 #sudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep "$(which bandwhich)"
+
+#                  ___
+#   ___======____=---=)
+# /T            \_--===)
+# [ \ (O)   \~    \_-==)
+#  \      / )J~~    \-=)
+#   \\___/  )JJ~~~   \)
+#    \_____/JJJ~~~~    \
+#    / \  , \J~~~~~     \
+#   (-\)\=|\\\~~~~       L__
+#   (\\)  (\\\)_           \==__
+#    \V    \\\) ===_____   \\\\\\
+#           \V)     \_) \\\\JJ\J\)
+#                       /J\JT\JJJJ)
+#                       (JJJ| \UUU)
+#                        (UU)
+#
+
+chsh -s "$(which fish)"
+
+if [ ! -f "$HOME"/.config/fish/functions/fisher.fish ]; then
+	curl --proto '=https' --tlsv1.2 -sSf https://git.io/fisher --create-dirs -sLo "$HOME"/.config/fish/functions/fisher.fish
+fi
+
+echo "fisher install fisher"
+"$(which fish)" -c 'fisher install jorgebucaran/fisher'
+
+cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
