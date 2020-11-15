@@ -144,7 +144,8 @@ if [ ! -f "$HOME"/.config/fish/functions/fisher.fish ]; then
 	curl --proto '=https' --tlsv1.2 -sSf https://git.io/fisher --create-dirs -sLo "$HOME"/.config/fish/functions/fisher.fish
 fi
 
-"$(which fish)" -c fisher self-update
+echo "fisher install fisher"
+"$(which fish)" -c 'fisher install jorgebucaran/fisher'
 
 cp -f "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
 
