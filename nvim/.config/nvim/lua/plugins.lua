@@ -66,9 +66,9 @@ return packer.startup(function()
 
   -- Disabled
   use {
-    { 'glepnir/galaxyline.nvim', disabled = true },
-    { 'glepnir/indent-guides.nvim', disabled = true },
-    { 'kyazdani42/nvim-web-devicons', disabled = true },
-    { 'norcalli/snippets.nvim', disabled = true },
+    { 'glepnir/galaxyline.nvim', disable = true },
+    { 'glepnir/indent-guides.nvim', disable = true },
+    { 'kyazdani42/nvim-web-devicons', disable = true },
+    { 'norcalli/snippets.nvim', disable = true },
   }
 end)
