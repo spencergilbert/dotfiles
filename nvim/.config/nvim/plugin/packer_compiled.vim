@@ -135,14 +135,16 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: express_line.nvim
-require [[expressline]]
 -- Config for: nvim-treesitter
 require [[treesitter]]
--- Config for: nvim-lspconfig
-require [[lsp]]
 -- Config for: vim
 loadstring("\27LJ\2\2Y\0\0\2\0\4\0\t6\0\0\0009\0\1\0'\1\2\0B\0\2\0016\0\0\0009\0\1\0'\1\3\0B\0\2\1K\0\1\0\24colorscheme dracula\22set termguicolors\bcmd\bvim\0")()
+-- Config for: express_line.nvim
+require [[expressline]]
+-- Config for: vim-vinegar
+loadstring("\27LJ\2\2:\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\18~/.cache/nvim\15netrw_home\6g\bvim\0")()
+-- Config for: nvim-lspconfig
+require [[lsp]]
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END

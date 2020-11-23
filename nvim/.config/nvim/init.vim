@@ -23,6 +23,7 @@ nnoremap <Leader>g <cmd>lua require'telescope.builtin'.live_grep{}<CR>
 nnoremap <Leader>en <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/", find_command = { "fd", "-L", "--type", "f" }}<CR>
 nnoremap <Leader>ts <cmd>lua require'telescope.builtin'.treesitter(require('telescope.themes').get_dropdown({}))<CR>
 
+nnoremap <Leader>dn <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
 " diagnostic-nvim
 " move to lua
 call sign_define("LspDiagnosticsErrorSign", {"text" : "", "texthl" : "LspDiagnosticsError"})
