@@ -18,8 +18,11 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 " Telescope
-nnoremap <Leader>f <cmd>lua require'telescope.builtin'.git_files{}<CR>
-nnoremap <Leader>g <cmd>lua require'telescope.builtin'.live_grep{}<CR>
+nnoremap <Leader>ff <cmd>Telescope find_files<CR>
+nnoremap <Leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <Leader>fb <cmd>Telescope buffers<CR>
+nnoremap <Leader>fh <cmd>Telescope help_tags<CR>
+
 nnoremap <Leader>en <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/", find_command = { "fd", "-L", "--type", "f" }}<CR>
 nnoremap <Leader>ts <cmd>lua require'telescope.builtin'.treesitter(require('telescope.themes').get_dropdown({}))<CR>
 

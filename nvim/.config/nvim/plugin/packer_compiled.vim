@@ -138,7 +138,7 @@ end
 -- Config for: nvim-treesitter
 require [[treesitter]]
 -- Config for: vim
-loadstring("\27LJ\2\2Y\0\0\2\0\4\0\t6\0\0\0009\0\1\0'\1\2\0B\0\2\0016\0\0\0009\0\1\0'\1\3\0B\0\2\1K\0\1\0\24colorscheme dracula\22set termguicolors\bcmd\bvim\0")()
+loadstring("\27LJ\2\2W\0\0\2\0\5\0\t6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\3\0'\1\4\0B\0\2\1K\0\1\0\24colorscheme dracula\bcmd\18termguicolors\6o\bvim\0")()
 -- Config for: express_line.nvim
 require [[expressline]]
 -- Config for: vim-vinegar

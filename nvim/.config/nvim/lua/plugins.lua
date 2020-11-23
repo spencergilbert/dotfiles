@@ -14,7 +14,7 @@ return packer.startup(function()
     requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-lua/popup.nvim' },
-      { 'nvim-telescope/telescope-dap.nvim', disabled = true },
+      { 'nvim-telescope/telescope-dap.nvim', disable = true },
     },
   }
 
@@ -24,7 +24,7 @@ return packer.startup(function()
     config = 'require [[treesitter]]',
     requires = {
       { 'nvim-treesitter/nvim-treesitter-refactor' },
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', disable = true },
       { 'nvim-treesitter/completion-treesitter' },
     },
   }
@@ -59,7 +59,7 @@ return packer.startup(function()
     'dracula/vim',
     as = 'dracula',
     config = function()
-      vim.cmd [[set termguicolors]]
+      vim.o.termguicolors = true
       vim.cmd [[colorscheme dracula]]
     end
   }
