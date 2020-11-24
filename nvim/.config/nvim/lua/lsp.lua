@@ -1,4 +1,3 @@
-local completion = require('completion')
 local lspstatus = require('lsp-status')
 local lspconfig = require('lspconfig')
 
@@ -14,12 +13,11 @@ lspstatus.config({
 lspstatus.register_progress()
 
 local custom_attach = function(client)
-  completion.on_attach(client)
   lspstatus.on_attach(client)
 
   -- Rust inlay hints
   if vim.api.nvim_buf_get_option(0, 'filetype') == 'rust' then
-   vim.cmd [[autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText" }]]
+   vim.cmd [[autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = "NonText" }]]
   end
 
   vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
@@ -30,17 +28,19 @@ lspconfig.gopls.setup({
   capabilities = lspstatus.capabilities,
 })
 
-lspconfig.rust_analyzer.setup({
+lspconfig.sumneko_lua.setup({
+  settings = {
+    Lua = {
+        diagnostics = {
+          globals = {'vim'}
+        },
+      }
+    },
   on_attach = custom_attach,
   capabilities = lspstatus.capabilities,
 })
 
-lspconfig.sumneko_lua.setup({
-  settings = {
-    Lua = {
-        diagnostics = {globals = {'vim'}},
-      }
-    },
+lspconfig.rust_analyzer.setup({
   on_attach = custom_attach,
   capabilities = lspstatus.capabilities,
 })
