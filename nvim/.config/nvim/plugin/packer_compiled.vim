@@ -1,6 +1,9 @@
 " Automatically generated packer.nvim plugin loader code
 
-if !has('nvim')
+if !has('nvim-0.5')
+  echohl WarningMsg
+  echom "Invalid Neovim version for packer.nvim!"
+  echohl None
   finish
 endif
 
@@ -135,14 +138,18 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: express_line.nvim
-require [[expressline]]
--- Config for: nvim-treesitter
-require [[treesitter]]
+-- Config for: dracula
+loadstring("\27LJ\2\2W\0\0\2\0\5\0\t6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\3\0'\1\4\0B\0\2\1K\0\1\0\24colorscheme dracula\bcmd\18termguicolors\6o\bvim\0")()
 -- Config for: nvim-lspconfig
 require [[lsp]]
--- Config for: vim
-loadstring("\27LJ\2\2Y\0\0\2\0\4\0\t6\0\0\0009\0\1\0'\1\2\0B\0\2\0016\0\0\0009\0\1\0'\1\3\0B\0\2\1K\0\1\0\24colorscheme dracula\22set termguicolors\bcmd\bvim\0")()
+-- Config for: express_line.nvim
+require [[expressline]]
+-- Config for: vim-vinegar
+loadstring("\27LJ\2\2:\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\18~/.cache/nvim\15netrw_home\6g\bvim\0")()
+-- Config for: telescope-github.nvim
+require("telescope").load_extension("ghcli")
+-- Config for: nvim-treesitter
+require [[treesitter]]
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END

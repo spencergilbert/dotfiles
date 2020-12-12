@@ -10,10 +10,14 @@ return packer.startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
 
   -- Search
-  use { 'nvim-lua/telescope.nvim',
+  use { 'nvim-telescope/telescope.nvim',
     requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-lua/popup.nvim' },
+      { 'nvim-telescope/telescope-dap.nvim', disable = true },
+      { 'nvim-telescope/telescope-github.nvim',
+        config = 'require("telescope").load_extension("ghcli")'
+      },
     },
   }
 
@@ -23,6 +27,7 @@ return packer.startup(function()
     config = 'require [[treesitter]]',
     requires = {
       { 'nvim-treesitter/nvim-treesitter-refactor' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', disable = true },
       { 'nvim-treesitter/completion-treesitter' },
     },
   }
@@ -33,7 +38,6 @@ return packer.startup(function()
     config = 'require [[lsp]]',
     requires = {
       { 'nvim-lua/completion-nvim' },
-      { 'nvim-lua/diagnostic-nvim' },
       { 'nvim-lua/lsp_extensions.nvim' },
       { 'nvim-lua/lsp-status.nvim' },
       { 'steelsojka/completion-buffers' },
@@ -46,15 +50,28 @@ return packer.startup(function()
     config = 'require [[expressline]]',
   }
 
-  use { 'tpope/vim-vinegar' }
+  use {
+    'tpope/vim-vinegar',
+    config = function()
+      vim.g.netrw_home = '~/.cache/nvim'
+    end
+  }
 
   -- Colorscheme
   use {
     'dracula/vim',
     as = 'dracula',
     config = function()
-      vim.cmd [[set termguicolors]]
+      vim.o.termguicolors = true
       vim.cmd [[colorscheme dracula]]
     end
+  }
+
+  -- Disabled
+  use {
+    { 'glepnir/galaxyline.nvim', disable = true },
+    { 'glepnir/indent-guides.nvim', disable = true },
+    { 'kyazdani42/nvim-web-devicons', disable = true },
+    { 'norcalli/snippets.nvim', disable = true },
   }
 end)

@@ -1,6 +1,7 @@
 lua require('plugins')
 
 autocmd BufWritePost plugins.lua PackerCompile
+autocmd BufEnter * lua require('completion').on_attach()
 autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
@@ -18,21 +19,39 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 " Telescope
-nnoremap <Leader>f <cmd>lua require'telescope.builtin'.git_files{}<CR>
-nnoremap <Leader>g <cmd>lua require'telescope.builtin'.live_grep{}<CR>
-nnoremap <Leader>en <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/", find_command = { "fd", "-L", "--type", "f" }}<CR>
-nnoremap <Leader>ts <cmd>lua require'telescope.builtin'.treesitter(require('telescope.themes').get_dropdown({}))<CR>
+nnoremap <Leader>ff <cmd>Telescope find_files<CR>
+nnoremap <Leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <Leader>fb <cmd>Telescope buffers<CR>
+nnoremap <Leader>fh <cmd>Telescope help_tags<CR>
 
-" diagnostic-nvim
-" move to lua
-call sign_define("LspDiagnosticsErrorSign", {"text" : "", "texthl" : "LspDiagnosticsError"})
-call sign_define("LspDiagnosticsWarningSign", {"text" : "", "texthl" : "LspDiagnosticsWarning"})
-call sign_define("LspDiagnosticsInformationSign", {"text" : "", "texthl" : "LspDiagnosticsInformation"})
-call sign_define("LspDiagnosticsHintSign", {"text" : "", "texthl" : "LspDiagnosticsHint"})
+nnoremap <Leader>en <cmd>lua require('telescope.builtin').find_files{ cwd = "~/.config/nvim/", find_command = { "fd", "-L", "--type", "f" }}<CR>
+nnoremap <Leader>ts <cmd>lua require('telescope.builtin').treesitter(require('telescope.themes').get_dropdown({}))<CR>
 
+nnoremap <Leader>dn <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
+sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
+sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=
+sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=
+sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
+
+" TODO https://github.com/nvim-lua/completion-nvim/wiki/per-server-setup-by-lua
 let g:completion_chain_complete_list = {
+    \'go': [
+    \    {'complete_items': ['lsp', 'path', 'ts']},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \],
+    \'lua': [
+    \    {'complete_items': ['lsp', 'path', 'ts']},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \],
+    \'rust': [
+    \    {'complete_items': ['lsp', 'path', 'ts']},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \],
     \'default': [
-    \    {'complete_items': ['lsp', 'snippet', 'buffers', 'ts']},
+    \    {'complete_items': ['buffer', 'path', 'ts']},
     \    {'mode': '<c-p>'},
     \    {'mode': '<c-n>'}
     \]
