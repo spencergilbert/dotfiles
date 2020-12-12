@@ -15,6 +15,9 @@ return packer.startup(function()
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-lua/popup.nvim' },
       { 'nvim-telescope/telescope-dap.nvim', disable = true },
+      { 'nvim-telescope/telescope-github.nvim',
+        config = 'require("telescope").load_extension("ghcli")'
+      },
     },
   }
 
