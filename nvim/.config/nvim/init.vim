@@ -3,6 +3,7 @@ lua require('plugins')
 autocmd BufWritePost plugins.lua PackerCompile
 autocmd BufEnter * lua require('completion').on_attach()
 autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"

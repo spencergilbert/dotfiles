@@ -22,7 +22,7 @@ set VISUAL nvim
 set fish_greeting
 
 source ~/.asdf/asdf.fish
-source ~/.cargo/env
+# source ~/.cargo/env
 
 zoxide init fish | source
 starship init fish | source
