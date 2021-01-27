@@ -20,6 +20,12 @@ lua << END
   end
 
 _G.packer_plugins = {
+  ["astronauta.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/sgilbert/.local/share/nvim/site/pack/packer/start/astronauta.nvim"
+  },
   ["completion-nvim"] = {
     loaded = true,
     only_sequence = true,
@@ -235,16 +241,16 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: telescope-github.nvim
-loadstring("\27LJ\2\nG\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\agh\19load_extension\14telescope\frequire\0")()
--- Config for: nvim-treesitter
-loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15treesitter\frequire\0")()
--- Config for: dracula
-loadstring("\27LJ\2\nW\0\0\3\0\5\0\t6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\3\0'\2\4\0B\0\2\1K\0\1\0\24colorscheme dracula\bcmd\18termguicolors\6o\bvim\0")()
 -- Config for: nvim-lspconfig
 loadstring("\27LJ\2\n#\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\blsp\frequire\0")()
 -- Config for: galaxyline.nvim
 loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15statusline\frequire\0")()
+-- Config for: dracula
+loadstring("\27LJ\2\nW\0\0\3\0\5\0\t6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\3\0'\2\4\0B\0\2\1K\0\1\0\24colorscheme dracula\bcmd\18termguicolors\6o\bvim\0")()
+-- Config for: telescope-github.nvim
+loadstring("\27LJ\2\nG\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\agh\19load_extension\14telescope\frequire\0")()
+-- Config for: nvim-treesitter
+loadstring("\27LJ\2\n*\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\15treesitter\frequire\0")()
 -- Config for: vim-vinegar
 loadstring("\27LJ\2\n:\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\18~/.cache/nvim\15netrw_home\6g\bvim\0")()
 -- Conditional loads

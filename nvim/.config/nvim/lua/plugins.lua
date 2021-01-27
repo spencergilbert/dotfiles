@@ -69,4 +69,6 @@ return packer.startup(function()
 			vim.g.netrw_home = "~/.cache/nvim"
 		end
 	}
+
+	use { 'tjdevries/astronauta.nvim' }
 end)
