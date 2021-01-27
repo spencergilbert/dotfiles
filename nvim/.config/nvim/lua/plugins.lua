@@ -21,7 +21,7 @@ return packer.startup(function()
 		},
 	}
 
-	-- TreeSitter
+	-- Tree-sitter
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
@@ -53,6 +53,14 @@ return packer.startup(function()
 		config = function()
 			vim.o.termguicolors = true
 			vim.cmd('colorscheme dracula')
+		end
+	}
+
+	-- Browser
+	use {
+		'tpope/vim-vinegar',
+		config = function()
+			vim.g.netrw_home = "~/.cache/nvim"
 		end
 	}
 end)

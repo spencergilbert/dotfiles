@@ -49,4 +49,4 @@ lspconfig.rust_analyzer.setup {
 	}
 }
 
-saga.init_lsp_saga()
+saga.init_lsp_saga {}
