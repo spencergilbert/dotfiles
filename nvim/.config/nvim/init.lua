@@ -1,5 +1,5 @@
 -- Load modules
-require("plugins")
+require'plugins'
 
 vim.api.nvim_exec(
 [[

@@ -21,7 +21,7 @@ lspconfig.gopls.setup {
 }
 
 lspconfig.sumneko_lua.setup {
-	cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+	cmd = {sumneko_binary, "-E", sumneko_root_path.."/main.lua"};
 	on_attach = require'completion'.on_attach;
 	settings = {
 		Lua = {

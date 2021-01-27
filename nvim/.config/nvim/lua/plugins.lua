@@ -1,3 +1,9 @@
+local path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+
+if vim.fn.empty(vim.fn.glob(path)) > 0 then
+	vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim '..path)
+end
+
 -- Required if packer is in `opt` path
 vim.cmd('packadd packer.nvim')
 
