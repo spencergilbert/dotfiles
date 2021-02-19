@@ -5,8 +5,10 @@ local keymap = require'astronauta.keymap'
 
 vim.api.nvim_exec(
 [[
-autocmd BufWritePost plugins.lua PackerCompile
 autocmd BufEnter * lua require'completion'.on_attach()
+autocmd BufWritePost plugins.lua PackerCompile
+autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
+
 autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
