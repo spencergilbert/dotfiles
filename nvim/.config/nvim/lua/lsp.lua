@@ -18,6 +18,16 @@ local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-s
 
 lspconfig.gopls.setup {
 	on_attach = require'completion'.on_attach;
+  settings = {
+    gopls = {
+      analyses = {
+        fieldalignment = true,
+        unusedparams = true,
+      },
+      gofumpt = true,
+      staticcheck = true,
+    },
+  },
 }
 
 lspconfig.sumneko_lua.setup {

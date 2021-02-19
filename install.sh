@@ -143,7 +143,7 @@ crates=(
 	"exa"
 	"fd-find"
 	"git-delta"
-	#"gitui" this needs libxcb-composite0-dev installed via apt
+	"gitui"
 	#"grex"
 	#"hyperfine"
 	"mdcat"
@@ -151,13 +151,13 @@ crates=(
 	#"rargs"
 	"ripgrep"
 	#"rmesg"
-	#"sd"
+	"sd"
 	"skim"
 	"starship"
 	"tealdeer"
 	#"tokei"
 	"topgrade"
-	#"watchexec"
+	"watchexec"
 	"zoxide"
 )
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

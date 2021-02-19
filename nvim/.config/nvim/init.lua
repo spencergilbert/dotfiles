@@ -7,6 +7,8 @@ vim.api.nvim_exec(
 [[
 autocmd BufWritePost plugins.lua PackerCompile
 autocmd BufEnter * lua require'completion'.on_attach()
+autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -21,12 +23,21 @@ keymap.nnoremap { 'gh', function() require'lspsaga.provider'.lsp_finder() end, s
 keymap.nnoremap { '<leader>ca', function() require'lspsaga.codeaction'.code_action() end, silent = true }
 
 -- Hover doc
-keymap.nnoremap { 'K', function() vim.lsp.buf.hover() end, silent = true }
+keymap.nnoremap { 'K', function() require'lspsaga.hover'.render_hover_doc() end, silent = true }
+keymap.nnoremap { 'C-f', function() require'lspsaga.action'.smart_scroll_with_saga(1) end, silent = true }
+keymap.nnoremap { 'C-b', function() require'lspsaga.action'.smart_scroll_with_saga(-1) end, silent = true }
+
+-- Signature help
+keymap.nnoremap { 'gs', function() require'lspsaga.signaturehelp'.signature_help() end, silent = true }
+
+-- Rename
+keymap.nnoremap { 'gr', function() require'lspsaga.rename'.rename() end, silent = true}
 
 -- Preview definition
 keymap.nnoremap { 'gd', function() require'lspsaga.provider'.preview_definition() end, silent = true }
 
 -- Jump diagnostics
+keymap.nnoremap { '<leader>cd', function() require'lspsaga.diagnostic'.show_line_diagnostics() end, silent = true }
 keymap.nnoremap { '[e', function() require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev() end, silent = true }
 keymap.nnoremap { ']e', function() require'lspsaga.diagnostic'.lsp_jump_diagnostic_next() end, silent = true }
 
