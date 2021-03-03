@@ -59,4 +59,9 @@ lspconfig.rust_analyzer.setup {
 	}
 }
 
+lspconfig.terraformls.setup {
+	on_attach = require'completion'.on_attach;
+	filetypes = { "terraform", "tf", "hcl" };
+}
+
 saga.init_lsp_saga {}
