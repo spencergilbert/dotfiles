@@ -33,8 +33,13 @@ aptpkgs=(
 	"libtool-bin"
 	#"neovim"
 	"stow"
+	"terraform-ls"
 	"qemu-user-static"
 )
+# Add the HashiCorp GPG key
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+# Add the official HashiCorp Linux repository
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update -qq
 sudo apt-get install -qq -y "${aptpkgs[@]}"
 
@@ -143,7 +148,7 @@ crates=(
 	"exa"
 	"fd-find"
 	"git-delta"
-	#"gitui" this needs libxcb-composite0-dev installed via apt
+	"gitui"
 	#"grex"
 	#"hyperfine"
 	"mdcat"
@@ -151,13 +156,13 @@ crates=(
 	#"rargs"
 	"ripgrep"
 	#"rmesg"
-	#"sd"
+	"sd"
 	"skim"
 	"starship"
 	"tealdeer"
 	#"tokei"
 	"topgrade"
-	#"watchexec"
+	"watchexec"
 	"zoxide"
 )
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

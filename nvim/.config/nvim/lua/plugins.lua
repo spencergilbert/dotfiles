@@ -1,77 +1,76 @@
+local path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+
+if vim.fn.empty(vim.fn.glob(path)) > 0 then
+	vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim '..path)
+end
+
 -- Required if packer is in `opt` path
-vim.cmd [[packadd packer.nvim]]
+vim.cmd('packadd packer.nvim')
 
 local packer = require('packer')
 
 return packer.startup(function()
-  local use = packer.use
+	local use = packer.use
 
-  -- Packer
-  use { 'wbthomason/packer.nvim', opt = true }
+	use { 'wbthomason/packer.nvim', opt = true }
 
-  -- Search
-  use { 'nvim-telescope/telescope.nvim',
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-lua/popup.nvim' },
-      { 'nvim-telescope/telescope-dap.nvim', disable = true },
-      { 'nvim-telescope/telescope-github.nvim',
-        config = 'require("telescope").load_extension("gh")'
-      },
-    },
-  }
+	-- Fuzzy Finder
+	use { 'nvim-telescope/telescope.nvim',
+		requires = {
+			{ 'nvim-lua/plenary.nvim' },
+			{ 'nvim-lua/popup.nvim' },
+			{ 'nvim-telescope/telescope-github.nvim',
+				config = function()
+					require'telescope'.load_extension("gh")
+				end
+			},
+		},
+	}
 
-  -- TreeSitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    config = 'require [[treesitter]]',
-    requires = {
-      { 'nvim-treesitter/nvim-treesitter-refactor' },
-      { 'nvim-treesitter/nvim-treesitter-textobjects', disable = true },
-      { 'nvim-treesitter/completion-treesitter' },
-    },
-  }
+	-- Tree-sitter
+	use {
+		'nvim-treesitter/nvim-treesitter',
+		run = ':TSUpdate',
+		config = function() require'treesitter' end,
+	}
 
-  -- LSPs and Completion
-  use {
-    'neovim/nvim-lspconfig',
-    config = 'require [[lsp]]',
-    requires = {
-      { 'nvim-lua/completion-nvim' },
-      { 'nvim-lua/lsp_extensions.nvim' },
-      { 'nvim-lua/lsp-status.nvim' },
-      { 'steelsojka/completion-buffers' },
-    },
-  }
+	-- LSP and Completion
+	use {
+		'neovim/nvim-lspconfig',
+		config = function() require'lsp' end,
+		requires = {
+			{ 'glepnir/lspsaga.nvim' },
+			{ 'nvim-lua/completion-nvim' },
+		},
+	}
 
-  -- Status line
-  use {
-    'tjdevries/express_line.nvim',
-    config = 'require [[expressline]]',
-  }
+	-- Statusline
+	use {
+		'glepnir/galaxyline.nvim',
+		branch = 'main',
+		config = function() require'statusline' end,
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+	}
 
-  use {
-    'tpope/vim-vinegar',
-    config = function()
-      vim.g.netrw_home = '~/.cache/nvim'
-    end
-  }
+	-- Colorscheme
+	use {
+		'dracula/vim',
+		as = 'dracula',
+		config = function()
+			vim.o.termguicolors = true
+			vim.cmd('colorscheme dracula')
+		end
+	}
 
-  -- Colorscheme
-  use {
-    'dracula/vim',
-    as = 'dracula',
-    config = function()
-      vim.o.termguicolors = true
-      vim.cmd [[colorscheme dracula]]
-    end
-  }
+	-- Browser
+	use {
+		'tpope/vim-vinegar',
+		config = function()
+			vim.g.netrw_home = "~/.cache/nvim"
+		end
+	}
 
-  -- Disabled
-  use {
-    { 'glepnir/galaxyline.nvim', disable = true },
-    { 'glepnir/indent-guides.nvim', disable = true },
-    { 'kyazdani42/nvim-web-devicons', disable = true },
-    { 'norcalli/snippets.nvim', disable = true },
-  }
+  use { 'gennaro-tedesco/nvim-jqx' }
+
+  use { 'tjdevries/astronauta.nvim' }
 end)
