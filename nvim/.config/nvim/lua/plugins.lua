@@ -70,5 +70,7 @@ return packer.startup(function()
 		end
 	}
 
-	use { 'tjdevries/astronauta.nvim' }
+  use { 'gennaro-tedesco/nvim-jqx' }
+
+  use { 'tjdevries/astronauta.nvim' }
 end)
