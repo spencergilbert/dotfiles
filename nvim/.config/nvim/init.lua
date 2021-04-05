@@ -50,7 +50,7 @@ keymap.tnoremap { '<A-d>', function() require'lspsaga.floaterm'.close_float_term
 -- Telescope
 keymap.nnoremap { '<leader>ff', function() require'telescope.builtin'.find_files() end }
 keymap.nnoremap { '<leader>fg', function() require'telescope.builtin'.live_grep() end }
-keymap.nnoremap { '<leader>fb', function() require'telescope.builtin'.buffers() end }
+keymap.nnoremap { '<leader>fb', function() require'telescope.builtin'.buffers({ show_all_buffers = true }) end }
 keymap.nnoremap { '<leader>fh', function() require'telescope.builtin'.help_tags() end }
 
 -- Use <Tab> and <S-Tab> to navigate popup menu
