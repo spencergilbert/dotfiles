@@ -31,6 +31,10 @@ fi
 cd "$DOTFILES_DIR"
 
 echo ""
+echo "📦 Updating system packages..."
+sudo dnf upgrade --assumeyes
+
+echo ""
 ./install.sh
 
 # Convert remote to SSH for 1Password agent
@@ -56,7 +60,6 @@ echo "📋 Next steps:"
 echo "   1. Launch 1Password desktop app and sign in"
 echo "   2. Enable SSH agent in 1Password settings"
 echo "   3. Restart your terminal (or run: exec bash)"
-echo "   4. Verify SSH agent: ssh-add -l"
 echo ""
 echo "💡 To update later: cd ~/.dotfiles && git pull && ./install.sh"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
