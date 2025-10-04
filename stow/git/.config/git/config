@@ -55,3 +55,6 @@
 
 [includeIf "gitdir:~/Projects/gitlab.com/"]
     path = ~/.config/git/gitlab
+
+[includeIf "gitdir:~/.dotfiles/"]
+    path = ~/.config/git/github
