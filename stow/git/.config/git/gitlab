@@ -1,0 +1,17 @@
+# GitLab specific configuration
+# This file is loaded by ~/.gitconfig when you are in a repository
+# under ~/Projects/gitlab.com/
+
+[user]
+  email = gitlab@brainrot.xyz
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIwZxdTe2J8ZBfrhMhNf573ZxsHvDPMRed944824FRbW
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+

@@ -1,0 +1,25 @@
+# Secrets and sensitive files
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+known_hosts
+authorized_keys
+*.env
+.op/
+
+# OS files
+.DS_Store
+Thumbs.db
+*~
+
+# Editor files
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
+*.bak

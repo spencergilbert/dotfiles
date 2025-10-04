@@ -1,0 +1,18 @@
+# Core tools
+1password
+1password-cli
+fish
+git
+helix
+stow
+
+# Containers
+podman
+
+# Modern CLI tools
+bat
+git-delta
+ripgrep
+zoxide
+btop
+gh

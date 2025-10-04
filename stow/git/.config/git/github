@@ -1,0 +1,17 @@
+# GitHub specific configuration
+# This file is loaded by ~/.gitconfig when you are in a repository
+# under ~/Projects/github.com/
+
+[user]
+  email = github@brainrot.xyz
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOEnzxOzElpBMHpiYOHlOn0ct+cIpH6q8iMBES2CNv6U
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+

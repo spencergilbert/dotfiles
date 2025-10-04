@@ -1,0 +1,17 @@
+# Codeberg specific configuration
+# This file is loaded by ~/.gitconfig when you are in a repository
+# under ~/Projects/codeberg.org/
+
+[user]
+  email = codeberg@brainrot.xyz
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+M4n58AP2RvioPOC9tFjdb4wPCSOC1A7jyxT09ZRZc
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+

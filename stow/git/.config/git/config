@@ -1,0 +1,57 @@
+# This is the main gitconfig file.
+# It's managed by stow from the dotfiles repository.
+
+[alias]
+    # Default: git diff uses delta (line-based)
+    # Opt-in: git dft uses difftastic (semantic)
+    dft = difftool
+
+[core]
+    pager = delta
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Catpuccin-mocha
+
+[diff]
+    colorMoved = default
+
+[diff]
+    tool = difftastic
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[interactive]
+    diffFilter = delta --color-only
+
+[merge]
+    conflictStyle = diff3
+
+[user]
+    name = Spencer Gilbert
+    email = spencer@brainrot.xyz
+
+[gpg]
+    format = ssh
+
+[commit]
+    gpgsign = true
+
+# --- Conditional Includes ---
+# Load forge-specific configurations based on the repository's path.
+# Assumes projects are organized in ~/Projects/<forge>/...
+
+[includeIf "gitdir:~/Projects/codeberg.org/"]
+    path = ~/.config/git/codeberg
+
+[includeIf "gitdir:~/Projects/github.com/"]
+    path = ~/.config/git/github
+
+[includeIf "gitdir:~/Projects/gitlab.com/"]
+    path = ~/.config/git/gitlab
