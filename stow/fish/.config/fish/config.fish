@@ -19,4 +19,9 @@ if status is-interactive
     # Prompt customization
     # -------------------------------------------------------------------------
     set -g __fish_git_prompt_color_branch green
+
+    # -------------------------------------------------------------------------
+    # Tool initialization (should be last in interactive block)
+    # -------------------------------------------------------------------------
+    zoxide init fish | source
 end

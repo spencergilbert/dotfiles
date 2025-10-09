@@ -13,7 +13,7 @@
     navigate = true
     side-by-side = true
     line-numbers = true
-    syntax-theme = Catpuccin-mocha
+    syntax-theme = Catppuccin Mocha
 
 [diff]
     colorMoved = default
@@ -58,3 +58,5 @@
 
 [includeIf "gitdir:~/.dotfiles/"]
     path = ~/.config/git/github
+[init]
+	defaultBranch = main
