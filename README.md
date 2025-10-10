@@ -16,12 +16,12 @@ git pull && ./install.sh
 
 ## What's Included
 
-- Modern CLI tools (ripgrep, eza, bat, zoxide, git-delta, btop, helix)
-- Fish shell with minimal prompt and git integration
-- SSH config with 1Password agent integration
-- Git config with delta diff viewer
+- Modern CLI tools (ripgrep, bat, zoxide, git-delta, btop, helix)
+- Fish shell with custom prompt (git status, exit codes) and aliases (`cat`→`bat`, `z` for smart cd)
+- SSH config with 1Password agent integration and modular `config.d` structure
+- Git config with delta diff viewer (syntax highlighting, side-by-side view)
 - Container tools (podman, toolbox)
-- Development tools (gh, just, ansible)
+- Development tools (gh)
 
 ## Post-Bootstrap
 
@@ -36,9 +36,11 @@ git pull && ./install.sh
 ├── install.sh
 ├── packages.txt
 ├── gnome/
-│   └── ptyxis.conf
+│   └── Ptyxis.conf
 └── stow/
     ├── bash/
+    ├── bat/
+    ├── btop/
     ├── fish/
     ├── git/
     ├── helix/
@@ -69,14 +71,6 @@ toolbox create test && toolbox enter test
 ./install.sh
 ```
 
-## Key Features
-
-**Fish shell:** Custom prompt with git status, exit codes, and aliases (`ls`→`eza`, `cat`→`bat`, `z` for smart cd)
-
-**SSH:** 1Password agent integration with modular `config.d` structure
-
-**Git:** Delta diff viewer with syntax highlighting and side-by-side view
-
 ## Why These Choices?
 
 **Bash scripts:** Simple, fast, idempotent, no runtime dependencies
@@ -87,4 +81,4 @@ toolbox create test && toolbox enter test
 
 ## License
 
-MIT
+MIT-0
