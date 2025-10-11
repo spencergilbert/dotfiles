@@ -6,3 +6,9 @@ language-servers = [ "fish-lsp" ]
 command = "fish-lsp"
 args= ["start"]
 environment = { "fish_lsp_show_client_popups" = "false" }
+
+[[language]]
+name = "python"
+language-servers = ["ty"]
+formatter = { command = "ruff", args = ["format", "-"] }
+auto-format = true
