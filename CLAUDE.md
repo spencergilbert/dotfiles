@@ -25,7 +25,9 @@ bash bootstrap.sh
 
 ### Validation & Testing
 
-@README.md#validation-workflow
+```bash
+shellcheck *.sh && shfmt --diff *.sh
+```
 
 ### Update
 
@@ -60,14 +62,12 @@ git pull
 ├── install.sh                # Main installation script (idempotent)
 ├── bootstrap.sh              # Fresh system bootstrap script
 ├── packages.txt              # Flat list of DNF packages
-├── stow/                     # Dotfiles (each subdir = stow package)
-│   ├── bash/
-│   ├── fish/
-│   ├── git/
-│   ├── helix/
-│   └── ssh/
-└── gnome/                    # GNOME configuration files
-    └── ptyxis.conf           # Ptyxis terminal settings
+
+├── stow/                     # Dotfiles (each subdir = one stow package)
+│   └── <package>/            # Auto-discovered by install.sh
+│       └── .config/...       # Maps to ~/.config/...
+└── gnome/                    # GNOME dconf configuration files
+    └── <AppName>.conf        # Auto-discovered by install.sh
 ```
 
 ### Bootstrap Design
@@ -83,6 +83,13 @@ git pull
 - **Third-party repos**: 1Password repo setup in `install.sh` (only if 1Password not installed)
 - **Package list**: `packages.txt` (flat list, add new packages here)
 - **Modern CLI tools**: ripgrep, bat, git-delta, zoxide, btop, etc.
+
+### Shell Configuration
+
+- **Interactive shell**: Fish (auto-launched from bash via `.bashrc`)
+- **Login shell**: Bash (intentionally unchanged)
+- **Rationale**: Keeps bash as the default login shell to maintain POSIX compliance for system scripts, SSH non-interactive commands, and to avoid lockout risks during system upgrades (especially on Fedora Atomic/Silverblue where layered packages may be temporarily unavailable)
+- **Implementation**: See `stow/bash/.bashrc` for the auto-launch logic
 
 ### GNOME Configuration
 
@@ -175,7 +182,7 @@ curl -fsSL https://raw.githubusercontent.com/USER/dotfiles/main/bootstrap.sh | b
 
 ### Why Bash Scripts Over Ansible?
 
-- **Simplicity**: ~150 lines total vs ~300+ lines of YAML
+- **Simplicity**: Minimal bash scripts vs hundreds of lines of YAML
 - **Dependencies**: 1 tool (stow) vs 2 (ansible-core + stow)
 - **Maintainability**: Standard bash + dnf + stow - easy to understand and modify
 - **Performance**: Fast execution, no Python interpreter overhead
@@ -195,7 +202,14 @@ curl -fsSL https://raw.githubusercontent.com/USER/dotfiles/main/bootstrap.sh | b
 - No secrets stored in git (even encrypted)
 - Single source of truth for all secrets
 
+### Why Not Change Default Shell to Fish?
+
+- **POSIX compliance**: System scripts and SSH non-interactive commands require bash/POSIX semantics
+- **Safety**: Prevents lockouts during system upgrades (especially Fedora Atomic/Silverblue)
+- **Compatibility**: Works with ostree updates where layered packages may be temporarily unavailable
+- **Solution**: Fish auto-launches from bash via `.bashrc` for interactive sessions only
+- **Reference**: https://tim.siosm.fr/blog/2023/12/22/dont-change-defaut-login-shell/
+
 ## Related Documentation
 
 - **README.md**: User-facing documentation, quick start guide, usage examples
-- **HOMELAB-PLAN.md**: Future homelab integration plans (separate repository)

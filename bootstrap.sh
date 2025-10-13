@@ -48,18 +48,10 @@ if [[ "$current_url" == https://github.com/* ]]; then
 	ssh_url="git@github.com:${repo_path}.git"
 
 	git remote set-url origin "$ssh_url"
-	echo "✅ Remote updated to SSH"
-	echo "   (SSH will work after 1Password setup)"
+	echo "✅ Remote updated to SSH (will work after 1Password setup)"
 fi
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "✅ Bootstrap complete!"
-echo ""
-echo "📋 Next steps:"
-echo "   1. Launch 1Password desktop app and sign in"
-echo "   2. Enable SSH agent in 1Password settings"
-echo "   3. Restart your terminal (or run: exec bash)"
-echo ""
-echo "💡 To update later: cd ~/.dotfiles && git pull && ./install.sh"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
