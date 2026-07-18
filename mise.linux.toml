@@ -1,0 +1,11 @@
+[bootstrap.hooks.pre-packages]
+run = "mise run setup-dnf-repos"
+
+[bootstrap.packages]
+"dnf:1password" = "latest"
+"dnf:1password-cli" = "latest"
+"dnf:fish" = "latest"
+"dnf:ghostty" = "latest"
+
+[dotfiles]
+"~/.config/mise/config.linux.toml" = "mise.linux.toml"

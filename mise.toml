@@ -1,0 +1,38 @@
+min_version = { hard = "2026.7.7" }
+
+[settings]
+experimental = true
+
+[settings.dotfiles]
+root = "~/.dotfiles"
+
+[bootstrap.hooks.pre-dotfiles]
+run = "mkdir -p -m 700 $HOME/.ssh/sockets"
+
+[dotfiles]
+"~/.config/bat/" = "bat/"
+"~/.config/fish/" = { source = "fish/", mode = "symlink-each" }
+"~/.config/ghostty/config.ghostty" = { source = "ghostty/config.ghostty", mode = "template" }
+"~/.config/git/allowed_signers" = { source = "git/allowed_signers", mode = "template" }
+"~/.config/git/config" = { source = "git/config", mode = "template" }
+"~/.config/git/ignore" = { source = "git/ignore" }
+"~/.config/mise/config.toml" = "mise.toml"
+"~/.config/mise/miserc.toml" = ".miserc.toml"
+"~/.config/nvim/" = "nvim/"
+"~/.config/pi/AGENTS.md" = { source = "shared/AGENTS.md" }
+"~/.config/pi/auth.json" = { source = "pi/auth.json", mode = "template" }
+"~/.config/pi/models.json" = { source = "pi/models.json", mode = "copy" }
+"~/.config/pi/settings.json" = { source = "pi/settings.json", mode = "copy" }
+"~/.ssh/conf.d/" = { source = "ssh/conf.d/", mode = "symlink-each" }
+"~/.ssh/config/include" = { line = "Include conf.d/*.conf" }
+
+[tools]
+bat = "latest"
+fd = "latest"
+gh = "latest"
+neovim = "latest"
+node = "lts"
+pi = "latest"
+ripgrep = "latest"
+starship = "latest"
+zoxide = "latest"

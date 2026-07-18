@@ -1,0 +1,19 @@
+[bootstrap.packages]
+"brew:fish" = "latest"
+"brew-cask:1password" = "latest"
+"brew-cask:1password-cli" = "latest"
+"brew-cask:ghostty" = "latest"
+# claude docker-desktop notion
+
+[dotfiles]
+"~/.config/claude/CLAUDE.md" = { source = "shared/AGENTS.md" }
+"~/.config/claude/settings.json" = { source = "claude/settings.json", mode = "copy" }
+"~/.config/codex/AGENTS.md" = { source = "shared/AGENTS.md" }
+"~/.config/mise/config.macos.toml" = "mise.macos.toml"
+
+[tools]
+claude = "latest"
+coder = "latest"
+codex = "latest"
+helm-ls = "latest"
+kubectl = "1.32"

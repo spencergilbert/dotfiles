@@ -1,0 +1,7 @@
+{%- if os() == "macos" %}
+sgilbert@mux.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpJ3kW7HjvDTUZVgIyHU1iHVH4dRqsR+PDJD/cbVkJY
+# Coder
+sgilbert@mux.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9pCVeWjE99qvBtt+wKKuCkqb9T3+Dq1N4W015ij2+1
+{%- else -%}
+me@spencergilbert.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDbE78//1EWMeQ3xWSdBKgcRRq0cx1vttLlEM+9cdN7j
+{%- endif %}

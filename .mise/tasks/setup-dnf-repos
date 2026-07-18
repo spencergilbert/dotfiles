@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#MISE description="Configure extra dnf repos"
+#MISE raw = true
+#MISE sources=[".mise/tasks/setup-dnf-repos"]
+#MISE outputs=["/etc/yum.repos.d/1password.repo", "/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo"]
+set -euo pipefail
+
+[ -r /etc/os-release ] || exit 0
+. /etc/os-release
+[ "${ID:-}" = fedora ] || exit 0
+
+# Cache sudo credentials once, up front (needs a real tty via raw=true)
+sudo -v
+
+# --- 1Password stable channel ---
+op_repo=/etc/yum.repos.d/1password.repo
+if [ ! -f "$op_repo" ]; then
+  sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+  tmp=$(mktemp)
+  cat > "$tmp" <<'EOF'
+[1password]
+name=1Password Stable Channel
+baseurl=https://downloads.1password.com/linux/rpm/stable/$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey="https://downloads.1password.com/linux/keys/1password.asc"
+EOF
+  sudo install -m 0644 "$tmp" "$op_repo"
+  rm -f "$tmp"
+fi
+
+# --- Ghostty (COPR: scottames/ghostty) ---
+gh_repo=/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo
+if [ ! -f "$gh_repo" ]; then
+  sudo dnf -y copr enable scottames/ghostty
+fi
