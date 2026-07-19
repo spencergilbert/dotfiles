@@ -2,8 +2,10 @@
 "brew:fish" = "latest"
 "brew-cask:1password" = "latest"
 "brew-cask:1password-cli" = "latest"
+"brew-cask:claude" = "latest"
 "brew-cask:ghostty" = "latest"
-# claude docker-desktop notion
+"brew-cask:notion" = "latest"
+# docker-desktop
 
 [dotfiles]
 "~/.config/claude/CLAUDE.md" = { source = "shared/AGENTS.md" }
