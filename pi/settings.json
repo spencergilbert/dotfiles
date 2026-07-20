@@ -1,3 +1,15 @@
 {
-  "theme": "dark"
+  "theme": "dark",
+{%- if os() == "macos" %}
+  "defaultProvider": "openai",
+  "enabledModels": [],
+  "packages": [],
+{%- else %}
+  "defaultProvider": "opencode",
+  "defaultModel": "deepseek-v4-flash-free",
+  "enabledModels": ["**/*free", "deepseek-v4-*"],
+  "packages": [],
+{%- endif %}
+  "showCacheMissNotices": true,
+  "npmCommand": ["mise", "exec", "node@lts", "--", "npm"]
 }

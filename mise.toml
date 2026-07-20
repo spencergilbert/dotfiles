@@ -23,7 +23,7 @@ run = "mkdir -p -m 700 $HOME/.ssh/sockets"
 "~/.config/pi/AGENTS.md" = { source = "shared/AGENTS.md" }
 "~/.config/pi/auth.json" = { source = "pi/auth.json", mode = "template" }
 "~/.config/pi/models.json" = { source = "pi/models.json", mode = "copy" }
-"~/.config/pi/settings.json" = { source = "pi/settings.json", mode = "copy" }
+"~/.config/pi/settings.json" = { source = "pi/settings.json", mode = "template" }
 "~/.ssh/conf.d/" = { source = "ssh/conf.d/", mode = "symlink-each" }
 "~/.ssh/config/include" = { line = "Include conf.d/*.conf" }
 
