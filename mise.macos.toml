@@ -1,6 +1,6 @@
 [bootstrap.packages]
 "brew:fish" = "latest"
-"brew-cask:1password" = "latest"
+# 1password app is MDM managed
 "brew-cask:1password-cli" = "latest"
 "brew-cask:claude" = "latest"
 "brew-cask:ghostty" = "latest"
