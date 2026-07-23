@@ -9,3 +9,4 @@ run = "mise run setup-dnf-repos"
 
 [dotfiles]
 "~/.config/mise/config.linux.toml" = "mise.linux.toml"
+"~/.ssh/authorized_keys" = { source = "ssh/authorized_keys" }
