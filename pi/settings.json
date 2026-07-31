@@ -5,8 +5,9 @@
   "enabledModels": [],
   "packages": [],
 {%- else %}
-  "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash-free",
+  "defaultProvider": "ds4",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "high",
   "enabledModels": [
     "deepseek-v4-*"
   ],
