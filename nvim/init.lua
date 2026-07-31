@@ -38,3 +38,17 @@ vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
 vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
+
+-- JSON: 2-space indentation to match jq's output format
+vim.api.nvim_create_augroup('json_indent', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+	group = 'json_indent',
+	pattern = 'json',
+	callback = function()
+		vim.bo.tabstop = 2
+		vim.bo.shiftwidth = 2
+		vim.bo.softtabstop = 2
+		vim.bo.expandtab = true
+	end,
+})
+
