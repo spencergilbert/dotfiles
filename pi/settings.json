@@ -1,4 +1,5 @@
 {
+  "externalEditor": "nvim",
   "theme": "dark",
 {%- if os() == "macos" %}
   "defaultProvider": "openai",
