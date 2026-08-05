@@ -10,7 +10,8 @@
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "enabledModels": [
-    "deepseek-v4-*"
+    "deepseek-v4-*",
+    "llamacpp/**"
   ],
   "packages": [],
 {%- endif %}
