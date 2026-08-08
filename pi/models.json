@@ -1,39 +1,7 @@
 {
   "providers": {
-    "llamacpp": {
-      "name": "llama.cpp",
-      "baseUrl": "http://desktop:8080/v1",
-      "api": "openai-completions",
-      "apiKey": "EMPTY",
-      "compat": {
-        "supportsReasoningEffort": false,
-        "supportsDeveloperRole": true,
-        "thinkingFormat": "qwen-chat-template"
-      },
-      "models": [
-        {
-          "id": "qwen3.6-35b-a3b",
-          "name": "Qwen3.6 35B-A3B MTP",
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "minimal": null,
-            "low": null,
-            "medium": null
-          },
-          "input": ["text", "image"],
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        }
-      ]
-    },
     "ds4": {
-      "name": "ds4.c local",
+      "name": "ds4",
       "baseUrl": "http://desktop:8000/v1",
       "api": "openai-completions",
       "apiKey": "EMPTY",
@@ -50,7 +18,7 @@
       "models": [
         {
           "id": "deepseek-v4-flash",
-          "name": "DeepSeek V4 Flash (ds4.c local)",
+          "name": "DeepSeek V4 Flash",
           "reasoning": true,
           "thinkingLevelMap": {
             "minimal": null,
