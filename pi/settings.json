@@ -6,12 +6,12 @@
   "enabledModels": [],
   "packages": [],
 {%- else %}
-  "defaultProvider": "ds4",
+  "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "enabledModels": [
     "deepseek-v4-*",
-    "llamacpp/**"
+    "opencode-go/**"
   ],
   "packages": [],
 {%- endif %}
