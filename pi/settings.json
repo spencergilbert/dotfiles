@@ -1,6 +1,6 @@
 {
   "externalEditor": "nvim",
-  "theme": "dark",
+  "theme": "catppuccin-frappe",
 {%- if os() == "macos" %}
   "defaultProvider": "openai",
   "enabledModels": [],
@@ -13,7 +13,9 @@
     "deepseek-v4-*",
     "opencode-go/**"
   ],
-  "packages": [],
+  "packages": [
+    "~/src/github.com/spencergilbert/pi-pkg"
+  ],
 {%- endif %}
   "showCacheMissNotices": true,
   "npmCommand": [

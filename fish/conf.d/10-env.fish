@@ -10,3 +10,5 @@ set -gx CLAUDE_CONFIG_DIR $XDG_CONFIG_HOME/claude
 set -gx CODEX_HOME $XDG_CONFIG_HOME/codex
 set -gx PI_CODING_AGENT_DIR $XDG_CONFIG_HOME/pi
 set -gx PI_CODING_AGENT_SESSION_DIR $XDG_STATE_HOME/pi/sessions
+
+set -gx KAGI_API_KEY "$(op read op://Private/Pi/kagi)"
