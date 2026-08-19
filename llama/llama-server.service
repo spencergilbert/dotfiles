@@ -1,0 +1,24 @@
+[Unit]
+Description=llama.cpp inference router
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/src/github.com/ggml-org/llama.cpp/build/bin/llama-server \
+    --models-preset %h/.config/llama.cpp/models.ini \
+    --sleep-idle-seconds 900
+# Rest of the server options (host, port) come from this file.
+EnvironmentFile=%h/.config/llama.cpp/llama-server.env
+
+Restart=on-failure
+RestartSec=3
+KillSignal=SIGINT
+TimeoutStopSec=30
+LimitNOFILE=65536
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

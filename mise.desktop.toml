@@ -1,0 +1,28 @@
+[bootstrap.packages]
+# ds4
+"dnf:hipcc" = "latest"
+"dnf:rocminfo" = "latest"
+"dnf:rocm-smi" = "latest"
+"dnf:rocm-hip-devel" = "latest"
+"dnf:hipblas-devel" = "latest"
+"dnf:hipblaslt-devel" = "latest"
+"dnf:rocblas-devel" = "latest"
+"dnf:rocwmma-devel" = "latest"
+"dnf:hipcub-devel" = "latest"
+"dnf:make" = "latest"
+"dnf:gcc" = "latest"
+"dnf:clang" = "latest"
+# llama.cpp
+"dnf:cmake" = "latest"
+"dnf:ninja-build" = "latest"
+"dnf:vulkan-headers" = "latest"
+"dnf:vulkan-loader-devel" = "latest"
+"dnf:glslc" = "latest"
+"dnf:spirv-headers-devel" = "latest"
+
+[dotfiles]
+"~/.config/llama.cpp/models.ini" = { source = "llama/models.ini" }
+"~/.config/llama.cpp/llama-server.env" = { source = "llama/llama-server.env" }
+"~/.config/llama.cpp/qwen-fixed-chat_template.jinja" = { source = "llama/qwen-fixed-chat_template.jinja" }
+"~/.config/llama.cpp/qwen-fixed-chat_template_oneline.txt" = { source = "llama/qwen-fixed-chat_template_oneline.txt" }
+"~/.config/systemd/user/llama-server.service" = { source = "llama/llama-server.service" }
