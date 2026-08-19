@@ -38,24 +38,14 @@
         "maxTokensField": "max_tokens"
       },
       "modelOverrides": {
-        "qwen3.6-25b-a3b": {
+        "qwen3.6-35b-a3b": {
           "name": "Qwen3.6 35B A3B (llama.cpp)",
           "reasoning": true,
           "input": ["text", "image"],
           "contextWindow": 262144,
           "maxTokens": 262144,
           "compat": {
-            "thinkingFormat": "reasoning_effort",
-            "supportsReasoningEffort": true
-          },
-          "thinkingLevelMap": {
-            "off": "none",
-            "minimal": null,
-            "low": "low",
-            "medium": "medium",
-            "high": null,
-            "xhigh": "xhigh",
-            "max": null
+            "thinkingFormat": "qwen-chat-template"
           }
         },
         "qwen3.8-27b": {
