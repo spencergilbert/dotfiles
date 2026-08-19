@@ -4,14 +4,10 @@
       "name": "ds4",
       "baseUrl": "http://desktop:8000/v1",
       "api": "openai-completions",
-      "apiKey": "EMPTY",
+      "apiKey": "sk-no-key-required",
       "compat": {
-        "supportsStore": false,
-        "supportsDeveloperRole": false,
         "supportsReasoningEffort": true,
         "supportsUsageInStreaming": true,
-        "maxTokensField": "max_tokens",
-        "supportsStrictMode": false,
         "thinkingFormat": "deepseek",
         "requiresReasoningContentOnAssistantMessages": true
       },
@@ -21,6 +17,7 @@
           "name": "DeepSeek V4 Flash",
           "reasoning": true,
           "thinkingLevelMap": {
+            "off": "none",
             "minimal": null,
             "low": null,
             "medium": null,
@@ -29,16 +26,59 @@
             "max": "max"
           },
           "input": ["text"],
-          "contextWindow": 150000,
-          "maxTokens": 384000,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
+          "contextWindow": 1000000,
+          "maxTokens": 384000
         }
       ]
+    },
+    "llama.cpp": {
+      "compat": {
+        "supportsStore": false,
+        "supportsReasoningEffort": false,
+        "maxTokensField": "max_tokens"
+      },
+      "modelOverrides": {
+        "qwen3.6-25b-a3b": {
+          "name": "Qwen3.6 35B A3B (llama.cpp)",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 262144,
+          "maxTokens": 262144,
+          "compat": {
+            "thinkingFormat": "reasoning_effort",
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        },
+        "qwen3.8-27b": {
+          "name": "Qwen3.8 27B (llama.cpp)",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 262144,
+          "maxTokens": 262144,
+          "compat": {
+            "thinkingFormat": "reasoning_effort",
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        }
+      }
     }
   }
 }
