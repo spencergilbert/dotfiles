@@ -46,6 +46,14 @@
           "maxTokens": 262144,
           "compat": {
             "thinkingFormat": "qwen-chat-template"
+          },
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": null,
+            "medium": "medium",
+            "high": null,
+            "xhigh": null,
+            "max": null
           }
         },
         "qwen3.8-27b": {
@@ -67,6 +75,13 @@
             "xhigh": "xhigh",
             "max": null
           }
+        },
+        "qwen3-coder-next": {
+          "name": "Qwen3 Coder Next (llama.cpp)",
+          "reasoning": false,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 262144
         }
       }
     }
