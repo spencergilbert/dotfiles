@@ -15,7 +15,7 @@
     "opencode-go/**"
   ],
   "packages": [
-    "~/src/github.com/spencergilbert/pi-pkg"
+    "https://tangled.org/spencergilbert.dev/pi-pkg"
   ],
 {%- endif %}
   "showCacheMissNotices": true,
