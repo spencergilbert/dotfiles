@@ -62,7 +62,7 @@ vim.o.smartcase = true
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.list = true
-vim.o.listchars = 'tab:>· ,trail:·,extends:>,precedes:<,nbsp:+,eol:$'
+vim.o.listchars = 'tab:>· ,trail:·,extends:>,precedes:<,nbsp:+'
 
 -- If performing an operation that would fail due to unsaved changes (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s).
