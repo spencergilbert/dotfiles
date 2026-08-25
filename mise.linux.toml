@@ -4,9 +4,10 @@ run = "mise run setup-dnf-repos"
 [bootstrap.packages]
 "dnf:1password" = "latest"
 "dnf:1password-cli" = "latest"
+"dnf:cmake" = "latest"
 "dnf:fish" = "latest"
-"dnf:ghostty" = "latest"
 "dnf:gcc" = "latest"
+"dnf:ghostty" = "latest"
 
 [dotfiles]
 "~/.config/mise/config.linux.toml" = "mise.linux.toml"
