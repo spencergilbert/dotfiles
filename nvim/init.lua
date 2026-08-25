@@ -165,5 +165,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
--- Enable language servers (loaded from lua/lsp/<name>.lua)
+-- Enable language servers (loaded from lsp/<name>.lua)
 vim.lsp.enable({ 'gopls', 'helm_ls', 'yaml_language_server' })
