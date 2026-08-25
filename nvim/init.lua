@@ -152,6 +152,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('n', 'grn', function() vim.lsp.buf.rename(opts) end, opts)
 		vim.keymap.set({ 'n', 'v' }, 'gra', function() vim.lsp.buf.code_action(opts) end, opts)
 		vim.keymap.set('n', 'K',   function() vim.lsp.buf.hover(opts) end, opts)
+
+		-- Enable LSP autotrigger completion (shows suggestions on trigger characters)
+		if client:supports_method('textDocument/completion') then
+			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+		end
 	end,
 })
 
