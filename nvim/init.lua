@@ -27,10 +27,10 @@ end
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('treesitter_enable', { clear = true }),
   pattern = treesitter_languages,
-  callback = function(ev)
-    if pcall(vim.treesitter.start, ev.buf) then
-      vim.wo[ev.buf].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      vim.wo[ev.buf].foldmethod = 'expr'
+  callback = function()
+    if pcall(vim.treesitter.start, 0) then
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo.foldmethod = 'expr'
     end
   end,
 })
