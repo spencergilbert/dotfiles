@@ -1,9 +1,22 @@
-vim.pack.add { { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' } }
+-- Leader key must be set before plugins load
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Plugins managed by vim.pack (installed to $XDG_DATA_HOME/nvim/site/pack/core/opt)
+vim.pack.add {
+  { src = 'https://github.com/catppuccin/nvim',                name = 'catppuccin' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', name = 'nvim-treesitter' },
+  { src = 'https://github.com/nvim-telescope/telescope.nvim',   name = 'telescope' },
+  { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim', name = 'telescope-fzf-native' },
+}
 
 -- Custom filetype detection
 require('filetypes.helm')
 
+-- Colorscheme (must load after plugins that define highlight groups)
 vim.cmd.colorscheme('catppuccin-frappe')
+
+-- OPTIONS
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -34,6 +47,11 @@ vim.o.listchars = 'tab:>· ,trail:·,extends:>,precedes:<,nbsp:+,eol:$'
 -- See `:h 'confirm'`
 vim.o.confirm = true
 
+-- Completion options for LSP completion menus
+vim.o.completeopt = 'menuone,noselect,popup'
+
+-- KEYMAPS
+
 -- Use <Esc> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
@@ -46,6 +64,14 @@ vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
 vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
+
+-- Telescope keybindings
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep,   { desc = 'Live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers,       { desc = 'Buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags,     { desc = 'Help tags' })
+vim.keymap.set('n', '<leader>fk', builtin.keymaps,       { desc = 'Keymaps' })
 
 -- Highlight when yanking (copying) text. Try `yap` in normal mode to test.
 -- See `:h vim.hl.on_yank()`
@@ -69,6 +95,41 @@ vim.api.nvim_create_autocmd('FileType', {
 		vim.bo.shiftwidth = 2
 		vim.bo.softtabstop = 2
 		vim.bo.expandtab = true
+	end,
+})
+
+-- LSP: diagnostics display with virtual text and inline signs
+vim.diagnostic.config({
+	signs          = { text = { [vim.diagnostic.severity.ERROR] = '✗' } },
+	virtual_text    = true,
+	underline       = true,
+	update_in_insert = true,
+	float            = { border = 'single', source = 'if_many' },
+})
+
+-- LSP: disable the built-in global keymaps (gra, gri, grn, grr, grt)
+-- so they don't conflict with normal usage
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'gO')
+
+-- LSP: LspAttach handler — set up per-buffer keymaps when LSP attaches
+local lsp_group = vim.api.nvim_create_augroup('lsp', { clear = true })
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = lsp_group,
+	desc = 'Set up LSP keymaps on attach',
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if not client then return end
+
+		local opts = { buffer = ev.buf, desc = 'vim.lsp: ' .. client.name }
+
+		vim.keymap.set('n', 'grn', function() vim.lsp.buf.rename(opts) end, opts)
+		vim.keymap.set({ 'n', 'v' }, 'gra', function() vim.lsp.buf.code_action(opts) end, opts)
+		vim.keymap.set('n', 'K',   function() vim.lsp.buf.hover(opts) end, opts)
 	end,
 })
 
