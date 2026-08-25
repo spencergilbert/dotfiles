@@ -8,6 +8,7 @@ vim.pack.add {
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter',            name = 'nvim-treesitter' },
   { src = 'https://github.com/nvim-lua/plenary.nvim',                      name = 'plenary' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim',              name = 'telescope' },
+  { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim',   name = 'telescope-fzf-native' },
 }
 
 -- Custom filetype detection
@@ -20,13 +21,14 @@ vim.cmd.colorscheme('catppuccin-frappe')
 treesitter_languages = {
   'lua', 'go', 'yaml', 'helm', 'bash', 'json', 'toml', 'markdown', 'markdown_inline',
 }
+treesitter_fold_langs = { 'lua', 'go', 'yaml', 'helm' }
 require('nvim-treesitter').setup {}
 for _, lang in ipairs(treesitter_languages) do
   require('nvim-treesitter').install({ lang })
 end
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('treesitter_enable', { clear = true }),
-  pattern = treesitter_languages,
+  pattern = treesitter_fold_langs,
   callback = function()
     if pcall(vim.treesitter.start, 0) then
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -35,8 +37,11 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Telescope: setup with reasonable defaults
-require('telescope').setup {}
+-- Telescope: enable fzf-native extension
+require('telescope').setup { extensions = { fzf = {} } }
+if vim.fn.isdirectory(vim.fs.joinpath(vim.fn.stdpath('data'), 'site/pack/core/opt/telescope-fzf-native/build')) == 1 then
+  require('telescope').load_extension('fzf')
+end
 
 -- OPTIONS
 
