@@ -4,10 +4,10 @@ vim.g.maplocalleader = ' '
 
 -- Plugins managed by vim.pack (installed to $XDG_DATA_HOME/nvim/site/pack/core/opt)
 vim.pack.add {
-  { src = 'https://github.com/catppuccin/nvim',                name = 'catppuccin' },
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', name = 'nvim-treesitter' },
-  { src = 'https://github.com/nvim-telescope/telescope.nvim',   name = 'telescope' },
-  { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim', name = 'telescope-fzf-native' },
+  { src = 'https://github.com/catppuccin/nvim',                            name = 'catppuccin' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter',            name = 'nvim-treesitter' },
+  { src = 'https://github.com/nvim-lua/plenary.nvim',                      name = 'plenary' },
+  { src = 'https://github.com/nvim-telescope/telescope.nvim',              name = 'telescope' },
 }
 
 -- Custom filetype detection
@@ -15,6 +15,28 @@ require('filetypes.helm')
 
 -- Colorscheme (must load after plugins that define highlight groups)
 vim.cmd.colorscheme('catppuccin-frappe')
+
+-- Treesitter: install parsers for these languages, enable folding on filetype
+treesitter_languages = {
+  'lua', 'go', 'yaml', 'helm', 'bash', 'json', 'toml', 'markdown', 'markdown_inline',
+}
+require('nvim-treesitter').setup {}
+for _, lang in ipairs(treesitter_languages) do
+  require('nvim-treesitter').install({ lang })
+end
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('treesitter_enable', { clear = true }),
+  pattern = treesitter_languages,
+  callback = function(ev)
+    if pcall(vim.treesitter.start, ev.buf) then
+      vim.wo[ev.buf].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[ev.buf].foldmethod = 'expr'
+    end
+  end,
+})
+
+-- Telescope: setup with reasonable defaults
+require('telescope').setup {}
 
 -- OPTIONS
 
