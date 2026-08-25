@@ -1,5 +1,8 @@
 vim.pack.add { { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' } }
 
+-- Custom filetype detection
+require('filetypes.helm')
+
 vim.cmd.colorscheme('catppuccin-frappe')
 
 vim.o.number = true
@@ -60,7 +63,7 @@ local indent_group = vim.api.nvim_create_augroup('indent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
 	group = indent_group,
 	desc = 'Set buffer-local indentation for specific filetypes',
-	pattern = { 'json', 'yaml', 'toml' },
+	pattern = { 'json', 'helm.tmpl', 'yaml', 'toml' },
 	callback = function()
 		vim.bo.tabstop = 2
 		vim.bo.shiftwidth = 2
