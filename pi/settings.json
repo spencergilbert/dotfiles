@@ -1,6 +1,7 @@
 {
   "externalEditor": "nvim",
   "theme": "catppuccin-frappe",
+  "quietStartup": true,
   "defaultThinkingLevel": "medium",
 {%- if os() == "macos" %}
   "defaultProvider": "openai",
