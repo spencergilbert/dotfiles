@@ -76,8 +76,8 @@
             "max": null
           }
         },
-        "qwen3-coder-next": {
-          "name": "Qwen3 Coder Next (llama.cpp)",
+        "qwen3-coder-next-80b-a3b": {
+          "name": "Qwen3 Coder Next 80B A3B (llama.cpp)",
           "reasoning": false,
           "input": ["text"],
           "contextWindow": 262144,
