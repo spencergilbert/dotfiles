@@ -13,8 +13,8 @@ end
 
 vim.filetype.add({
 	pattern = {
-		['.*/templates/.*%.tpl$'] = in_helm_chart('helm'),
-		['.*/templates/.*%.ya?ml$'] = in_helm_chart('helm'),
-		[',*/values[^/]*%.ya?ml$'] = in_helm_chart('yaml.helm-values'),
+		['.*/templates/.*%.tpl'] = in_helm_chart('helm'),
+		['.*/templates/.*%.ya?ml'] = in_helm_chart('helm'),
+		['.*/values[^/]*%.ya?ml'] = in_helm_chart('yaml.helm-values'),
 	},
 })

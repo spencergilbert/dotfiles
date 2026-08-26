@@ -28,6 +28,7 @@ run = "mkdir -p -m 700 $HOME/.ssh/sockets"
 "~/.ssh/config/include" = { line = "Include conf.d/*.conf" }
 
 [tools]
+"npm:bash-language-server" = "latest"
 bat = "latest"
 fd = "latest"
 gh = "latest"
