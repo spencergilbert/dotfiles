@@ -21,8 +21,9 @@ vim.cmd.colorscheme('catppuccin-frappe')
 treesitter_languages = {
   'lua', 'go', 'yaml', 'helm', 'bash', 'json', 'toml', 'markdown', 'markdown_inline',
 }
-treesitter_fold_langs = { 'lua', 'go', 'yaml', 'helm' }
+treesitter_fold_langs = { 'lua', 'go', 'yaml', 'yaml.helm-values', 'helm' }
 require('nvim-treesitter').setup {}
+vim.treesitter.language.register('yaml', 'yaml.helm-values')
 for _, lang in ipairs(treesitter_languages) do
   require('nvim-treesitter').install({ lang })
 end
@@ -55,6 +56,7 @@ local clipboard_group = vim.api.nvim_create_augroup('clipboard', { clear = true 
 vim.api.nvim_create_autocmd('UIEnter', {
 	group = clipboard_group,
 	desc = 'Sync OS clipboard via unnamedplus',
+	once = true,
 	callback = function()
 		vim.o.clipboard = 'unnamedplus'
 	end,
@@ -83,14 +85,18 @@ vim.o.completeopt = 'menuone,noselect,popup'
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 -- Map <A-j>, <A-k>, <A-h>, <A-l> to navigate between windows in any modes
-vim.keymap.set({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h')
-vim.keymap.set({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j')
-vim.keymap.set({ 't', 'i' }, '<A-k>', '<C-\\><C-n><C-w>k')
-vim.keymap.set({ 't', 'i' }, '<A-l>', '<C-\\><C-n><C-w>l')
-vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
-vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
-vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
-vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
+vim.keymap.set('i', '<A-h>', '<C-o><C-w>h')
+vim.keymap.set('i', '<A-j>', '<C-o><C-w>j')
+vim.keymap.set('i', '<A-k>', '<C-o><C-w>k')
+vim.keymap.set('i', '<A-l>', '<C-o><C-w>l')
+vim.keymap.set('t', '<A-h>', '<C-\\><C-n><C-w>h')
+vim.keymap.set('t', '<A-j>', '<C-\\><C-n><C-w>j')
+vim.keymap.set('t', '<A-k>', '<C-\\><C-n><C-w>k')
+vim.keymap.set('t', '<A-l>', '<C-\\><C-n><C-w>l')
+vim.keymap.set('n', '<A-h>', '<C-w><C-w>h')
+vim.keymap.set('n', '<A-j>', '<C-w><C-w>j')
+vim.keymap.set('n', '<A-k>', '<C-w><C-w>k')
+vim.keymap.set('n', '<A-l>', '<C-w><C-w>l')
 
 -- Telescope keybindings
 local builtin = require('telescope.builtin')
@@ -116,7 +122,7 @@ local indent_group = vim.api.nvim_create_augroup('indent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
 	group = indent_group,
 	desc = 'Set buffer-local indentation for specific filetypes',
-	pattern = { 'json', 'helm.tmpl', 'yaml', 'toml' },
+	pattern = { 'json', 'helm', 'yaml', 'toml' },
 	callback = function()
 		vim.bo.tabstop = 2
 		vim.bo.shiftwidth = 2
@@ -166,4 +172,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Enable language servers (loaded from lsp/<name>.lua)
-vim.lsp.enable({ 'gopls', 'helm_ls', 'yaml_language_server' })
+vim.lsp.enable({ 'bashls', 'gopls', 'helmls', 'terraformls', 'yamlls' })

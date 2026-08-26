@@ -1,23 +1,23 @@
 {
   "externalEditor": "nvim",
   "theme": "catppuccin-frappe",
+  "defaultThinkingLevel": "medium",
 {%- if os() == "macos" %}
   "defaultProvider": "openai",
+  "defaultModel": "gpt-5.6-sol",
   "enabledModels": [],
-  "packages": [],
 {%- else %}
   "defaultProvider": "llama.cpp",
   "defaultModel": "qwen3.6-35b-a3b",
-  "defaultThinkingLevel": "medium",
   "enabledModels": [
     "ds4/**",
     "llama.cpp/**",
     "opencode-go/**"
   ],
+{%- endif %}
   "packages": [
     "https://tangled.org/spencergilbert.dev/pi-pkg"
   ],
-{%- endif %}
   "showCacheMissNotices": true,
   "npmCommand": [
     "mise",

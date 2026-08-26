@@ -11,6 +11,8 @@ set -gx CODEX_HOME $XDG_CONFIG_HOME/codex
 set -gx PI_CODING_AGENT_DIR $XDG_CONFIG_HOME/pi
 set -gx PI_CODING_AGENT_SESSION_DIR $XDG_STATE_HOME/pi/sessions
 
-if not set -q SSH_CONNECTION
-	set -gx KAGI_API_KEY "$(op read op://Private/Pi/kagi)"
+if not set -q SSH_CONNECTION; and not set -q KAGI_API_KEY
+	if set -l kagi_api_key (op read op://Private/Pi/kagi 2>/dev/null)
+		set -gx KAGI_API_KEY "$kagi_api_key"
+	end
 end
