@@ -172,4 +172,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Enable language servers (loaded from lsp/<name>.lua)
-vim.lsp.enable({ 'bashls', 'gopls', 'helmls', 'terraformls', 'yamlls' })
+vim.lsp.enable({ 'bashls', 'gopls', 'helmls', 'terraformls', 'yamlls', 'zls' })
