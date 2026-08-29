@@ -76,6 +76,26 @@
             "max": null
           }
         },
+        "qwen3.8-flash-next": {
+          "name": "Qwen3.8 Flash Next (llama.cpp)",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 262144,
+          "maxTokens": 262144,
+          "compat": {
+            "thinkingFormat": "reasoning_effort",
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        },
         "qwen3-coder-next-80b-a3b": {
           "name": "Qwen3 Coder Next 80B A3B (llama.cpp)",
           "reasoning": false,
