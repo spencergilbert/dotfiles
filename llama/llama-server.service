@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=%h/src/github.com/ggml-org/llama.cpp/build/bin/llama-server \
+ExecStart=%h/src/github.com/ggml-org/llama.cpp/build-fork/bin/llama-server \
     --models-preset %h/.config/llama.cpp/models.ini \
     --sleep-idle-seconds 900
 # Rest of the server options (host, port) come from this file.
