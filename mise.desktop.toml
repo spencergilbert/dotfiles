@@ -21,6 +21,7 @@
 "dnf:spirv-headers-devel" = "latest"
 
 [dotfiles]
+"~/.config/mise/config.desktop.toml" = "mise.desktop.toml"
 "~/.config/llama.cpp/models.ini" = { source = "llama/models.ini" }
 "~/.config/llama.cpp/llama-server.env" = { source = "llama/llama-server.env" }
 "~/.config/llama.cpp/qwen-fixed-chat_template.jinja" = { source = "llama/qwen-fixed-chat_template.jinja" }
