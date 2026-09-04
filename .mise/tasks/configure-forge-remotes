@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#MISE description="Mirror pushes to tangled, gitlab and github"
+set -euo pipefail
+
+REPO_DIR="$HOME/.dotfiles"
+
+# Auth-free URL for pulls. Keeping origin on HTTPS (rather than SSH) keeps
+# `mise bootstrap --from <https>` origin checks passing on every run.
+PULL_URL="https://tangled.org/spencergilbert.dev/dotfiles"
+
+# Every forge that `git push` should fan out to.
+PUSH_URLS=(
+  "git@tangled.org:did:plc:an5o2a52tfyhntuwsopwqnof"
+  "git@gitlab.com:spencergilbert/dotfiles.git"
+  "git@github.com:spencergilbert/dotfiles.git"
+)
+
+# Idempotent: re-running it resets the URLs instead of duplicating them.
+[ -d "$REPO_DIR/.git" ] || exit 0
+git -C "$REPO_DIR" remote set-url origin "$PULL_URL"
+git -C "$REPO_DIR" config --unset-all remote.origin.pushurl || true
+for url in "${PUSH_URLS[@]}"; do
+  git -C "$REPO_DIR" config --add remote.origin.pushurl "$url"
+done
+git -C "$REPO_DIR" config remote.pushdefault origin

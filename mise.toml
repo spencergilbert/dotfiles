@@ -11,6 +11,9 @@ root = "~/.dotfiles"
 [bootstrap.hooks.pre-dotfiles]
 run = "mkdir -p -m 700 $HOME/.ssh/sockets"
 
+[bootstrap.hooks.final]
+run = "mise run configure-forge-remotes"
+
 [dotfiles]
 "~/.config/bat/" = "bat/"
 "~/.config/fish/" = { source = "fish/", mode = "symlink-each" }
