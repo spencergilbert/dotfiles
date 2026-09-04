@@ -1,0 +1,25 @@
+# Short-term Prometheus scrape config for llama-server router (user service, port 9931).
+# One scrape job per model instance; the router serves per-model metrics via ?model=.
+# Stored in the dotfiles repo for reproducibility alongside tuning notes.
+global:
+  scrape_interval: 10s
+  evaluation_interval: 30s
+
+rule_files: []
+
+scrape_configs:
+  # qwen3.6-35b-a3b (current tuning target)
+  - job_name: llama-qwen3.6-35b-a3b
+    metrics_path: /metrics
+    params:
+      model: ["qwen3.6-35b-a3b"]
+    static_configs:
+      - targets: ["127.0.0.1:9931"]
+        labels:
+          model: "qwen3.6-35b-a3b"
+
+  # NOTE: the router returns 400 for /metrics without a model param,
+  # so every job must pin ?model=. User-side aggregate is not exposed.
+
+  # Add other models later by copying the qwen3.6 job and changing params.model
+  # e.g. qwen3.8-27b, qwen3.8-flash-next, qwen3-coder-next-80b-a3b
