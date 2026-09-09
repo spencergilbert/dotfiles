@@ -40,3 +40,19 @@ ctx 262k. MTP head exists but is NOT in mainline llama.cpp yet.
 - Deep soak (160,784 tokens): **no OOM**, KV growth +1G only; prompt 132 pps, gen 9.5 t/s at depth
   → flash-next is the slow, careful, hard-task slot: expect ~20 min TTFT on 150k-token ingests.
 - Old main build (build/bin b210) retained as fallback; AtomicChat AD-4.27bpw flavor (88 GiB) now unused on disk.
+
+## MTP depth-1 bug — flash-next (found 2026-09-06 via Grafana, patched locally)
+- Symptom: new Speculative Decoding dashboard section showed Pos1|Pos0 = 0% on flash-next.
+  Counters: drafts == draft_tokens (depth exactly 1.0), accepts pos1+ hard zero; journal full of
+  `spec draft: llama_decode[1] returned -1` (~1/round) + `init: ... X = 4958, Y = 4958 ... M-RoPE X < Y`.
+  (qwen3.6 control on same build: 529 drafts -> 1587 tokens = 3.0 depth, ~70% acc, pos 0/1/2 — healthy.)
+- Root cause (fork `common/speculative.cpp`): external MTP head borrows target tensors via `ctx_other`,
+  and the ctor equated that with Gemma4-style shared KV (`is_mem_shared`). Shared path re-submits every
+  draft token at the same position -> 2nd draft decode violates M-RoPE strict X<Y -> break -> len-1 drafts.
+  `mean len = 1 + acceptance` (1.68 = 1 + 0.68) was the fingerprint.
+- Local patch (uncommitted, on fork 2c967293c): gate `is_mem_shared` on draft arch == `gemma4-assistant`
+  (via `general.architecture` meta); external MTP heads now get catch-up decode + advancing positions.
+  Catch-up/prefix-check skips preserved for `chain_heads` so qwen3.6 behavior is byte-identical.
+  Reapply after every fork pull; upstream candidate for the qwen4exp/mtp branch.
+- Verified after rebuild + restart: 45 drafts -> 224 tokens (**~5.0/draft, full n-max 5**),
+  accepts pos 0-4 = 37/30/19/10/8, **zero** decode errors. Acceptance still reads sane (~46% short sample).
