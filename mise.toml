@@ -28,6 +28,7 @@ run = "mise run configure-forge-remotes"
 "~/.config/pi/auth.json" = { source = "pi/auth.json", mode = "template" }
 "~/.config/pi/models.json" = { source = "pi/models.json" }
 "~/.config/pi/settings.json" = { source = "pi/settings.json", mode = "template" }
+"~/.local/bin/" = { source = "bin/", mode = "symlink-each" }
 "~/.ssh/conf.d/" = { source = "ssh/conf.d/", mode = "symlink-each" }
 "~/.ssh/config/include" = { line = "Include conf.d/*.conf" }
 
