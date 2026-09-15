@@ -30,7 +30,8 @@
             "max": null
           },
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "contextWindow": 131072,
           "maxTokens": 32768,
@@ -46,7 +47,8 @@
           "name": "GLM 5.3 Flash (ds4)",
           "reasoning": true,
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "contextWindow": 131072,
           "maxTokens": 32768,
