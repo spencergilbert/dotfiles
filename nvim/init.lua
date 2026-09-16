@@ -653,7 +653,16 @@ do
       },
     },
 
-    helm_ls = {},
+    helm_ls = {
+      settings = {
+        -- Delegate YAML handling for values files to yaml-language-server.
+        ['helm-ls'] = {
+          yamlls = {
+            path = 'yaml-language-server',
+          },
+        },
+      },
+    },
 
     terraformls = {
       -- Also treat Terragrunt configs as a project root marker.
@@ -709,6 +718,16 @@ do
 
   vim.pack.add {
     gh 'neovim/nvim-lspconfig',
+  }
+
+  -- Helm filetype detection (templates, helmfiles, values files) plus a
+  --  Go-template `commentstring` and `%` block matching. The treesitter
+  --  indent hints activate once the `helm` parser from the treesitter section
+  --  is installed. Template conceal is disabled because it caches rendered
+  --  values by raw template text and never invalidates that cache.
+  vim.pack.add { gh 'qvalentin/helm-ls.nvim' }
+  require('helm-ls').setup {
+    conceal_templates = { enabled = false },
   }
 
   for name, server in pairs(servers) do
@@ -850,7 +869,7 @@ do
   vim.pack.add { gh 'nvim-treesitter/nvim-treesitter' }
 
   -- Ensure basic parsers are installed
-  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+  local parsers = { 'bash', 'c', 'diff', 'helm', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer
