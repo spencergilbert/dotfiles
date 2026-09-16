@@ -1,2 +1,4 @@
 [tools]
+lua-language-server = "latest"
 shfmt = "latest"
+stylua = "latest"
