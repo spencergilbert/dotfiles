@@ -640,6 +640,40 @@ do
 
     stylua = {}, -- Used to format Lua code
 
+    -- The servers below rely on the defaults shipped by nvim-lspconfig
+    --  (`lsp/<name>.lua`); only overrides to those defaults are listed here.
+    --  See `:help lspconfig-all` for the full defaults of each server.
+    bashls = {},
+
+    gopls = {
+      settings = {
+        gopls = {
+          gofumpt = true,
+        },
+      },
+    },
+
+    helm_ls = {},
+
+    terraformls = {
+      -- Also treat Terragrunt configs as a project root marker.
+      root_markers = { '.terraform', 'terragrunt.hcl', '.git' },
+    },
+
+    yamlls = {
+      settings = {
+        -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+        redhat = { telemetry = { enabled = false } },
+        yaml = {
+          schemaStore = {
+            enable = false,
+          },
+        },
+      },
+    },
+
+    zls = {},
+
     -- Special Lua Config, as recommended by neovim help docs
     lua_ls = {
       on_init = function(client)
