@@ -461,6 +461,9 @@ do
 
   -- Add Telescope-based LSP pickers when an LSP attaches to a buffer.
   -- If you later switch picker plugins, this is where to update these mappings.
+  --
+  -- TODO: merge this into the `kickstart-lsp-attach` handler in the LSP section
+  -- so that all buffer-local LSP keymaps are defined in one place.
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
     callback = function(event)
@@ -673,11 +676,10 @@ do
       settings = {
         -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
         redhat = { telemetry = { enabled = false } },
-        yaml = {
-          schemaStore = {
-            enable = false,
-          },
-        },
+        -- NOTE: `yaml.schemaStore` is left at its default (enabled), which is what
+        --  validates Kubernetes manifests, Helm charts, GitHub Actions, etc.
+        --  To run yamlls fully offline, set `schemaStore = { enable = false }` here
+        --  and list the schemas you want explicitly under `yaml.schemas`.
       },
     },
 
@@ -854,6 +856,15 @@ do
     -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true },
   }
+
+  -- Advertise blink.cmp's capabilities (snippet expansion, resolve support,
+  --  label details for auto-import) to every server. Neovim deep-extends these
+  --  over `vim.lsp.protocol.make_client_capabilities()`, so this only adds to
+  --  the defaults. Lives here rather than in the LSP section because blink.cmp
+  --  only reaches 'runtimepath' via the `vim.pack.add` above. Ordering against
+  --  `vim.lsp.enable()` is fine: writing a config invalidates resolved configs,
+  --  which are recomputed when a client starts for a buffer.
+  vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end
 
 -- ============================================================
