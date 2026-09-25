@@ -87,8 +87,8 @@
             "minimal": null,
             "low": "low",
             "medium": "medium",
-            "high": "high",
-            "xhigh": null,
+            "high": null,
+            "xhigh": "xhigh",
             "max": null
           },
           "input": [
@@ -97,6 +97,22 @@
           ],
           "contextWindow": 1000000,
           "maxTokens": 131072,
+          "cost": {
+            "input": 0.15,
+            "output": 0.47,
+            "cacheRead": 0.016,
+            "cacheWrite": 0.2
+          },
+          "inputLimits": {
+            "images": {
+              "resize": {
+                "maxWidth": 2000,
+                "maxHeight": 2000,
+                "maxBytes": 4718592,
+                "jpegQuality": 80
+              }
+            }
+          },
           "compat": {
             "supportsStore": false,
             "supportsDeveloperRole": false,

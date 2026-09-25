@@ -13,7 +13,8 @@
   "enabledModels": [
     "ds4/**",
     "llama.cpp/**",
-    "opencode-go/**"
+    "opencode-go/**",
+    "qwen-token-plan/**"
   ],
 {%- endif %}
   "packages": [
