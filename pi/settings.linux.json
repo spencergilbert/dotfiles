@@ -1,0 +1,23 @@
+{
+  "externalEditor": "nvim",
+  "theme": "catppuccin-frappe",
+  "quietStartup": true,
+  "defaultThinkingLevel": "medium",
+  "defaultProvider": "qwen-token-plan",
+  "defaultModel": "qwen3.8-flash",
+  "enabledModels": [
+    "opencode-go/**",
+    "qwen-token-plan/**"
+  ],
+  "packages": [
+    "https://tangled.org/spencergilbert.dev/pi-pkg"
+  ],
+  "showCacheMissNotices": true,
+  "npmCommand": [
+    "mise",
+    "exec",
+    "node@lts",
+    "--",
+    "npm"
+  ]
+}

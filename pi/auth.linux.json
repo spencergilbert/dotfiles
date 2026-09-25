@@ -5,16 +5,6 @@
       "LLAMA_BASE_URL": "http://desktop:9931"
     }
   },
-{%- if os() == "macos" %}
-  "anthropic": {
-    "type": "api_key",
-    "key": "!op read 'op://Employee/Pi/anthropic'"
-  },
-  "openai": {
-    "type": "api_key",
-    "key": "!op read 'op://Employee/Pi/openai'"
-  }
-{%- else %}
   "opencode-go": {
     "type": "api_key",
     "key": "!op read 'op://Private/Pi/opencode-go'"
@@ -23,5 +13,4 @@
     "type": "api_key",
     "key": "!op read 'op://Private/Pi/qwen-token-plan'"
   }
-{%- endif %}
 }

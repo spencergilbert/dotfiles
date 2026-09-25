@@ -11,4 +11,6 @@ run = "mise run setup-dnf-repos"
 
 [dotfiles]
 "~/.config/mise/config.linux.toml" = "mise.linux.toml"
+"~/.config/pi/auth.json" = { source = "pi/auth.linux.json", mode = "copy" }
+"~/.config/pi/settings.json" = { source = "pi/settings.linux.json", mode = "copy" }
 "~/.ssh/authorized_keys" = { source = "ssh/authorized_keys" }

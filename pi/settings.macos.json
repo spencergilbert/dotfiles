@@ -3,18 +3,9 @@
   "theme": "catppuccin-frappe",
   "quietStartup": true,
   "defaultThinkingLevel": "medium",
-{%- if os() == "macos" %}
   "defaultProvider": "openai",
   "defaultModel": "gpt-5.6-sol",
   "enabledModels": [],
-{%- else %}
-  "defaultProvider": "qwen-token-plan",
-  "defaultModel": "qwen3.8-flash",
-  "enabledModels": [
-    "opencode-go/**",
-    "qwen-token-plan/**"
-  ],
-{%- endif %}
   "packages": [
     "https://tangled.org/spencergilbert.dev/pi-pkg"
   ],
