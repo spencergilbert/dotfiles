@@ -17,8 +17,7 @@
   ],
 {%- endif %}
   "packages": [
-    "https://tangled.org/spencergilbert.dev/pi-pkg",
-    "npm:pi-mcp-adapter"
+    "https://tangled.org/spencergilbert.dev/pi-pkg"
   ],
   "showCacheMissNotices": true,
   "npmCommand": [
