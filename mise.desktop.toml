@@ -16,8 +16,3 @@
 
 [dotfiles]
 "~/.config/mise/config.desktop.toml" = "mise.desktop.toml"
-"~/.config/llama.cpp/models.ini" = { source = "llama/models.ini" }
-"~/.config/llama.cpp/llama-server.env" = { source = "llama/llama-server.env" }
-"~/.config/llama.cpp/qwen-fixed-chat_template.jinja" = { source = "llama/qwen-fixed-chat_template.jinja" }
-"~/.config/llama.cpp/qwen-fixed-chat_template_oneline.txt" = { source = "llama/qwen-fixed-chat_template_oneline.txt" }
-"~/.config/systemd/user/llama-server.service" = { source = "llama/llama-server.service" }
