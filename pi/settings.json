@@ -8,11 +8,9 @@
   "defaultModel": "gpt-5.6-sol",
   "enabledModels": [],
 {%- else %}
-  "defaultProvider": "llama.cpp",
-  "defaultModel": "qwen3.6-35b-a3b",
+  "defaultProvider": "qwen-token-plan",
+  "defaultModel": "qwen3.8-flash",
   "enabledModels": [
-    "ds4/**",
-    "llama.cpp/**",
     "opencode-go/**",
     "qwen-token-plan/**"
   ],
