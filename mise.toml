@@ -15,6 +15,7 @@ run = "mkdir -p -m 700 $HOME/.ssh/sockets"
 run = "mise run configure-forge-remotes"
 
 [dotfiles]
+"~/.bashrc.d/" = { source = "bashrc.d/", mode = "symlink-each" }
 "~/.config/bat/" = "bat/"
 "~/.config/fish/" = { source = "fish/", mode = "symlink-each" }
 "~/.config/ghostty/config.ghostty" = { source = "ghostty/config.ghostty", mode = "template" }
