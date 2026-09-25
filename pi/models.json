@@ -12,6 +12,15 @@
     "opencode-go": {
       "modelOverrides": {
         "qwen3.8-flash": {
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          },
           "compat": {
             "allowEmptySignature": true
           }
