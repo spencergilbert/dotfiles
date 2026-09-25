@@ -1,14 +1,8 @@
 [bootstrap.packages]
-# ds4
-"dnf:hipcc" = "latest"
-"dnf:rocminfo" = "latest"
-"dnf:rocm-smi" = "latest"
-"dnf:rocm-hip-devel" = "latest"
-"dnf:hipblas-devel" = "latest"
-"dnf:hipblaslt-devel" = "latest"
-"dnf:rocblas-devel" = "latest"
-"dnf:rocwmma-devel" = "latest"
-"dnf:hipcub-devel" = "latest"
+# ds4 host build tools. The ROCm stack (hipcc, rocminfo, rocm-smi, hipblas*,
+# rocblas, rocwmma, hipcub, …) is installed from AMD's repo by amferd's
+# docs/setup/fedora-rocm.md runbook (amdrocm-core-devel10.0-*), not Fedora's
+# rocm-*/hip* RPMs — do not reintroduce those here; the two stacks conflict.
 "dnf:make" = "latest"
 "dnf:gcc" = "latest"
 "dnf:clang" = "latest"
