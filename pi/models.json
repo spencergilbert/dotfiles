@@ -40,13 +40,8 @@
             }
           },
           "compat": {
-            "supportsStore": false,
-            "supportsDeveloperRole": false,
             "supportsStrictMode": true,
-            "maxTokensField": "max_tokens",
-            "thinkingFormat": "qwen",
-            "requiresReasoningContentOnAssistantMessages": true,
-            "supportsReasoningEffort": true
+            "thinkingFormat": "qwen"
           }
         }
       ]
