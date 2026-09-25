@@ -1,50 +1,22 @@
 {
   "providers": {
-    "opencode-go": {
-      "models": [
-        {
-          "id": "qwen3.8-flash",
-          "name": "Qwen3.8 Flash",
-          "api": "openai-completions",
-          "baseUrl": "https://opencode.ai/zen/go/v1",
-          "reasoning": true,
+    "qwen-token-plan": {
+      "modelOverrides": {
+        "qwen3.8-flash": {
           "thinkingLevelMap": {
-            "off": "none",
-            "minimal": null,
-            "low": "low",
-            "medium": "medium",
-            "high": null,
-            "xhigh": "xhigh",
-            "max": null
-          },
-          "input": [
-            "text",
-            "image"
-          ],
-          "contextWindow": 1000000,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.15,
-            "output": 0.47,
-            "cacheRead": 0.016,
-            "cacheWrite": 0.2
-          },
-          "inputLimits": {
-            "images": {
-              "resize": {
-                "maxWidth": 2000,
-                "maxHeight": 2000,
-                "maxBytes": 4718592,
-                "jpegQuality": 80
-              }
-            }
-          },
-          "compat": {
-            "supportsStrictMode": true,
-            "thinkingFormat": "qwen"
+            "off": "none"
           }
         }
-      ]
+      }
+    },
+    "opencode-go": {
+      "modelOverrides": {
+        "qwen3.8-flash": {
+          "compat": {
+            "allowEmptySignature": true
+          }
+        }
+      }
     }
   }
 }
