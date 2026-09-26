@@ -7,7 +7,8 @@
   "defaultModel": "gpt-5.6-sol",
   "enabledModels": [],
   "packages": [
-    "https://tangled.org/spencergilbert.dev/pi-pkg"
+    "https://tangled.org/spencergilbert.dev/pi-pkg",
+    "npm:pi-mcp-adapter"
   ],
   "showCacheMissNotices": true,
   "npmCommand": [

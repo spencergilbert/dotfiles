@@ -17,3 +17,5 @@ set -gx PI_CODING_AGENT_SESSION_DIR $XDG_STATE_HOME/pi/sessions
 if test (hostname) = desktop; and not set -q MISE_ENV
 	set -gx MISE_ENV desktop
 end
+
+set -gx MCP_UI_VIEWER none
