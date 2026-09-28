@@ -6,6 +6,7 @@
   "defaultProvider": "qwen-token-plan",
   "defaultModel": "qwen3.8-flash",
   "enabledModels": [
+    "gufo/**",
     "opencode-go/**",
     "qwen-token-plan/**"
   ],
