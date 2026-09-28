@@ -20,12 +20,12 @@
           "maxTokens": 131072,
           "thinkingLevelMap": {
             "off": "off",
-            "minimal": "minimal",
+            "minimal": null,
             "low": "low",
             "medium": "medium",
-            "high": "high",
+            "high": null,
             "xhigh": "xhigh",
-            "max": "max"
+            "max": null
           },
           "compat": {
             "supportsStrictMode": true
