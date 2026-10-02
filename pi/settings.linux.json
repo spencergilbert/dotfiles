@@ -1,7 +1,10 @@
 {
   "externalEditor": "nvim",
-  "theme": "catppuccin-frappe",
-  "quietStartup": true,
+  "theme": "system",
+  "quietStartup": "header",
+  "defaultTools": [
+    "+codemode"
+  ],
   "defaultThinkingLevel": "medium",
   "defaultProvider": "qwen-token-plan",
   "defaultModel": "qwen3.8-flash",
@@ -21,5 +24,6 @@
     "node@lts",
     "--",
     "npm"
-  ]
+  ],
+  "hideThinkingBlock": false
 }

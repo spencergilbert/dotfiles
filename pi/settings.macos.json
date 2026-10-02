@@ -1,15 +1,17 @@
 {
   "externalEditor": "nvim",
-  "theme": "catppuccin-frappe",
-  "quietStartup": true,
+  "theme": "system",
+  "quietStartup": "header",
+  "defaultTools": [
+    "+codemode"
+  ],
   "defaultThinkingLevel": "medium",
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.6-sol",
+  "defaultProvider": "anthropic",
+  "defaultModel": "opus-5-5",
   "enabledModels": [],
   "packages": [
     "https://github.com/earendil-works/pi-review",
-    "https://tangled.org/spencergilbert.dev/pi-pkg",
-    "npm:pi-mcp-adapter"
+    "https://tangled.org/spencergilbert.dev/pi-pkg"
   ],
   "showCacheMissNotices": true,
   "npmCommand": [
@@ -18,5 +20,6 @@
     "node@lts",
     "--",
     "npm"
-  ]
+  ],
+  "hideThinkingBlock": false
 }
