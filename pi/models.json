@@ -16,8 +16,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 262144,
-          "maxTokens": 131072,
+          "contextWindow": 131072,
+          "maxTokens": 16384,
           "thinkingLevelMap": {
             "off": "off",
             "minimal": null,
