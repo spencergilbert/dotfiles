@@ -7,7 +7,7 @@
   ],
   "defaultThinkingLevel": "medium",
   "defaultProvider": "anthropic",
-  "defaultModel": "opus-5-5",
+  "defaultModel": "claude-opus-5-5",
   "enabledModels": [],
   "packages": [
     "https://github.com/earendil-works/pi-review",
