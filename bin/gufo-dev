@@ -8,6 +8,7 @@
 #   gufo-dev shell                 interactive shell inside the container
 #   gufo-dev status                container, volumes, host readiness
 #   gufo-dev down                  remove the container (volumes survive)
+#   gufo-dev gc                    trim the Nix store volume (nix lane only)
 #
 # That is the whole interface: the container stays up, everything else is exec.
 #
@@ -15,13 +16,17 @@
 #   gufo-dev run cmake --preset release -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 #   gufo-dev run cmake --build --preset release --parallel 12
 #   gufo-dev run ./build/release/gufo diagnose
+#   gufo-dev run cmake --preset gpu-test        # the gpu-fast/gpu-full ctest
+#   gufo-dev run cmake --build --preset gpu-test --target hipblaslt_plan_cache_test
 #   gufo-dev run ctest --preset gpu-fast -R 'wmma|gemm|attention' --output-on-failure
-#   gufo-dev run python3 tools/ci/check-format.py
-#   gufo-dev run nix flake check            # repository gates, in the nix lane
+#   gufo-dev run python3 tools/ci/check-format.py     # the CI formatting gate
 #   gufo-dev shell
 #
-# Anything the checkout can do is `run <that>`; nothing here is a wrapper around
-# a build system the repository already documents.
+# A ctest preset needs its configure preset run first: gpu-fast and gpu-full
+# read build/gpu-test, so configure that preset before listing or running tests.
+#
+# One argument to `run` runs as a shell line (pipes and && work); several
+# arguments run as exact argv, so a quoted regex keeps its metacharacters.
 #
 # Lanes, each with its own pinned toolchain:
 #
@@ -29,23 +34,23 @@
 #                    GCC 15.3, ROCm 7.2.3, clang-format 21.1.8, and the
 #                    torch/lpips reference stack. The Nix sandbox needs
 #                    --privileged. A first run downloads about 6.6 GiB of
-#                    substitutes and unpacks 19 GiB into the store volume.
-#                    Flakes only see tracked files, so stage new sources first.
+#                    substitutes and unpacks 19 GiB into the store volume, so
+#                    never start this lane on a machine without gfx1151: the
+#                    guard below exists because `nix develop` will happily
+#                    compile the closure on a laptop that cannot run the result.
 #   image  ghcr.io/gufo-org/toolboxes/gufo-dev: the same compiler and ROCm as a
 #                    built image, so the first run is a pull instead of a Nix
 #                    download. Rootless, no --privileged, no torch oracles.
-#                    Note that the *published* edge image can run and profile
-#                    Gufo but cannot compile it — that is gufo-org/toolboxes#9.
-#                    Until it ships, point GUFO_DEV_TOOLBOX_IMAGE at a locally
-#                    built image (see that repo's `nix build .#stream-gufo-dev`).
+#                    The *published* edge image can run and profile Gufo but
+#                    cannot compile it — that is gufo-org/toolboxes#9; until it
+#                    ships, point GUFO_DEV_TOOLBOX_IMAGE at a locally built one.
 #
 # Override for other checkouts and hosts with GUFO_DEV_LANE, GUFO_DEV_REPO,
 # GUFO_DEV_MODELS, GUFO_DEV_CONTAINER, GUFO_DEV_NIX_IMAGE,
 # GUFO_DEV_TOOLBOX_IMAGE, GUFO_DEV_STORE_VOLUME, GUFO_DEV_CCACHE_VOLUME,
 # GUFO_DEV_JOBS.
-#
-# Run it on the GPU box. Without /dev/kfd it refuses to start anything.
 
+set -q GUFO_DEV_LANE; or set -gx GUFO_DEV_LANE nix
 set -q GUFO_DEV_CONTAINER; or set -gx GUFO_DEV_CONTAINER gufo-dev
 set -q GUFO_DEV_REPO; or set -gx GUFO_DEV_REPO $HOME/src/github.com/spencergilbert/gufo
 set -q GUFO_DEV_MODELS; or set -gx GUFO_DEV_MODELS $HOME/.local/share/gufo/models
@@ -55,10 +60,14 @@ set -q GUFO_DEV_STORE_VOLUME; or set -gx GUFO_DEV_STORE_VOLUME gufo-nix-store
 set -q GUFO_DEV_CCACHE_VOLUME; or set -gx GUFO_DEV_CCACHE_VOLUME gufo-ccache
 set -q GUFO_DEV_JOBS; or set -gx GUFO_DEV_JOBS (nproc)
 
-# The lane is remembered on the container, so `run` and `shell` after an `up
-# image` keep using the toolbox image without repeating the argument.
+# The lane is remembered on the container, so `run` and `shell` keep working
+# after an `up image` without repeating the argument.
 function container_lane
     podman inspect -f '{{ index .Config.Labels "gufo-dev.lane" }}' $GUFO_DEV_CONTAINER 2>/dev/null
+end
+
+function running
+    podman ps -q -f "name=$GUFO_DEV_CONTAINER"
 end
 
 function image_for_lane
@@ -75,13 +84,13 @@ end
 # SELinux needs :z on every bind mount, otherwise the container cannot write the
 # checkout. The nix lane runs as root with its own namespaces for the sandbox;
 # the toolbox image is built for UID 1000 and needs keep-id plus keep-groups to
-# reach the group that owns /dev/kfd.
+# reach the group owning /dev/kfd.
 function collect_args
     set -l lane $argv[1]
     set -g ARGS
     switch $lane
         case nix
-            set -g ARGS --privileged --security-opt label=disable
+            set -a ARGS --privileged --security-opt label=disable
             set -a ARGS -v "$GUFO_DEV_STORE_VOLUME:/nix"
             set -a ARGS -v "$GUFO_DEV_CCACHE_VOLUME:/root/.cache/ccache"
             set -a ARGS -e "NIX_CONFIG=experimental-features = nix-command flakes"
@@ -100,10 +109,140 @@ function collect_args
     end
 end
 
+# Guards use explicit `if not` blocks: `return` inside `test … or begin … end`
+# only leaves the block in fish, which silently turns such a guard into a no-op.
+# Strix Halo's GPU PCI ids, from Gufo's own detection in
+# src/core/diagnostics/system_inventory.cpp. Any AMD iGPU provides /dev/kfd, so
+# the device node alone cannot justify a 19 GiB closure build on the wrong box.
+function gfx1151_present
+    for d in /sys/bus/pci/devices/*
+        set -l vendor (cat "$d/vendor" 2>/dev/null)
+        set -l dev (cat "$d/device" 2>/dev/null)
+        if test "$vendor" = 0x1002
+            and contains "$dev" 0x1586 0x1587 0x1588
+            return 0
+        end
+    end
+    return 1
+end
+
+function amd_gpus
+    for d in /sys/bus/pci/devices/*
+        set -l vendor (cat "$d/vendor" 2>/dev/null)
+        if test "$vendor" = 0x1002
+            echo -n (basename $d)":"(cat "$d/device" 2>/dev/null)" "
+        end
+    end
+end
+
+function preflight
+    if not command -q podman
+        echo "gufo-dev: podman is missing" >&2
+        return 1
+    end
+    if not test -e /dev/kfd
+        echo "gufo-dev: no /dev/kfd — this must run on the Strix Halo box" >&2
+        return 1
+    end
+    # Gufo's own check identifies Strix Halo by the GPU PCI id; an AMD iGPU
+    # elsewhere also provides /dev/kfd, so the device node is not the test.
+    if not gfx1151_present
+        echo "gufo-dev: no gfx1151 device (1002:1586/1587/1588) here — run it on the Strix Halo box" >&2
+        echo "gufo-dev: AMD devices seen: "(amd_gpus) >&2
+        return 1
+    end
+    if not test -d "$GUFO_DEV_REPO/.git"
+        echo "gufo-dev: $GUFO_DEV_REPO is not a git checkout (set GUFO_DEV_REPO)" >&2
+        return 1
+    end
+    # The images need at least 6.18.4: older kernels crash under sustained ROCm
+    # compute on gfx1151.
+    set -l kver (uname -r | cut -d- -f1)
+    set -l oldest (printf '%s\n%s\n' 6.18.4 $kver | sort -V | head -1)
+    if test "$oldest" != 6.18.4
+        echo "gufo-dev: kernel $kver is below the 6.18.4 floor for gfx1151" >&2
+        return 1
+    end
+    if test (ulimit -l) != unlimited
+        echo "gufo-dev: memlock is not unlimited; large buffers may fail" >&2
+        echo "gufo-dev: set '\* soft/hard memlock unlimited' in /etc/security/limits.d/" >&2
+        return 1
+    end
+    if not contains render (id -nG | string split ' ')
+        echo "gufo-dev: not in the render group; /dev/kfd access will be denied" >&2
+        return 1
+    end
+    return 0
+end
+
+# Starting is idempotent, so `run` and `shell` can be the first command after
+# installing this, and repeated calls do nothing.
+function ensure_up
+    set -l want $argv[1]
+    # A container that exists but is not running still owns the name, so it is
+    # started rather than created again; a crash or a reboot leaves one behind.
+    set -l known (podman ps -aq -f "name=$GUFO_DEV_CONTAINER")
+    if test -n "$known"
+        set -l cur (container_lane)
+        if test -n "$want"; and test "$want" != "$cur"
+            echo "gufo-dev: $GUFO_DEV_CONTAINER is on lane '$cur'; run gufo-dev down first to switch" >&2
+            return 1
+        end
+        # The bind mount is fixed at creation, so a repo that moved since then
+        # would otherwise be silently ignored by every later command.
+        set -l mounted (podman inspect -f '{{ range .Mounts }}{{ if eq .Destination "/src" }}{{ .Source }}{{ end }}{{ end }}' $GUFO_DEV_CONTAINER 2>/dev/null | string trim)
+        if test -n "$mounted"; and test "$mounted" != "$GUFO_DEV_REPO"
+            echo "gufo-dev: $GUFO_DEV_CONTAINER has $mounted at /src, not $GUFO_DEV_REPO; run gufo-dev down first" >&2
+            return 1
+        end
+        set -l live (running)
+        if test -z "$live"
+            echo "gufo-dev: starting the existing $GUFO_DEV_CONTAINER container (lane $cur)"
+            podman start $GUFO_DEV_CONTAINER >/dev/null
+        end
+        if not collect_args $cur
+            return 1
+        end
+        return 0
+    end
+
+    set -l lane $GUFO_DEV_LANE
+    test -n "$want"; and set lane $want
+    set -l img (image_for_lane $lane)
+    if test -z "$img"
+        echo "gufo-dev: unknown lane '$lane' (nix | image)" >&2
+        return 1
+    end
+    if not preflight
+        return 1
+    end
+
+    if test $lane = nix
+        if not podman volume exists $GUFO_DEV_STORE_VOLUME >/dev/null 2>&1
+            echo "gufo-dev: creating $GUFO_DEV_STORE_VOLUME (the pinned closure lives here)"
+            podman volume create $GUFO_DEV_STORE_VOLUME >/dev/null
+        end
+    end
+    if not podman volume exists $GUFO_DEV_CCACHE_VOLUME >/dev/null 2>&1
+        echo "gufo-dev: creating $GUFO_DEV_CCACHE_VOLUME (the compiler cache outlives containers)"
+        podman volume create $GUFO_DEV_CCACHE_VOLUME >/dev/null
+    end
+    if not podman image exists $img
+        echo "gufo-dev: pulling $img"
+        podman pull $img
+    end
+    collect_args $lane
+    echo "gufo-dev: starting $GUFO_DEV_CONTAINER (lane $lane, repo $GUFO_DEV_REPO)"
+    if not podman run -d --name $GUFO_DEV_CONTAINER $ARGS $img sleep infinity >/dev/null
+        echo "gufo-dev: the container failed to start; run gufo-dev down and retry" >&2
+        return 1
+    end
+end
+
 # The bare nixos/nix image has no sed or coreutils on PATH: `nix develop` is
 # what supplies them, so commands go through the dev shell there and straight to
-# bash in the toolbox image. $script reaches bash literally and any remaining
-# arguments arrive as $1..$n, which keeps this file free of nested quoting.
+# bash in the toolbox image. Arguments reach bash as $1..$n, which keeps this
+# file free of nested quoting.
 function in_toolchain
     set -l script $argv[1]
     set -l rest $argv[2..]
@@ -118,161 +257,56 @@ function in_toolchain
     end
 end
 
-function preflight
-    set -l rc 0
-    command -q podman
-    or begin
-        echo "gufo-dev: podman is missing" >&2
-        return 1
-    end
-    test -e /dev/kfd
-    or begin
-        echo "gufo-dev: no /dev/kfd — this must run on the Strix Halo box" >&2
-        return 1
-    end
-    # Gufo's own check (src/core/diagnostics/system_inventory.cpp) recognises
-    # Strix Halo by the GPU PCI id; any AMD iGPU also provides /dev/kfd, so the
-    # device node alone cannot justify a store volume or an image pull here.
-    set -l strix no
-    for d in /sys/class/drm/card*/device
-        test -r "$d/device"; or continue
-        set -l vendor (cat "$d/vendor" 2>/dev/null)
-        set -l dev (cat "$d/device" 2>/dev/null)
-        test "$vendor" = 0x1002
-        and contains "$dev" 0x1586 0x1587 0x1588
-        and set strix yes
-    end
-    test "$strix" = yes
-    or begin
-        echo "gufo-dev: no gfx1151 device (1002:1586/1587/1588) on this machine — run it on the Strix Halo box" >&2
-        return 1
-    end
-    test -d "$GUFO_DEV_REPO/.git"
-    or begin
-        echo "gufo-dev: $GUFO_DEV_REPO is not a git checkout (set GUFO_DEV_REPO)" >&2
-        set rc 1
-    end
-    # The images need at least 6.18.4: older kernels crash under sustained ROCm
-    # compute on gfx1151.
-    set -l kver (uname -r | cut -d- -f1)
-    set -l oldest (printf '%s\n%s\n' 6.18.4 $kver | sort -V | head -1)
-    test "$oldest" = 6.18.4
-    or begin
-        echo "gufo-dev: kernel $kver is below the 6.18.4 floor for gfx1151" >&2
-        set rc 1
-    end
-    test (ulimit -l) = unlimited
-    or echo "gufo-dev: warning: memlock is not unlimited; large buffers may fail" >&2
-    contains render (id -nG | string split ' ')
-    or echo "gufo-dev: warning: not in the render group; /dev/kfd access will be denied" >&2
-    return $rc
-end
-
-# Starting is idempotent, so `run` and `shell` work as the first command after
-# installing this, and repeated calls do nothing.
-function ensure_up
-    set -l want $argv[1]
-    # A container that exists but is not running still owns the name, so it is
-    # started rather than created again; a crash or a host reboot leaves one.
-    set -l known (podman ps -aq -f "name=$GUFO_DEV_CONTAINER")
-    if test -n "$known"
-        set -l cur (container_lane)
-        if test -n "$want"; and test "$want" != "$cur"
-            echo "gufo-dev: $GUFO_DEV_CONTAINER is on lane '$cur'; run gufo-dev down first to switch" >&2
-            return 1
-        end
-        # The bind mount is chosen when the container is created, so a repo that
-        # moved since then (or a different GUFO_DEV_REPO) would otherwise be
-        # silently ignored by every later command.
-        set -l mounted (podman inspect -f '{{ range .Mounts }}{{ if eq .Destination "/src" }}{{ .Source }}{{ end }}{{ end }}' $GUFO_DEV_CONTAINER 2>/dev/null | string trim)
-        if test -n "$mounted"; and test "$mounted" != "$GUFO_DEV_REPO"
-            echo "gufo-dev: $GUFO_DEV_CONTAINER has $mounted at /src, not $GUFO_DEV_REPO; run gufo-dev down first" >&2
-            return 1
-        end
-        if test -z (podman ps -q -f "name=$GUFO_DEV_CONTAINER")
-            echo "gufo-dev: starting the existing $GUFO_DEV_CONTAINER container (lane $cur)"
-            podman start $GUFO_DEV_CONTAINER >/dev/null
-        end
-        collect_args $cur
-        or return 1
-        return 0
-    end
-    set -l lane nix
-    test -n "$want"; and set lane $want
-    image_for_lane $lane >/dev/null
-    or begin
-        echo "gufo-dev: unknown lane '$lane' (nix | image)" >&2
-        return 1
-    end
-    preflight or return 1
-
-    if test $lane = nix
-        podman volume exists $GUFO_DEV_STORE_VOLUME; or podman volume create $GUFO_DEV_STORE_VOLUME >/dev/null
-    end
-    podman volume exists $GUFO_DEV_CCACHE_VOLUME; or podman volume create $GUFO_DEV_CCACHE_VOLUME >/dev/null
-    set -l img (image_for_lane $lane)
-    podman image exists $img
-    or begin
-        echo "gufo-dev: pulling $img"
-        podman pull $img
-    end
-    collect_args $lane
-    echo "gufo-dev: starting $GUFO_DEV_CONTAINER (lane $lane, repo $GUFO_DEV_REPO)"
-    if not podman run -d --name $GUFO_DEV_CONTAINER $ARGS $img sleep infinity >/dev/null
-        echo "gufo-dev: the container failed to start; run gufo-dev down and retry" >&2
-        return 1
-    end
-end
-
-function running
-    podman ps -q -f "name=$GUFO_DEV_CONTAINER"
-end
-
 set -l cmd ''
 test (count $argv) -gt 0; and set cmd $argv[1]
+
+if not contains -- $GUFO_DEV_LANE nix image
+    echo "gufo-dev: unknown lane '$GUFO_DEV_LANE' (nix | image)" >&2
+    exit 2
+end
 
 switch $cmd
     case '' -h --help help
         awk 'NR>1 { if ($0 !~ /^#/) exit; sub(/^# ?/, ""); print }' (status filename)
     case up
-        ensure_up $argv[2]
-        or exit 1
+        if not ensure_up $argv[2]
+            exit 1
+        end
         echo "gufo-dev: up, lane "(container_lane)" — gufo-dev run <command> | gufo-dev shell"
     case run
         set -l inner $argv[2..]
-        test (count $inner) -gt 0
-        or begin
+        if test (count $inner) -eq 0
             echo "gufo-dev: run needs a command, e.g. gufo-dev run cmake --preset release" >&2
             exit 2
         end
-        ensure_up
-        or exit 1
-        # One argument is a shell line, so `gufo-dev run "make | tail -1"` keeps
-        # its pipe. Several arguments are escaped before joining, which is why
-        #   gufo-dev run ctest --preset gpu-fast -R 'wmma|gemm|attention'
-        # does not hand a bare | to the inner shell.
+        if not ensure_up
+            exit 1
+        end
         if test (count $inner) -eq 1
             in_toolchain "$inner[1]"
         else
-            in_toolchain (string join ' ' -- (string escape --style=script -- $inner))
+            in_toolchain 'exec "$@"' $inner
         end
     case shell
-        ensure_up
-        or exit 1
+        if not ensure_up
+            exit 1
+        end
         set -l tty
         status is-interactive; and set tty "-it"
         if test (container_lane) = nix
-            podman exec $tty $GUFO_DEV_CONTAINER nix develop
+            podman exec $tty -w /src $GUFO_DEV_CONTAINER nix develop
         else
-            podman exec $tty $GUFO_DEV_CONTAINER bash
+            podman exec $tty -w /src $GUFO_DEV_CONTAINER bash
         end
     case down
-        podman rm -f $GUFO_DEV_CONTAINER >/dev/null 2>&1
-        and echo "gufo-dev: removed $GUFO_DEV_CONTAINER (volumes kept)"
-        or echo "gufo-dev: no container named $GUFO_DEV_CONTAINER"
+        if podman rm -f $GUFO_DEV_CONTAINER >/dev/null 2>&1
+            echo "gufo-dev: removed $GUFO_DEV_CONTAINER (volumes kept)"
+        else
+            echo "gufo-dev: no container named $GUFO_DEV_CONTAINER"
+        end
     case status
-        set -l up (running)
-        if test -n "$up"
+        set -l live (running)
+        if test -n "$live"
             printf '%-12s %s\n' container "up, lane "(container_lane)
         else
             printf '%-12s %s\n' container stopped
@@ -293,15 +327,13 @@ switch $cmd
         end
         printf '%-12s %s\n' kernel (uname -r)
         printf '%-12s %s\n' memlock (ulimit -l)
+        printf '%-12s %s\n' gpu (amd_gpus)
         printf '%-12s %s\n' models (test -d $GUFO_DEV_MODELS; and echo $GUFO_DEV_MODELS; or echo "absent: "$GUFO_DEV_MODELS)
     case gc
-        test (container_lane) = nix
-        or begin
-            echo "gufo-dev: gc trims the nix store; the toolbox lane has none" >&2
+        if test (container_lane) != nix
+            echo "gufo-dev: gc trims the nix store; start the nix lane first" >&2
             exit 1
         end
-        ensure_up
-        or exit 1
         podman exec -w /src $GUFO_DEV_CONTAINER nix store gc
     case '*'
         echo "gufo-dev: unknown command '$cmd' — see gufo-dev --help" >&2
