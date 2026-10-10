@@ -6,12 +6,16 @@
     "+codemode"
   ],
   "defaultThinkingLevel": "medium",
-  "defaultProvider": "qwen-token-plan",
-  "defaultModel": "qwen3.8-flash",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "mimo-v2.6-flash",
   "enabledModels": [
     "gufo/**",
-    "opencode-go/**",
-    "qwen-token-plan/**"
+    "opencode-go/mimo-v2.6-flash",
+    "opencode-go/deepseek-v4.1-flash",
+    "opencode-go/claude-haiku-5-5",
+    "opencode-go/muse-spark-1.3-contributor",
+    "qwen-token-plan/qwen3.8-flash",
+    "qwen-token-plan/deepseek-v4.1-flash"
   ],
   "packages": [
     "https://github.com/earendil-works/pi-review",
