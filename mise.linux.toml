@@ -9,6 +9,9 @@ run = "mise run setup-dnf-repos"
 "dnf:gcc" = "latest"
 "dnf:ghostty" = "latest"
 
+[tools]
+glab = "latest"
+
 [dotfiles]
 "~/.config/mise/config.linux.toml" = "mise.linux.toml"
 "~/.config/pi/auth.json" = { source = "pi/auth.linux.json", mode = "copy" }
