@@ -1,14 +1,14 @@
 {
   "opencode-go": {
     "type": "api_key",
-    "key": "!op read 'op://Private/Pi/opencode-go'"
+    "key": "!op read 'op://Developer/Pi/opencode-go'"
   },
   "qwen-token-plan": {
     "type": "api_key",
-    "key": "!op read 'op://Private/Pi/qwen-token-plan'"
+    "key": "!op read 'op://Developer/Pi/qwen-token-plan'"
   },
   "typesafe": {
     "type": "api_key",
-    "key": "!op read 'op://Private/Pi/typesafe'"
+    "key": "!op read 'op://Developer/Pi/typesafe'"
   }
 }
