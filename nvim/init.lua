@@ -634,12 +634,6 @@ do
     -- gopls = {},
     -- pyright = {},
     -- tsc = {},
-    --
-    -- Some languages (like rust) have entire language plugins that can be useful:
-    --    https://github.com/mrcjkb/rustaceanvim
-    --
-    -- But for many setups, the LSP (`rust_analyzer`) will work just fine
-    -- rust_analyzer = {},
 
     stylua = {}, -- Used to format Lua code
 
@@ -666,6 +660,15 @@ do
         },
       },
     },
+
+    -- Supplied by the project's own Rust toolchain: give that project a mise
+    --  config with `rust = { version = "stable", components = "rust-analyzer" }`
+    --  and mise installs the server (plus the `cargo` it shells out to for the
+    --  project model) for the toolchain. For clippy lints over plain `cargo
+    --  check`, set `settings = { ['rust-analyzer'] = { check = { command =
+    --  'clippy' } } }`; https://github.com/mrcjkb/rustaceanvim adds Rust-specific
+    --  commands.
+    rust_analyzer = {},
 
     terraformls = {
       -- Also treat Terragrunt configs as a project root marker.
