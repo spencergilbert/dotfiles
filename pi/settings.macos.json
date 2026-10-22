@@ -11,7 +11,7 @@
   "enabledModels": [],
   "packages": [
     "https://github.com/earendil-works/pi-review",
-    "https://tangled.org/spencergilbert.dev/pi-pkg"
+    "npm:@brainrot.xyz/pi-pkg"
   ],
   "showCacheMissNotices": true,
   "npmCommand": [
