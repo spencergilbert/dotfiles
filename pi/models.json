@@ -33,15 +33,6 @@
         }
       ]
     },
-    "qwen-token-plan": {
-      "modelOverrides": {
-        "qwen3.8-flash": {
-          "thinkingLevelMap": {
-            "off": "none"
-          }
-        }
-      }
-    },
     "opencode-go": {
       "modelOverrides": {
         "qwen3.8-flash": {

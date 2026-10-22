@@ -15,9 +15,7 @@
     "opencode-go/step-5-preview-free",
     "opencode-go/gemini-4-argon-contributor",
     "opencode-go/deepseek-v4.1-flash",
-    "opencode-go/cat-jam-free",
-    "qwen-token-plan/qwen3.8-flash",
-    "qwen-token-plan/deepseek-v4.1-flash"
+    "opencode-go/cat-jam-free"
   ],
   "packages": [
     "https://github.com/earendil-works/pi-review",
