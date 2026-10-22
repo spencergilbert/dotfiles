@@ -11,6 +11,8 @@ run = "mise run setup-dnf-repos"
 
 [tools]
 glab = "latest"
+go = "latest"
+"go:github.com/alyraffauf/tg/cmd/tg" = "latest"
 
 [dotfiles]
 "~/.config/mise/config.linux.toml" = "mise.linux.toml"
