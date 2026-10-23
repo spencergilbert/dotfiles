@@ -11,7 +11,6 @@ run = "mise run setup-dnf-repos"
 
 [tools]
 glab = "latest"
-go = "latest"
 "go:github.com/alyraffauf/tg/cmd/tg" = "latest"
 
 [dotfiles]
