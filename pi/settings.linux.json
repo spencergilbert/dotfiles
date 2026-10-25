@@ -9,13 +9,12 @@
   "defaultProvider": "opencode-go",
   "defaultModel": "muse-spark-1.3-contributor",
   "enabledModels": [
-    "deepseek/deepseek-flash",
-    "gufo/**",
     "opencode-go/muse-spark-1.3-contributor",
-    "opencode-go/step-5-preview-free",
-    "opencode-go/gemini-4-argon-contributor",
     "opencode-go/deepseek-v4.1-flash",
-    "opencode-go/cat-jam-free"
+    "opencode-go/gemini-4-argon-contributor",
+    "opencode-go/kimi-k3.1-pro",
+    "deepseek/deepseek-flash",
+    "gufo/**"
   ],
   "packages": [
     "https://github.com/earendil-works/pi-review",
