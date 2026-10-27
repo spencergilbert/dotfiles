@@ -11,12 +11,13 @@
 "brew-cask:orion"  = "latest"
 
 [dotfiles]
-"~/.config/claude/CLAUDE.md" = { source = "shared/AGENTS.md" }
-"~/.config/claude/settings.json" = { source = "claude/settings.json", mode = "copy" }
-"~/.config/codex/AGENTS.md" = { source = "shared/AGENTS.md" }
-"~/.config/mise/config.macos.toml" = "mise.macos.toml"
-"~/.config/pi/auth.json" = { source = "pi/auth.macos.json", mode = "copy" }
-"~/.config/pi/settings.json/shared" = { source = "pi/settings.macos.json", merge = true }
+# NB: absolute sources only (see note in mise.toml).
+"~/.config/claude/CLAUDE.md" = { source = "~/.dotfiles/shared/AGENTS.md" }
+"~/.config/claude/settings.json" = { source = "~/.dotfiles/claude/settings.json", mode = "copy" }
+"~/.config/codex/AGENTS.md" = { source = "~/.dotfiles/shared/AGENTS.md" }
+"~/.config/mise/config.macos.toml" = { source = "~/.dotfiles/mise.macos.toml" }
+"~/.config/pi/auth.json" = { source = "~/.dotfiles/pi/auth.macos.json", mode = "copy" }
+"~/.config/pi/settings.json/shared" = { source = "~/.dotfiles/pi/settings.macos.json", merge = true }
 
 [tools]
 claude = "latest"

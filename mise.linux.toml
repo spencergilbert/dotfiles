@@ -14,7 +14,8 @@ glab = "latest"
 "go:github.com/alyraffauf/tg/cmd/tg" = "latest"
 
 [dotfiles]
-"~/.config/mise/config.linux.toml" = "mise.linux.toml"
-"~/.config/pi/auth.json" = { source = "pi/auth.linux.json", mode = "copy" }
-"~/.config/pi/settings.json/shared" = { source = "pi/settings.linux.json", merge = true }
-"~/.ssh/authorized_keys" = { source = "ssh/authorized_keys" }
+# NB: absolute sources only (see note in mise.toml).
+"~/.config/mise/config.linux.toml" = { source = "~/.dotfiles/mise.linux.toml" }
+"~/.config/pi/auth.json" = { source = "~/.dotfiles/pi/auth.linux.json", mode = "copy" }
+"~/.config/pi/settings.json/shared" = { source = "~/.dotfiles/pi/settings.linux.json", merge = true }
+"~/.ssh/authorized_keys" = { source = "~/.dotfiles/ssh/authorized_keys" }

@@ -4,4 +4,5 @@
 # rocm-*/hip* RPMs — do not reintroduce those here; the two stacks conflict.
 
 [dotfiles]
-"~/.config/mise/config.desktop.toml" = "mise.desktop.toml"
+# NB: absolute sources only (see note in mise.toml).
+"~/.config/mise/config.desktop.toml" = { source = "~/.dotfiles/mise.desktop.toml" }
