@@ -29,6 +29,7 @@ run = "mise run configure-forge-remotes"
 "~/.config/nvim/" = "nvim/"
 "~/.config/pi/AGENTS.md" = { source = "shared/AGENTS.md" }
 "~/.config/pi/models.json" = { source = "pi/models.json" }
+"~/.config/pi/settings.json/base" = { source = "pi/settings.json", merge = true }
 "~/.local/bin/" = { source = "bin/", mode = "symlink-each" }
 "~/.ssh/conf.d/" = { source = "ssh/conf.d/", mode = "symlink-each" }
 "~/.ssh/config/include" = { line = "Include conf.d/*.conf" }

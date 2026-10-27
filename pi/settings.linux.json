@@ -1,11 +1,4 @@
 {
-  "externalEditor": "nvim",
-  "theme": "system",
-  "quietStartup": "header",
-  "defaultTools": [
-    "+codemode"
-  ],
-  "defaultThinkingLevel": "medium",
   "defaultProvider": "opencode-go",
   "defaultModel": "muse-spark-1.3-contributor",
   "enabledModels": [
@@ -15,18 +8,5 @@
     "opencode-go/kimi-k3.1-pro",
     "deepseek/deepseek-flash",
     "gufo/**"
-  ],
-  "packages": [
-    "https://github.com/earendil-works/pi-review",
-    "npm:@brainrot.xyz/pi-pkg"
-  ],
-  "showCacheMissNotices": true,
-  "npmCommand": [
-    "mise",
-    "exec",
-    "node@lts",
-    "--",
-    "npm"
-  ],
-  "hideThinkingBlock": false
+  ]
 }

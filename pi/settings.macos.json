@@ -1,25 +1,5 @@
 {
-  "externalEditor": "nvim",
-  "theme": "system",
-  "quietStartup": "header",
-  "defaultTools": [
-    "+codemode"
-  ],
-  "defaultThinkingLevel": "medium",
   "defaultProvider": "anthropic",
   "defaultModel": "claude-opus-5-5",
-  "enabledModels": [],
-  "packages": [
-    "https://github.com/earendil-works/pi-review",
-    "npm:@brainrot.xyz/pi-pkg"
-  ],
-  "showCacheMissNotices": true,
-  "npmCommand": [
-    "mise",
-    "exec",
-    "node@lts",
-    "--",
-    "npm"
-  ],
-  "hideThinkingBlock": false
+  "enabledModels": []
 }

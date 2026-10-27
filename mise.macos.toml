@@ -16,7 +16,7 @@
 "~/.config/codex/AGENTS.md" = { source = "shared/AGENTS.md" }
 "~/.config/mise/config.macos.toml" = "mise.macos.toml"
 "~/.config/pi/auth.json" = { source = "pi/auth.macos.json", mode = "copy" }
-"~/.config/pi/settings.json" = { source = "pi/settings.macos.json", mode = "copy" }
+"~/.config/pi/settings.json/shared" = { source = "pi/settings.macos.json", merge = true }
 
 [tools]
 claude = "latest"
