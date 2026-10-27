@@ -411,7 +411,7 @@ Usage:
     -o, --out DIR  output dir (default: $DLMODEL_DIR or ~/.cache/models)
 
 Sharded files (-00001-of-00003.gguf) download in parallel and stay as separate
-shard files, so llama.cpp can discover them; they are never merged.
+shard files, so the inference runtime can discover them; they are never merged.
 Interrupted downloads keep their .part file and resume on re-run, guarded by
 If-Range so a changed upstream file is restarted rather than spliced.
 Files with the same basename in different repo directories are saved under
@@ -512,7 +512,7 @@ async function main() {
     const withP = cand.filter(f => f.path.toLowerCase().includes(prefix.toLowerCase()));
     let pool = withP.length ? withP : cand;
     if (!pool.length) die('no mmproj file found in this repo');
-    // prefer BF16, then F16 (llama.cpp convention), then anything else
+    // prefer BF16, then F16 (upstream naming convention), then anything else
     const rank = n => (/mmproj-bf16/i.test(n) ? 0 : /mmproj-f16/i.test(n) ? 1 : 2);
     pool = [...pool].sort((a, b) => rank(a.name) - rank(b.name));
     if (pool.length > 1 && rank(pool[0].name) === rank(pool[1].name)) {
@@ -543,8 +543,8 @@ async function main() {
   mkdirSync(outDir, { recursive: true });
 
   // Build jobs: one per file. Shards are kept as separate -NNNNN-of-NMMMM.gguf
-  // names so llama.cpp can discover them; never merged (split GGUFs have an
-  // index that merging breaks).
+  // names so the inference runtime can discover them; never merged (split GGUFs
+  // have an index that merging breaks).
   const jobs = [];
   const shardGroups = new Map();
   for (const f of selected) {
@@ -564,7 +564,7 @@ async function main() {
     for (let n = 1; n <= count; n++) if (!g.has(n)) missing.push(n);
     if (missing.length)
       console.error(`warning: ${repo} is missing shard(s) ${missing.join(', ')} of ${parts[0][1].name.match(SHARD_RE)[1]}`
-        + ` (-of-${String(count).padStart(5, '0')}) — llama.cpp will not load this set`);
+        + ` (-of-${String(count).padStart(5, '0')}) — the runtime will not load this set`);
     for (const [, f] of parts) jobs.push({ files: [f], path: f.path, final: f.name });
   }
   dedupeLocalNames(jobs);
