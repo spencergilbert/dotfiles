@@ -248,8 +248,10 @@ function in_toolchain
     set -l rest $argv[2..]
     set -l lane (container_lane)
     test -n "$lane"; or set lane nix
+    # `status is-interactive` is false while running a script file even when the
+    # parent terminal is interactive, so ask the descriptors themselves.
     set -l tty
-    status is-interactive; and set tty "-it"
+    test -t 0; and test -t 1; and set tty "-it"
     if test $lane = nix
         podman exec $tty -w /src $GUFO_DEV_CONTAINER nix develop -c bash -c "$script" bash $rest
     else
@@ -292,7 +294,7 @@ switch $cmd
             exit 1
         end
         set -l tty
-        status is-interactive; and set tty "-it"
+        test -t 0; and test -t 1; and set tty "-it"
         if test (container_lane) = nix
             podman exec $tty -w /src $GUFO_DEV_CONTAINER nix develop
         else
