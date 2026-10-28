@@ -11,7 +11,10 @@
  *
  * Interrupted downloads are kept as *.part and resume on re-run. Resume sends
  * the saved ETag / Last-Modified as If-Range, so a part whose upstream file
- * changed is restarted instead of spliced. --force discards the .part files.
+ * changed is restarted instead of spliced. A part whose sidecar (.part.meta) is
+ * missing or unreadable cannot be matched against upstream and is restarted too,
+ * and a sidecar that cannot be written stops the run. --force discards the .part
+ * files.
  * mmproj files without a model prefix (e.g. mmproj-BF16.gguf) are saved as
  * <model>-mmproj-... to match the local naming convention. Shards are saved
  * as separate -NNNNN-of-NMMMM.gguf files (never merged: split GGUFs carry an
@@ -162,11 +165,43 @@ const strongValidator = res => {
   return res.headers.get('last-modified');
 };
 
+// Thrown when a sidecar exists but proves nothing about the part next to it.
+class Unverifiable extends Error {}
+
+// Reading is strict: an absent, empty, truncated, or unparsable sidecar is an
+// error rather than an empty object, because the caller must not resume a part it
+// cannot match against upstream. Writing is fatal: a part whose sidecar did not
+// land is the same unverifiable part on the next run.
 function readMeta(p) {
-  try { return JSON.parse(readFileSync(p.metaPath, 'utf8')); } catch { return {}; }
+  const name = base(p.metaPath);
+  let raw;
+  try {
+    raw = readFileSync(p.metaPath, 'utf8');
+  } catch (e) {
+    if (e.code === 'ENOENT') throw new Unverifiable(`no ${name}`);
+    throw new Unverifiable(`${name} unreadable (${e.code || e.message})`);
+  }
+  if (!raw.trim()) throw new Unverifiable(`${name} is empty`);
+  let meta;
+  try { meta = JSON.parse(raw); } catch { throw new Unverifiable(`${name} is corrupt`); }
+  if (typeof meta !== 'object' || meta === null || Array.isArray(meta))
+    throw new Unverifiable(`${name} is not an object`);
+  return meta;
 }
 function writeMeta(p, meta) {
-  try { writeFileSync(p.metaPath, JSON.stringify(meta)); } catch { /* best effort */ }
+  try {
+    writeFileSync(p.metaPath, JSON.stringify(meta));
+  } catch (e) {
+    throw new Error(`${p.f.path}: cannot write ${base(p.metaPath)}: ${e.code || e.message} `
+      + `(a part without its sidecar cannot be resumed — fix ${path.dirname(p.metaPath)} and re-run)`);
+  }
+}
+
+// Sidecar for an existing part, or null when the part had to go with it: a range
+// spliced from an unknown upstream revision makes a GGUF that still passes the
+// size check and only fails inside the runtime.
+function metaForPart(p) {
+  try { return readMeta(p); } catch (e) { discardPart(p, e.message); return null; }
 }
 function dropMeta(p) { rmSync(p.metaPath, { force: true }); }
 
@@ -236,14 +271,17 @@ async function downloadPart(p, pro) {
     let have = fileSize(p.tmp);
     try {
       const headers = {};
+      let ifRange = false;
       if (have > 0) {
-        const meta = readMeta(p);
-        if (Number.isFinite(meta.bytes) && meta.bytes > have) {
+        const meta = metaForPart(p);
+        if (!meta) {
+          have = 0;                       // discarded above; start over
+        } else if (Number.isFinite(meta.bytes) && meta.bytes > have) {
           discardPart(p, 'part shrank since last attempt');
           have = 0;
         } else {
           headers.Range = `bytes=${have}-`;
-          if (meta.validator) headers['If-Range'] = meta.validator;
+          if (meta.validator) { headers['If-Range'] = meta.validator; ifRange = true; }
         }
       }
 
@@ -272,7 +310,7 @@ async function downloadPart(p, pro) {
         // the content changed, so anything we already have is wrong. Restarting
         // without a Range header (next attempt) downloads the file in full.
         await drainBody(res);
-        const validatorRejected = Boolean(readMeta(p).validator) && Boolean(res.headers.get('etag'));
+        const validatorRejected = ifRange && Boolean(res.headers.get('etag'));
         discardPart(p, validatorRejected ? 'upstream file changed since the part was started' : 'server ignored Range header');
         if (attempt >= RETRIES) throw new Error(`${p.f.path}: cannot resume (no usable Range support)`);
         continue;
