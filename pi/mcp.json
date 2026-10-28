@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "grafana": {
+      "url": "https://mcp.grafana.com/mcp",
+      "description": "Grafana Cloud via Grafana Assistant: query metrics, logs, traces, and profiles from any datasource; manage dashboards, folders, snapshots, and annotations; alert rules, silences, and notification routing; on-call schedules and incidents; Assistant investigations and Agent Observability; administer datasources, plugins, and access control; raw Grafana API escape hatch"
+    }
+  }
+}

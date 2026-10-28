@@ -31,6 +31,7 @@ run = "mise run configure-forge-remotes"
 "~/.config/mise/miserc.toml" = { source = "~/.dotfiles/.miserc.toml" }
 "~/.config/nvim/" = { source = "~/.dotfiles/nvim/" }
 "~/.config/pi/AGENTS.md" = { source = "~/.dotfiles/shared/AGENTS.md" }
+"~/.config/pi/mcp.json" = { source = "~/.dotfiles/pi/mcp.json" }
 "~/.config/pi/models.json" = { source = "~/.dotfiles/pi/models.json" }
 "~/.config/pi/settings.json/base" = { source = "~/.dotfiles/pi/settings.json", merge = true }
 "~/.local/bin/" = { source = "~/.dotfiles/bin/", mode = "symlink-each" }
