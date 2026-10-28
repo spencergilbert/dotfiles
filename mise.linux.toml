@@ -16,6 +16,12 @@ glab = "latest"
 [dotfiles]
 # NB: absolute sources only (see note in mise.toml).
 "~/.config/mise/config.linux.toml" = { source = "~/.dotfiles/mise.linux.toml" }
-"~/.config/pi/auth.json" = { source = "~/.dotfiles/pi/auth.linux.json", mode = "copy" }
+# Pi writes this file itself (/login, /logout), so the keys are merged in and
+# its other entries are left to Pi; `copy` used to wipe every runtime login.
+# The permissions-only entry pins the installed file to 0600 (mise writes a
+# managed file 0644 by default and Pi is not the one that creates it here).
+# A provider listed here deliberately keeps its vault key even after /login.
+"~/.config/pi/auth.json" = { permissions = "0600" }
+"~/.config/pi/auth.json/keys" = { source = "~/.dotfiles/pi/auth.linux.json", merge = true }
 "~/.config/pi/settings.json/shared" = { source = "~/.dotfiles/pi/settings.linux.json", merge = true }
 "~/.ssh/authorized_keys" = { source = "~/.dotfiles/ssh/authorized_keys" }

@@ -10,7 +10,17 @@ idiomatic_version_file_enable_tools = ["rust"]
 root = "~/.dotfiles"
 
 [bootstrap.hooks.pre-dotfiles]
-run = "mkdir -p -m 700 $HOME/.ssh/sockets"
+run = """
+mkdir -p -m 700 $HOME/.ssh/sockets
+# pi's auth.json is merged into, never replaced (see the entries in the os
+# configs), so its 0600 comes from a permissions entry that only applies to a
+# file that already exists. Seed one privately so a fresh machine never holds a
+# world-readable credential store between the merge and the next apply.
+if [ ! -e "$HOME/.config/pi/auth.json" ]; then
+  umask 077
+  printf '{}' > "$HOME/.config/pi/auth.json"
+fi
+"""
 
 [bootstrap.hooks.final]
 run = "mise run configure-forge-remotes"
