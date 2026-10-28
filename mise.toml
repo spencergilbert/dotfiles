@@ -36,7 +36,9 @@ run = "mise run configure-forge-remotes"
 "~/.config/pi/settings.json/base" = { source = "~/.dotfiles/pi/settings.json", merge = true }
 "~/.local/bin/" = { source = "~/.dotfiles/bin/", mode = "symlink-each" }
 "~/.ssh/conf.d/" = { source = "~/.dotfiles/ssh/conf.d/", mode = "symlink-each" }
-"~/.ssh/config/include" = { line = "Include conf.d/*.conf" }
+# NB: a line edit leaves no ownership marker, so `mise dot unapply` refuses it and
+# takes every other entry down with it. Blocks carry markers and unapply cleanly.
+"~/.ssh/config/include" = { block = "Include conf.d/*.conf" }
 
 [tools]
 "npm:bash-language-server" = "latest"
