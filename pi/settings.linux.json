@@ -1,12 +1,13 @@
 {
   "defaultProvider": "opencode-go",
-  "defaultModel": "muse-spark-1.3-contributor",
+  "defaultModel": "deepseek-v4.1-flash",
   "enabledModels": [
-    "opencode-go/muse-spark-1.3-contributor",
     "opencode-go/deepseek-v4.1-flash",
-    "opencode-go/gemini-4-argon-contributor",
+    "opencode-go/gemini-4-argon",
     "opencode-go/kimi-k3.1-pro",
     "deepseek/deepseek-flash",
-    "gufo/**"
+    "gufo/qwen3.8-flash",
+    "radius/deepseek-v4.1-flash",
+    "radius/kimi-k3"
   ]
 }
