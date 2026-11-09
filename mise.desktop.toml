@@ -1,8 +1,0 @@
-# NOTE: the ROCm stack (hipcc, rocminfo, rocm-smi, hipblas*, rocblas,
-# rocwmma, hipcub, …) is installed from AMD's repo by amferd's
-# docs/setup/fedora-rocm.md runbook (amdrocm-core-devel10.0-*), not Fedora's
-# rocm-*/hip* RPMs — do not reintroduce those here; the two stacks conflict.
-
-[dotfiles]
-# NB: absolute sources only (see note in mise.toml).
-"~/.config/mise/config.desktop.toml" = { source = "~/.dotfiles/mise.desktop.toml" }

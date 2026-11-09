@@ -2,7 +2,7 @@
 
 Personal dotfiles, kept as an auth-free public base that any machine can clone
 and apply. Machine- and OS-specific pieces are layered on top instead of being
-templated in: Linux lives in `mise.linux.toml` / `mise.desktop.toml` here, while
+templated in: Linux lives in `mise.linux.toml` here, while
 the macOS work setup lives in a private overlay repo that layers on this base
 (Homebrew packages, work git identity, 1Password signing, Pi's vault keys).
 Nothing in this repo needs a credential to read or clone.
@@ -24,7 +24,6 @@ the Tangled, GitLab, and GitHub mirrors.
 | --- | --- |
 | `mise.toml` | base layer: shared dotfiles, tools, bootstrap hooks |
 | `mise.linux.toml` | Fedora packages, Linux-only tools (`glab`, `tg`), 1Password agent, Pi keys |
-| `mise.desktop.toml` | AMD ROCm host notes (packages come from the amferd runbook) |
 | `bashrc.d/`, `fish/` | shell startup, wired up via `~/.bashrc.d/` and `~/.config/fish/` |
 | `bin/` | helper scripts on `~/.local/bin` |
 | `git/` | `config`, `ignore`, `allowed_signers` |
