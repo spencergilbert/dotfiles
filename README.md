@@ -54,11 +54,13 @@ identity:
 - `~/.config/ghostty/config.local` — optional `config-file` include.
 
 `git/allowed_signers` ships the personal key only; work keys arrive with the
-overlay. Pi is managed with merges rather than copies: `pi/settings.json` is
-merged as `base`, the per-OS `pi/settings.*.json` as `shared`, and the
-`pi/auth.*.json` keys are merged into `auth.json` so `/login` and `/logout` can
-still write it. A `[bootstrap.hooks.pre-dotfiles]` hook seeds that file at 0600
-before the merge touches it.
+overlay. Pi is managed with merges rather than copies: `pi/settings.json` and
+`pi/mcp.json` are merged as `base`, the per-OS `pi/settings.*.json` as `shared`,
+and the `pi/auth.*.json` keys are merged into `auth.json` so `/login` and
+`/logout` can still write it. The MCP base carries only the shared `grafana`
+server, so the overlay can merge its private servers alongside it. A
+`[bootstrap.hooks.pre-dotfiles]` hook seeds `auth.json` at 0600 before the
+merge touches it.
 
 ## License
 
