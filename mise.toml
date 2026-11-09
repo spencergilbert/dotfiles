@@ -36,7 +36,6 @@ run = "mise run configure-forge-remotes"
 "~/.config/git/allowed_signers" = { source = "~/.dotfiles/git/allowed_signers", mode = "template" }
 "~/.config/git/config" = { source = "~/.dotfiles/git/config", mode = "template" }
 "~/.config/git/ignore" = { source = "~/.dotfiles/git/ignore" }
-"~/.config/jj/config.toml" = { source = "~/.dotfiles/jj/config.toml" }
 "~/.config/mise/config.toml" = { source = "~/.dotfiles/mise.toml" }
 "~/.config/mise/miserc.toml" = { source = "~/.dotfiles/.miserc.toml" }
 "~/.config/nvim/" = { source = "~/.dotfiles/nvim/" }
