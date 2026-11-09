@@ -1,6 +1,3 @@
-{%- if os() == "macos" -%}
-command = /opt/homebrew/bin/fish
-{%- else -%}
 command = /usr/bin/fish
-{%- endif %}
 theme = Catppuccin Frappe
+config-file = ?config.local
