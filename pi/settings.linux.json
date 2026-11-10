@@ -8,6 +8,18 @@
     "deepseek/deepseek-flash",
     "gufo/qwen3.8-flash",
     "radius/deepseek-v4.1-flash",
-    "radius/kimi-k3.1-pro"
+    "radius/kimi-k3.1-pro",
+    "synthetic/syn:large:text",
+    "synthetic/syn:small:text",
+    "synthetic/syn:large:vision",
+    "synthetic/syn:small:vision",
+    "synthetic/hf:deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "synthetic/hf:moonshotai/Kimi-K3.1-Pro",
+    "synthetic/hf:moonshotai/Kimi-K3",
+    "synthetic/hf:zai-org/GLM-5.3",
+    "synthetic/hf:zai-org/GLM-5.3-Flash",
+    "synthetic/hf:zai-org/GLM-4.7-Flash",
+    "synthetic/hf:Qwen/Qwen3.8-27B",
+    "synthetic/hf:openai/gpt-oss-120b"
   ]
 }
