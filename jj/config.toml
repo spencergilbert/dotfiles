@@ -1,0 +1,26 @@
+[user]
+email = "me@spencergilbert.dev"
+name = "Spencer Gilbert"
+
+[signing]
+# Sign every commit we author at write time, mirroring git's commit.gpgsign.
+# jj rewrites commits constantly (describe, squash, rebase, snapshot), so this
+# costs one 1Password approval per rewrite. If that proves too chatty, deferred
+# signing is the alternative: set behavior = "drop" here and add
+#
+#   [revsets]
+#   git-sign-on-push = "~signed() & mine()"
+#
+# to sign once per push instead (a failed push keeps the signatures, and
+# `jj undo` of the push will not unsign; use `jj unsign` for that).
+behavior = "own"
+backend = "ssh"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDbE78//1EWMeQ3xWSdBKgcRRq0cx1vttLlEM+9cdN7j"
+
+[signing.backends.ssh]
+# jj runs ssh-keygen by default, but SSH_AUTH_SOCK here is gcr rather than
+# 1Password's agent, so point it at the same signer ~/.config/git/config uses.
+# macOS: /Applications/1Password.app/Contents/MacOS/op-ssh-sign.
+# jj has no config include, so an OS override goes through $JJ_CONFIG.
+program = "/opt/1Password/op-ssh-sign"
+allowed-signers = "~/.config/git/allowed_signers"
