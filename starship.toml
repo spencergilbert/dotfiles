@@ -1,0 +1,16 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+# The `vcs` module picks one version control system and renders its modules, so
+# jj can take the prompt in a jj repo without the git_* modules describing a
+# stale index nobody updated. Using it means naming the format: this is
+# starship 1.27's `$all` with the VCS groups ($fossil_*, $git_*, $hg_*,
+# $pijul_channel) collapsed into `$vcs`. New upstream modules are not picked up
+# automatically until they are added here.
+format = "$username$hostname$localip$shlvl$singularity$kubernetes$nats$directory$vcsh$vcs$docker_context$package$bun$c$cmake$cobol$cpp$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$fortran$gleam$golang$gradle$haskell$haxe$helm$java$julia$kotlin$lua$maven$mojo$nim$nodejs$ocaml$odin$opa$perl$php$pulumi$purescript$python$quarto$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$typst$vlang$vagrant$xmake$zig$buf$guix_shell$nix_shell$conda$pixi$meson$spack$memory_usage$aws$gcloud$openstack$azure$direnv$env_var$mise$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$netns$os$shell$character"
+
+[vcs]
+# jj first: a colocated repo also has .git, and jj is the one actually being
+# driven. starship reads it with `--no-integrate-operation`, so rendering the
+# prompt never snapshots the working copy — which matters because
+# signing.behavior = "own" signs on snapshot.
+order = ["jj", "git", "hg", "pijul", "fossil"]

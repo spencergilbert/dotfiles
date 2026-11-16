@@ -44,6 +44,7 @@ run = "mise run configure-forge-remotes"
 "~/.config/pi/mcp.json/base" = { source = "~/.dotfiles/pi/mcp.json", merge = true }
 "~/.config/pi/models.json" = { source = "~/.dotfiles/pi/models.json" }
 "~/.config/pi/settings.json/base" = { source = "~/.dotfiles/pi/settings.json", merge = true }
+"~/.config/starship.toml" = { source = "~/.dotfiles/starship.toml" }
 "~/.local/bin/" = { source = "~/.dotfiles/bin/", mode = "symlink-each" }
 "~/.ssh/conf.d/" = { source = "~/.dotfiles/ssh/conf.d/", mode = "symlink-each" }
 # NB: a line edit leaves no ownership marker, so `mise dot unapply` refuses it and
